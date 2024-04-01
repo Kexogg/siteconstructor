@@ -15,7 +15,7 @@ function Page() {
   )
 }
 
-function Center({ children }: { children: React.ReactNode }) {
+function Center({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div
       style={{
