@@ -17,11 +17,13 @@ build-job:
 
 test-job1:
   stage: first-test
+  image: docker:latest
   script:
     - echo "This job tests something"
 
 test-job2:
   stage: second-test
+  image: docker:latest
   script:
     - echo "This job tests something more"
     - sleep 10
@@ -31,6 +33,7 @@ test-job2:
 
 deploy-prod:
   stage: deploy
+  image: docker:latest
   script:
     - echo "This deploys from the $GIT_COMMIT_BRANCH branch."
   environment: production
