@@ -1,3 +1,7 @@
+variables:
+  FRONTEND_TAG_LATEST: $CI_REGISTRY_IMAGE/frontend:latest
+  BACKEND_TAG_LATEST: $CI_REGISTRY_IMAGE/backend:latest
+
 stages:
   - build
   - first-test
