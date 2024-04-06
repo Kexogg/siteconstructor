@@ -115,3 +115,8 @@ C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\tr\Microsoft.Code
 C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
