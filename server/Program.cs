@@ -1,5 +1,7 @@
 using server.Data;
 using Microsoft.EntityFrameworkCore;
+using server.Services.Abstract;
+using server.Services.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>(options => 
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
     ), ServiceLifetime.Transient);
+
+builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
 
 var app = builder.Build();
 

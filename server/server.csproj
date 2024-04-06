@@ -19,9 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\Models\" />
-      <Folder Include="Services\Abstract\" />
-      <Folder Include="Services\Concrete\" />
+      <Folder Include="Data\Repositories\Abstract\" />
+      <Folder Include="Data\Repositories\Concrete\" />
     </ItemGroup>
 
 </Project>
