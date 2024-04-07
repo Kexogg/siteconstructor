@@ -15,7 +15,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRender
   // onRenderHtml() to support SPA
   if (!Page) throw new Error('My onRenderHtml() hook expects pageContext.Page to be defined')
 
-  // Alternativly, we can use an HTML stream, see https://vike.dev/streaming
+  // Alternatively, we can use an HTML stream, see https://vike.dev/streaming
   const pageHtml = ReactDOMServer.renderToString(
     <PageShell pageContext={pageContext}>
       <Page />
@@ -24,7 +24,7 @@ const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<OnRender
 
   // See https://vike.dev/head
   const title = getPageTitle(pageContext)
-  const desc = pageContext.data?.description || pageContext.config.description || 'Demo of using Vike'
+  const desc = (pageContext.data?.description ?? pageContext.config.description) ?? ''
 
   const documentHtml = escapeInject`<!DOCTYPE html>
     <html lang="en">
