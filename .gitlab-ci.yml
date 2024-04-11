@@ -26,10 +26,8 @@ test-job2:
   image: docker:latest
   script:
     - echo "This job tests something more"
-    - sleep 10
     - echo "You see this after 10 seconds"
     - echo "You see an error \/"
-    - echo ";jngw;e"
 
 deploy-prod:
   stage: deploy
