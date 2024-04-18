@@ -1,6 +1,6 @@
-export { Page }
+import {usePageContext} from "vike-react/usePageContext";
 
-import { usePageContext } from '../../renderer/usePageContext'
+export { Page }
 
 function Page() {
   const pageContext = usePageContext()
@@ -10,7 +10,7 @@ function Page() {
   }
   return (
     <Center>
-      <p style={{ fontSize: '1.3em' }}>{abortReason}</p>
+      <p style={{ fontSize: '1.3em' }}>{abortReason as string}</p>
     </Center>
   )
 }
