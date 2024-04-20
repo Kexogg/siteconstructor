@@ -1,17 +1,17 @@
-import type { Config } from "tailwindcss";
+import type {Config} from "tailwindcss";
 
 export default {
-  content: ["./{pages,layouts,components,src}/**/*.{html,js,jsx,ts,tsx,vue}"],
-  theme: {
-    extend: {
-      colors: {
-        "primary": "var(--primary-color)",
-        "secondary": "var(--secondary-color)",
-        "accent": "var(--accent-color)",
-        "background": "var(--background-color)",
-        "text": "var(--text-color)",
-      },
+    content: ["./{pages,layouts,components,src}/**/*.{html,js,jsx,ts,tsx,vue}"],
+    theme: {
+        extend: {
+            colors: {
+                "user-primary": "var(--user-primary-color)",
+                "user-secondary": "var(--user-secondary-color)",
+                "user-accent": "var(--user-accent-color)",
+                "user-background": "var(--user-background-color)",
+                "user-text": "var(--user-text-color)",
+            },
+        },
     },
-  },
-  plugins: [],
+    plugins: [],
 } satisfies Config;
