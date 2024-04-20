@@ -25,7 +25,6 @@ C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\staticwebassets\m
 C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.server.props
 C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\staticwebassets.pack.json
 C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\scopedcss\bundle\server.styles.css
-C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\server.csproj.CopyComplete
 C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\server.dll
 C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\refint\server.dll
 C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\server.pdb
@@ -120,3 +119,7 @@ C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.Identit
 C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
 C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\amate\Desktop\siteconstructor\server\obj\Debug\net8.0\server.csproj.Up2Date
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\amate\Desktop\siteconstructor\server\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

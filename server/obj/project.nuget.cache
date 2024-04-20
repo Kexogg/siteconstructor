@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oEjcQOC1OZUd2mp1FjKWS+Ih/Stvt6VYAocM6cvQjOO2XN8/4mGXVE9PoCLlSU0TyWdzX4u0sWzYMN1M9gie+A==",
+  "dgSpecHash": "rLHI53252/4MSCXxwSdog3BUFYDlqD78uf1JnJZF8/O0uOBsS3buq7cN/TuOQPYguABSxdS6m6vBRVIk2XhgEA==",
   "success": true,
   "projectFilePath": "C:\\Users\\amate\\Desktop\\siteconstructor\\server\\server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\amate\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\amate\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.4\\microsoft.aspnetcore.authentication.jwtbearer.8.0.4.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.0\\microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.4\\microsoft.codeanalysis.analyzers.3.3.4.nupkg.sha512",
@@ -31,6 +32,8 @@
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.5.1\\microsoft.identitymodel.abstractions.7.5.1.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.5.1\\microsoft.identitymodel.jsonwebtokens.7.5.1.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.identitymodel.logging\\7.5.1\\microsoft.identitymodel.logging.7.5.1.nupkg.sha512",
+    "C:\\Users\\amate\\.nuget\\packages\\microsoft.identitymodel.protocols\\7.1.2\\microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
+    "C:\\Users\\amate\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\7.1.2\\microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.5.1\\microsoft.identitymodel.tokens.7.5.1.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\amate\\.nuget\\packages\\mono.texttemplating\\3.0.0-preview-0045-g9b6fc72764\\mono.texttemplating.3.0.0-preview-0045-g9b6fc72764.nupkg.sha512",

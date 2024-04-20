@@ -13,12 +13,12 @@ public class UsersRepository(DatabaseContext context) : IUsersRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task<UserEntity> GetUserByLogin(string login)
+    public async Task<UserEntity?> GetUserByLogin(string login)
     {
         return await context.Users.FirstOrDefaultAsync(u=> u.Login==login);
     }
 
-    public async Task<UserEntity> GetUserById(long id)
+    public async Task<UserEntity?> GetUserById(long id)
     {
         return await context.Users.FirstOrDefaultAsync(u => u.Id == id);
     }
