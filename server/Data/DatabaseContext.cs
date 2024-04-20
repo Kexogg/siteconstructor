@@ -6,7 +6,7 @@ namespace server.Data;
 
 public class DatabaseContext : DbContext
 {
-    public DbSet<UserEntity> Users { get; set; } = null!;
+    public DbSet<UserEntity?> Users { get; set; } = null!;
     
     public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)

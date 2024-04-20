@@ -7,7 +7,7 @@ namespace server.Helpers;
 
 public class TokenHelper
 {
-    public string GetToken(UserEntity user)
+    public static string GetToken(UserEntity user)
     {
         var userId = user.Id.ToString();
         var claims = new List<Claim>

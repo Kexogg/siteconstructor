@@ -6,7 +6,7 @@ namespace server.Data.Repositories.Concrete;
 
 public class UsersRepository(DatabaseContext context) : IUsersRepository
 {
-    public async Task AddAsync(UserEntity user)
+    public async Task AddAsync(UserEntity? user)
     {
         await context.Users.AddAsync(user);
 
@@ -21,5 +21,10 @@ public class UsersRepository(DatabaseContext context) : IUsersRepository
     public async Task<UserEntity> GetUserById(long id)
     {
         return await context.Users.FirstOrDefaultAsync(u => u.Id == id);
+    }
+
+    public async Task<bool> IsLoginExists(string login)
+    {
+        return await context.Users.AnyAsync(u => u.Login == login);
     }
 }
