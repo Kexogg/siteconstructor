@@ -4,11 +4,11 @@ import "./tailwind.css";
 export default function LayoutDefault({children,}: Readonly<{ children: React.ReactNode; }>) {
     //TODO: remove styles stub
     const style = {
-        "--primary-color": "#666",
-        "--secondary-color": "#666",
-        "--accent-color": "#666",
-        "--text-color": "#666",
-        "--background--color": "#666"
+        "--user-primary-color": "#666",
+        "--user-secondary-color": "#666",
+        "--user-accent-color": "#666",
+        "--user-text-color": "#666",
+        "--user-background--color": "#666"
     } as React.CSSProperties
     return (
         <div style={style}>
@@ -22,7 +22,7 @@ export default function LayoutDefault({children,}: Readonly<{ children: React.Re
 function Header({data}: Readonly<{ data: link[] }>) {
     if (!data) return null
     return (
-        <header className="text-white h-10 bg-secondary flex">
+        <header className="text-white h-10 bg-user-secondary flex">
             <div className="flex justify-between items-center px-5">
                 {data.map((link) => (
                     <a key={link.label} href={link.href} className="text-white">
