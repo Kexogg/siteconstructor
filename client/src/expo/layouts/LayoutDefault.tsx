@@ -1,6 +1,5 @@
 import "./style.css";
 import "./tailwind.css";
-import React from "react";
 
 export default function LayoutDefault({children,}: Readonly<{ children: React.ReactNode; }>) {
     //TODO: remove styles stub
@@ -13,22 +12,31 @@ export default function LayoutDefault({children,}: Readonly<{ children: React.Re
     } as React.CSSProperties
     return (
         <div style={style}>
-            <Header>
-                Header
-            </Header>
+
+            <Header data={[{label: 'Home', href: '#'}]}/>
             <Content>{children}</Content>
         </div>
     );
 }
 
-function Header({children}: Readonly<{ children: React.ReactNode }>) {
+function Header({data}: Readonly<{ data: link[] }>) {
+    if (!data) return null
     return (
-        <header className="h-10 text-white">
-            <div className="flex bg-secondary justify-between items-center p-5">
-                {children}
+        <header className="text-white h-10 bg-secondary flex">
+            <div className="flex justify-between items-center px-5">
+                {data.map((link) => (
+                    <a key={link.label} href={link.href} className="text-white">
+                        {link.label}
+                    </a>
+                ))}
             </div>
         </header>
     );
+}
+
+type link = {
+    label: string
+    href: string
 }
 
 function Content({children}: Readonly<{ children: React.ReactNode }>) {
