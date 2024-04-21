@@ -17,8 +17,8 @@ const Page = () => {
                     <p>Заполни контент</p>
                 </li>
             </ol>
-            <p><Link href='/admin/register'>Регистрация</Link></p>
-            <p><Link href='/admin/login'>Вход</Link></p>
+            <p><Link href={'/admin/register'}>Регистрация</Link></p>
+            <p><Link href={'/admin/login'}>Вход</Link></p>
         </article>
     );
 };
