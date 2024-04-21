@@ -1,0 +1,14 @@
+import AdminPageContainer from "../../../../components/AdminPageContainer/AdminPageContainer";
+import AdminPageTitle from "../../../../components/AdminPagetitle/AdminPageTitle";
+
+const Page = () => {
+    return (
+        <AdminPageContainer>
+            <AdminPageTitle>
+                Стили
+            </AdminPageTitle>
+        </AdminPageContainer>
+    );
+};
+
+export default Page;
