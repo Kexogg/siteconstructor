@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 
 type AdminPageContainerProps = {
-    children: ReactNode;
+    children?: ReactNode;
     title?: string;
 }
 
