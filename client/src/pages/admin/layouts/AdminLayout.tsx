@@ -4,7 +4,7 @@ import {Link} from "../../../components/Link";
 
 const AdminLayout = ({children}: Readonly<{ children: ReactNode; }>) => {
     return (
-        <div>
+        <div className="bg-background-50 min-h-screen">
             <Header/>
             {children}
         </div>
