@@ -1,4 +1,4 @@
-import {Block, PageConfig} from "../../../types";
+import {Block, PageConfig} from "../../../../../types/types";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

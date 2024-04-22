@@ -15,7 +15,9 @@ export type CssConfig = {
     backgroundColor: string;
     textColor: string;
     fontSize: string;
+    fontSizeHeaders: string;
     fontFamily: string;
+    fontFamilyHeaders: string;
 }
 
 export type PageConfig = {

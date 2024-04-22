@@ -1,37 +1,45 @@
 import AdminPageContainer from "../../../../components/AdminPageContainer/AdminPageContainer";
-import AdminPageTitle from "../../../../components/AdminPagetitle/AdminPageTitle";
 import Input from "../../../../components/Input/Input";
 import Select from "../../../../components/Select/Select";
 import AdminEditorSection from "../../../../components/AdminEditor/AdminEditorSection";
 import AdminEditorItem from "../../../../components/AdminEditor/AdminEditorItem";
+import {useData} from "vike-react/useData";
+import {Data} from "./+data";
+import Button from "../../../../components/Button/Button";
 
 const Page = () => {
+    const data = useData<Data>()
+    const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
     return (
         <AdminPageContainer title="Оформление">
             <AdminEditorSection title="Цвета">
-                <AdminEditorItem label="Основной"><Input type="color" defaultValue="#555555"/></AdminEditorItem>
-                <AdminEditorItem label="Акцент"><Input type="color" defaultValue="#5F55F5"/></AdminEditorItem>
-                <AdminEditorItem label="Фон"><Input type="color" defaultValue="#55F55F"/></AdminEditorItem>
-                <AdminEditorItem label="Текст"><Input type="color" defaultValue="#F5555F"/></AdminEditorItem>
+                <AdminEditorItem label="Основной"><Input type="color" defaultValue={data.primaryColor}/></AdminEditorItem>
+                <AdminEditorItem label="Акцент"><Input type="color" defaultValue={data.accentColor}/></AdminEditorItem>
+                <AdminEditorItem label="Фон"><Input type="color" defaultValue={data.backgroundColor}/></AdminEditorItem>
+                <AdminEditorItem label="Текст"><Input type="color" defaultValue={data.secondaryColor}/></AdminEditorItem>
             </AdminEditorSection>
             <AdminEditorSection title="Шрифты">
-                <AdminEditorItem label="Основной"><Select>
-                    <option>Roboto</option>
-                    <option>Open Sans</option>
-                    <option>Montserrat</option>
+                <AdminEditorItem label="Основной"><Select defaultValue={data.fontFamily}>
+                    {availableFonts.map(font => <option key={font} value={font}>{font}</option>)}
                 </Select></AdminEditorItem>
-                <AdminEditorItem label="Заголовки"><Select>
-                    <option>Roboto</option>
-                    <option>Open Sans</option>
-                    <option>Montserrat</option>
+                <AdminEditorItem label="Заголовки"><Select defaultValue={data.fontFamilyHeaders}>
+                    {availableFonts.map(font => <option key={font} value={font}>{font}</option>)}
                 </Select></AdminEditorItem>
-                <AdminEditorItem label="Размер текста"><Input type="number" defaultValue="16"/></AdminEditorItem>
+                <AdminEditorItem label="Размер текста">
+                    <Input type="number" defaultValue={data.fontSize.split("pt")[0]}/>
+                </AdminEditorItem>
+                <AdminEditorItem label="Размер заголовков">
+                    <Input type="number" defaultValue={data.fontSizeHeaders.split("pt")[0]}/>
+                </AdminEditorItem>
             </AdminEditorSection>
             <AdminEditorSection title="Другие стили">
                 <AdminEditorItem label="Размер заголовков"><Input type="number" defaultValue="24"/></AdminEditorItem>
                 <AdminEditorItem label="Размер кнопок"><Input type="number" defaultValue="24"/></AdminEditorItem>
                 <AdminEditorItem label="Скургление углов"><Input type="number" defaultValue="24"/></AdminEditorItem>
             </AdminEditorSection>
+            <div className="my-3">
+                <Button>Сохранить</Button>
+            </div>
         </AdminPageContainer>
     );
 };

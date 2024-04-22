@@ -9,7 +9,7 @@ const AdminEditorItem = ({children, label}: AdminPageEditorItemProps) => {
     return (
         <label className="contents">
             <div className="flex items-center h-8">{label}</div>
-            {children}
+            <div>{children}</div>
         </label>
     );
 };

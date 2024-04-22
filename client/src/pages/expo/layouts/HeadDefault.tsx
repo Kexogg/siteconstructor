@@ -1,6 +1,6 @@
 import logoUrl from "../assets/logo.svg";
 import {usePageContext} from "vike-react/usePageContext";
-import {PageConfig} from "../types";
+import {PageConfig} from "../../../types/types";
 
 export default function HeadDefault() {
     const context = usePageContext()
