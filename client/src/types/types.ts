@@ -18,6 +18,7 @@ export type CssConfig = {
     fontSizeHeaders: string;
     fontFamily: string;
     fontFamilyHeaders: string;
+    borderRadius: string;
 }
 
 export type PageConfig = {

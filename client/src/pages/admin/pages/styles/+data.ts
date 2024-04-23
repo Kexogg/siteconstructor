@@ -12,7 +12,8 @@ export const data = async () => {
         fontSize: "16pt",
         fontSizeHeaders: "24pt",
         fontFamily: "Open Sans",
-        fontFamilyHeaders: "Roboto"
+        fontFamilyHeaders: "Roboto",
+        borderRadius: "4px"
     }
     return cssConfig;
 };
