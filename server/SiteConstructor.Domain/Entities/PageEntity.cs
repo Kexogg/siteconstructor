@@ -16,5 +16,7 @@ public class PageEntity
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public int PageNum { get; set; }
     
+    public bool IsEnabled { get; set; }
+    
     public IList<BlockEntity> Blocks { get; set; }
 }

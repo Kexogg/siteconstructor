@@ -15,5 +15,7 @@ public class BlockEntity
     
     public int BlockNum { get; set; }
     
+    public bool IsEnabled { get; set; }
+    
     public required string JSONB { get; set; }
 }
