@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using server.Data.Entities;
-using server.Data.Models.Users;
-using server.Data.Repositories.Abstract;
 using server.Helpers;
-using server.Services.Abstract;
+using SiteConstructor.Domain.Entities;
+using SiteConstructor.Domain.Models.Users;
+using SiteConstructor.Domain.Repositories;
+using SiteConstructor.Services.Services.Abstract;
 
 namespace server.Controllers;
 

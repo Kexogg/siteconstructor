@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C0F59062-9D68-4277-9BEF-C3DBC4A7595D}|SiteConstructor.Infrastructure\\SiteConstructor.Infrastructure.csproj|c:\\users\\amate\\documents\\siteconstructor\\server\\siteconstructor.infrastructure\\infrastructurestartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C0F59062-9D68-4277-9BEF-C3DBC4A7595D}|SiteConstructor.Infrastructure\\SiteConstructor.Infrastructure.csproj|solutionrelative:siteconstructor.infrastructure\\infrastructurestartup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFA60FE-C842-42EB-9CA7-E5B00AF24D1E}|SiteConstructor.Domain\\SiteConstructor.Domain.csproj|c:\\users\\amate\\documents\\siteconstructor\\server\\siteconstructor.domain\\siteconstructor.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4FFA60FE-C842-42EB-9CA7-E5B00AF24D1E}|SiteConstructor.Domain\\SiteConstructor.Domain.csproj|solutionrelative:siteconstructor.domain\\siteconstructor.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4FFA60FE-C842-42EB-9CA7-E5B00AF24D1E}|SiteConstructor.Domain\\SiteConstructor.Domain.csproj|c:\\users\\amate\\documents\\siteconstructor\\server\\siteconstructor.domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4FFA60FE-C842-42EB-9CA7-E5B00AF24D1E}|SiteConstructor.Domain\\SiteConstructor.Domain.csproj|solutionrelative:siteconstructor.domain\\entities\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{214D76CA-B308-4E3D-BBA5-131D54EFB017}|SiteConstructor.API\\SiteConstructor.API.csproj|c:\\users\\amate\\documents\\siteconstructor\\server\\siteconstructor.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{214D76CA-B308-4E3D-BBA5-131D54EFB017}|SiteConstructor.API\\SiteConstructor.API.csproj|solutionrelative:siteconstructor.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SiteConstructor.Domain",
+              "DocumentMoniker": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.Domain\\SiteConstructor.Domain.csproj",
+              "RelativeDocumentMoniker": "SiteConstructor.Domain\\SiteConstructor.Domain.csproj",
+              "ToolTip": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.Domain\\SiteConstructor.Domain.csproj",
+              "RelativeToolTip": "SiteConstructor.Domain\\SiteConstructor.Domain.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-04-27T19:33:41.669Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.Domain\\Entities\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "SiteConstructor.Domain\\Entities\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.Domain\\Entities\\BaseEntity.cs",
+              "RelativeToolTip": "SiteConstructor.Domain\\Entities\\BaseEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-27T19:32:12.13Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "InfrastructureStartUp.cs",
+              "DocumentMoniker": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.Infrastructure\\InfrastructureStartUp.cs",
+              "RelativeDocumentMoniker": "SiteConstructor.Infrastructure\\InfrastructureStartUp.cs",
+              "ToolTip": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.Infrastructure\\InfrastructureStartUp.cs*",
+              "RelativeToolTip": "SiteConstructor.Infrastructure\\InfrastructureStartUp.cs*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-27T19:30:06.19Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.API\\Program.cs",
+              "RelativeDocumentMoniker": "SiteConstructor.API\\Program.cs",
+              "ToolTip": "C:\\Users\\amate\\Documents\\siteconstructor\\server\\SiteConstructor.API\\Program.cs",
+              "RelativeToolTip": "SiteConstructor.API\\Program.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAD4v08AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-27T19:29:29.146Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

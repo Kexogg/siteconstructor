@@ -1,7 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using server.Data.Entities;
 using Microsoft.IdentityModel.Tokens;
+using SiteConstructor.Domain.Entities;
+
 namespace server.Helpers;
 
 

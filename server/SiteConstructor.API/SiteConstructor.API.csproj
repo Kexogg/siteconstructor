@@ -23,7 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Migrations\" />
+      <ProjectReference Include="..\SiteConstructor.Domain\SiteConstructor.Domain.csproj" />
+      <ProjectReference Include="..\SiteConstructor.Infrastructure\SiteConstructor.Infrastructure.csproj" />
+      <ProjectReference Include="..\SiteConstructor.Services\SiteConstructor.Services.csproj" />
     </ItemGroup>
 
 </Project>
