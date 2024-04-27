@@ -7,4 +7,6 @@ public class UserEntity : BaseEntity
     public string Password { get; set; }
     
     public string? OrgName { get; set; }
+    
+    public SiteEntity? Site { get; set; }
 }

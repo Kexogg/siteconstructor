@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server;
 using SiteConstructor.Domain.Repositories;
+using SiteConstructor.Infrastructure;
 using SiteConstructor.Infrastructure.Persistence;
 using SiteConstructor.Infrastructure.Repositories;
 using SiteConstructor.Services.Services.Abstract;
@@ -72,13 +73,14 @@ builder.Services
         };
     });
 
-builder.Services.AddDbContext<DatabaseContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
-    ), ServiceLifetime.Transient);
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
-
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<ISitesRepository, SitesRepository>();
+builder.Services.AddScoped<IPagesRepository, PagesRepository>();
+builder.Services.AddScoped<IBlocksRepository, BlocksRepository>();
+
 
 var app = builder.Build();
 

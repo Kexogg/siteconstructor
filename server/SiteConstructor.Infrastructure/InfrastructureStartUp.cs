@@ -12,11 +12,11 @@ public static class InfrastructureStartUp
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
-        var dbHost = Environment.GetEnvironmentVariable("DATABASE_HOST");
-        var dbPassword = Environment.GetEnvironmentVariable("DATABASE_PASSWORD");
+        string databaseConnection =
+            "Database = site_constructor;Host = localhost;Port = 5432;Username=postgres;Password=Shary221";
         serviceCollection.AddDbContext<DatabaseContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection") + $"Host={dbHost};" + $"Password={dbPassword};");
+            options.UseNpgsql(databaseConnection);
         }, ServiceLifetime.Transient);
         
         serviceCollection.AddScoped<IUsersRepository, UsersRepository>();
