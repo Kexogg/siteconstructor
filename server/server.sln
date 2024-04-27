@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiteConstructor.API", "SiteConstructor.API\SiteConstructor.API.csproj", "{214D76CA-B308-4E3D-BBA5-131D54EFB017}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{214D76CA-B308-4E3D-BBA5-131D54EFB017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214D76CA-B308-4E3D-BBA5-131D54EFB017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214D76CA-B308-4E3D-BBA5-131D54EFB017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214D76CA-B308-4E3D-BBA5-131D54EFB017}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

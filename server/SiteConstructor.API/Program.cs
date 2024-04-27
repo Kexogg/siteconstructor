@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(option =>
     option.AddServer(new OpenApiServer
         {
             Url = "/",
-            Description = "Local server"
+            Description = "Local SiteConstructor.API"
         }
     );
     option.SwaggerDoc("v1", new OpenApiInfo
