@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SiteConstructor.Domain.Entities;
 
 public class SiteEntity
 {
-    [Key]
     [ForeignKey("User")]
-    public long UserId { get; set; }
-    public required UserEntity User { get; set; }
-    
+    public long Id { get; set; }
+    public UserEntity User { get; set; }  = null!;
+
     public IList<PageEntity> Pages { get; set; }
 }

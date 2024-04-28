@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SiteConstructor.Domain.Entities;
 
-[Index(nameof(Id))]
 public class BaseEntity
 {
     [Key]

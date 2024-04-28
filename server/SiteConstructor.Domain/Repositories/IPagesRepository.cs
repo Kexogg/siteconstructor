@@ -4,11 +4,11 @@ namespace SiteConstructor.Domain.Repositories;
 
 public interface IPagesRepository
 {
-    public Task AddAsync(PageEntity page);
+    public Task AddAsync(SiteEntity site, PageEntity page);
 
     public Task DeleteAsync(long pageId);
 
-    public Task DisablePageAsync(long pageId);
+    public Task UpdatePageAsync(PageEntity newPage);
 
-    public Task EnablePageAsync(long pageId);
+    public Task SwitchPageAsync(long pageId);
 }

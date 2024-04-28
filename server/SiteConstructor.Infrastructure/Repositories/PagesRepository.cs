@@ -7,31 +7,36 @@ namespace SiteConstructor.Infrastructure.Repositories;
 
 public class PagesRepository(DatabaseContext context) : IPagesRepository
 {
-    public async Task AddAsync(PageEntity page)
+    private readonly DatabaseContext _context = context;
+    public async Task AddAsync(SiteEntity site, PageEntity page)
     {
-        await context.Pages.AddAsync(page);
-        await context.SaveChangesAsync();
+        await _context.AddAsync(page);
+        _context.Sites.Update(site); 
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(long pageId)
     {
-        var page = await context.Pages.FirstOrDefaultAsync(p => p.PageId == pageId);
-        if (page is not null)  context.Remove(page);
-        await context.SaveChangesAsync();
+        await _context.Pages.Where(p => p.Id == pageId).ExecuteDeleteAsync();
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdatePageAsync(PageEntity newPage)
+    {
+        _context.Pages.Update(newPage);
+        await _context.SaveChangesAsync();
     }
     
 
-    public async Task DisablePageAsync(long pageId)
+    public async Task SwitchPageAsync(long pageId)
     {
-        var page = await context.Pages.FirstOrDefaultAsync(p => p.PageId == pageId);
-        if (page is not null) page.IsEnabled = false;
-        await context.SaveChangesAsync();
+        var page = await _context.Pages.FirstOrDefaultAsync(p => p.Id == pageId);
+        if (page is not null) page.IsEnabled = Switch(page.IsEnabled);
+        await _context.SaveChangesAsync();
     }
 
-    public async Task EnablePageAsync(long pageId)
+    public static bool Switch(bool value)
     {
-        var page = await context.Pages.FirstOrDefaultAsync(p => p.PageId == pageId);
-        if (page is not null) page.IsEnabled = true;
-        await context.SaveChangesAsync();
+        return !value;
     }
 }

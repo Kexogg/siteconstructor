@@ -74,7 +74,7 @@ builder.Services
     });
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
-
+builder.Services.AddApplicationServices();
 builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ISitesRepository, SitesRepository>();

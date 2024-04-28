@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using server.Helpers;
@@ -11,11 +11,13 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/users")]
-public class UserController(IPasswordHasher passwordHasher, IUsersRepository usersRepository) : Controller
+public class UserController(IPasswordHasher passwordHasher,IUserService userService, IUsersRepository usersRepository) : Controller
 {
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
     private readonly IUsersRepository _usersRepository = usersRepository;
+
+    private readonly IUserService _userService = userService;
     
     // POST
     /// <summary>
@@ -26,18 +28,7 @@ public class UserController(IPasswordHasher passwordHasher, IUsersRepository use
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] UserRegisterModel newUser)
     {
-        var userExists = await _usersRepository.IsLoginExists(newUser.Login);
-        if (userExists) return Conflict();
-        var user = CreateUser(newUser, _passwordHasher);
-        await _usersRepository.AddAsync(user);
-        var token = TokenHelper.GetToken(user);
-        return Ok(new
-        {
-            user.Id,
-            user.Login,
-            user.OrgName,
-            token
-        });
+        return await _userService.RegisterAsync(newUser);
     }
     
     // POST
@@ -49,17 +40,7 @@ public class UserController(IPasswordHasher passwordHasher, IUsersRepository use
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] UserLoginModel loginUser)
     {
-        var user = await _usersRepository.GetUserByLogin(loginUser.Login);
-        if (user is null) return NotFound();
-        if (!_passwordHasher.Verify(loginUser.Password, user.Password)) return BadRequest();
-        var token = TokenHelper.GetToken(user);
-        return Ok(new
-        {
-            user.Id,
-            user.Login,
-            user.OrgName,
-            token
-        });
+        return await _userService.LoginAsync(loginUser);
     }
     
     //GET
@@ -67,30 +48,15 @@ public class UserController(IPasswordHasher passwordHasher, IUsersRepository use
     [Authorize]
     public async Task<IActionResult> GetUserInfo()
     {
-        var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id").Value);
-        var user = await _usersRepository.GetUserById(userId);
-        if (user != null)
-            return Ok(new
-            {
-                user.Id,
-                user.Login,
-                user.OrgName
-            });
-        return NotFound();
+        var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await _userService.GetUserInfo(userId);
     }
-    
-    [NonAction]
-    public UserEntity CreateUser(UserRegisterModel newUser, IPasswordHasher hasher)
-    {
-        var password = hasher.Hash(newUser.Password);
 
-        var user = new UserEntity
-        {
-            Login = newUser.Login,
-            Password = password,
-            OrgName = newUser.OrgName
-        };
-        
-        return user;
+    [HttpDelete("delete")]
+    [Authorize]
+    public async Task<IActionResult> Delete()
+    {
+        var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await _userService.DeleteUser(userId);
     }
 }

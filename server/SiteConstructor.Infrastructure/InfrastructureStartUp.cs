@@ -20,7 +20,8 @@ public static class InfrastructureStartUp
         }, ServiceLifetime.Transient);
         
         serviceCollection.AddScoped<IUsersRepository, UsersRepository>();
-
+        serviceCollection.AddScoped<ISitesRepository, SitesRepository>();
+        serviceCollection.AddScoped<IPagesRepository, PagesRepository>();
         
         return serviceCollection;
     }

@@ -23,11 +23,11 @@ namespace server.Migrations
 
             modelBuilder.Entity("SiteConstructor.Domain.Entities.BlockEntity", b =>
                 {
-                    b.Property<long>("BlockId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("BlockId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<int>("BlockNum")
                         .HasColumnType("integer");
@@ -42,7 +42,7 @@ namespace server.Migrations
                     b.Property<long>("PageId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("BlockId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PageId");
 
@@ -51,23 +51,22 @@ namespace server.Migrations
 
             modelBuilder.Entity("SiteConstructor.Domain.Entities.PageEntity", b =>
                 {
-                    b.Property<long>("PageId")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("PageId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<int>("PageNum")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("integer");
 
                     b.Property<long>("SiteId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("PageId");
+                    b.HasKey("Id");
 
                     b.HasIndex("SiteId");
 
@@ -76,10 +75,10 @@ namespace server.Migrations
 
             modelBuilder.Entity("SiteConstructor.Domain.Entities.SiteEntity", b =>
                 {
-                    b.Property<long>("UserId")
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Sites");
                 });
@@ -104,8 +103,6 @@ namespace server.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id");
 
                     b.ToTable("Users");
                 });
@@ -136,7 +133,7 @@ namespace server.Migrations
                 {
                     b.HasOne("SiteConstructor.Domain.Entities.UserEntity", "User")
                         .WithOne("Site")
-                        .HasForeignKey("SiteConstructor.Domain.Entities.SiteEntity", "UserId")
+                        .HasForeignKey("SiteConstructor.Domain.Entities.SiteEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

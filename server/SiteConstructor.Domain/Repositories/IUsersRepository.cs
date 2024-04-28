@@ -11,4 +11,6 @@ public interface IUsersRepository
     public Task<UserEntity?> GetUserById(long id);
 
     public Task<bool> IsLoginExists(string login);
+
+    public Task DeleteAsync(long id);
 }
