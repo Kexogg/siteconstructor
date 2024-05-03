@@ -1,3 +1,21 @@
+export type WithId<T> = T & { id: string };
+
+/**
+ * Represents a user page with its properties.
+ * @property {string} id - The unique identifier of the page.
+ * @property {string} pageUrl - The relative URL of the page.
+ * @property {string} title - The title of the page.
+ * @property {string} description - The description of the page.
+ * @property {Block[]} blocks - The blocks that make up the page.
+ */
+export type UserPage = {
+    id: string;
+    pageUrl: string;
+    title: string;
+    description: string;
+    blocks: Block[];
+}
+
 export type BlockData = {
     text: string
 }
@@ -27,3 +45,4 @@ export type PageConfig = {
     description: string;
     blocks: Block[];
 }
+
