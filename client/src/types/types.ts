@@ -8,6 +8,7 @@ export type Block = {
     blockData: BlockData;
 }
 
+
 export type CssConfig = {
     primaryColor: string;
     secondaryColor: string;

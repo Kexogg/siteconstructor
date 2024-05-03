@@ -4,6 +4,24 @@ export default {
     content: ["./{pages,layouts,components,src}/**/*.{html,js,jsx,ts,tsx,vue}"],
     theme: {
         extend: {
+            borderRadius: {
+                "user": "var(--user-border-radius)",
+            },
+            backgroundColor: {
+                "user-primary": "var(--user-primary-color)",
+                "user-secondary": "var(--user-secondary-color)",
+                "user-accent": "var(--user-accent-color)",
+                "user-background": "var(--user-background-color)",
+                "user-text": "var(--user-text-color)",
+            },
+            fontFamily: {
+                'user-headers': 'var(--user-font-family-headers)',
+                'user-text': 'var(--user-font-family-text)'
+            },
+            fontSize: {
+                'user-text': 'var(--user-font-size)',
+                'user-headers': 'var(--user-font-size-headers)'
+            },
             colors: {
                 "user-primary": "var(--user-primary-color)",
                 "user-secondary": "var(--user-secondary-color)",
@@ -37,17 +55,17 @@ export default {
                     950: 'var(--background-950)',
                 },
                 'primary': {
-                    50: 'var(--primary-50)',
-                    100: 'var(--primary-100)',
-                    200: 'var(--primary-200)',
-                    300: 'var(--primary-300)',
-                    400: 'var(--primary-400)',
-                    500: 'var(--primary-500)',
-                    600: 'var(--primary-600)',
-                    700: 'var(--primary-700)',
-                    800: 'var(--primary-800)',
-                    900: 'var(--primary-900)',
-                    950: 'var(--primary-950)',
+                    '50': '#f0f6fe',
+                    '100': '#deeafb',
+                    '200': '#c5dcf8',
+                    '300': '#9dc5f3',
+                    '400': '#6ea5ec',
+                    '500': '#4c85e5',
+                    '600': '#3869d8',
+                    '700': '#325acf',
+                    '800': '#2c46a1',
+                    '900': '#283e80',
+                    '950': '#1d284e',
                 },
                 'secondary': {
                     50: 'var(--secondary-50)',

@@ -1,5 +1,5 @@
 
-import AdminPageContainer from "../../../../components/AdminPageContainer/AdminPageContainer";
+import AdminPageContainer from "../../../../components/Admin/AdminPageContainer/AdminPageContainer";
 
 const Page = () => {
     //throw redirect("/admin/login")
