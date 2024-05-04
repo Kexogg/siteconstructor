@@ -13,7 +13,7 @@ const AdminLayout = ({children}: Readonly<{ children: ReactNode; }>) => {
 
 const Header = () => {
     return (
-        <header className="w-full bg-primary-700 text-white">
+        <header className="w-full bg-primary-950 shadow text-white">
             <div className="container mx-auto p-3 flex items-center gap-5">
                 <h1 className="text-2xl font-bold">ExpoBuilder</h1>
                 <nav>
