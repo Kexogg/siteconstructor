@@ -9,21 +9,27 @@ export const data = async () => {
             title: "Главная",
             description: "Главная страница",
             blocks: [],
-            pageUrl: "/"
+            pageUrl: "/",
+            published: true,
+            index: 0
         },
         {
             id: "2",
             title: "О нас",
             description: "Страница о нас",
             blocks: [],
-            pageUrl: "/about"
+            pageUrl: "/about",
+            published: true,
+            index: 1
         },
         {
             id: "3",
             title: "Контакты",
             description: "Страница контактов",
             blocks: [],
-            pageUrl: "/contacts"
+            pageUrl: "/contacts",
+            published: false,
+            index: 2
         }
     ]
     return pages;

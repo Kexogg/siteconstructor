@@ -18,6 +18,8 @@ export const data = async (pageContext: PageContextServer) => {
                 }
             }
         ],
+        published: true,
+        index: 0,
         pageUrl: "/"
     }
     return page

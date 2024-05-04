@@ -1,14 +1,18 @@
 import {WithId} from "../../../types/types";
 import {ReactNode} from "react";
 
+
+type Column<T, K extends keyof T> = {
+    key: K;
+    title: string;
+    isNarrow?: boolean;
+    render?: (value: T[K]) => ReactNode | string | number;
+}
+
+
 type AdminTableProps<T> = {
     data: WithId<T>[];
-    columns: {
-        key: keyof T;
-        title: string;
-        isNarrow?: boolean;
-        render?: (value: T[keyof T]) => ReactNode;
-    }[];
+    columns: Column<T, keyof T>[];
     actions: {
         edit: (id: string) => void;
         delete: (id: string) => void;

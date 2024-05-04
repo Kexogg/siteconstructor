@@ -10,10 +10,13 @@ const Page = () => {
     //TODO-API
     return (
         <AdminPageContainer title="Страницы">
+            <p>В этом разделе вы можете управлять страницами сайта</p>
             <div className={'flex py-3'}>
                 <AdminTable data={data} columns={[
+                    {key: "index", title: "#"},
                     {key: "title", title: "Название"},
-                    {key: "description", title: "Описание"}
+                    {key: "description", title: "Описание"},
+                    {key: "published", title: "Опубликовано", isNarrow: true, render: (value) => value ? 'Да' : 'Нет'},
                 ]} actions={{
                     edit: (id) => {
                         navigate('/admin/userpages/' + id)

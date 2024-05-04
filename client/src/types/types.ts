@@ -14,6 +14,8 @@ export type UserPage = {
     title: string;
     description: string;
     blocks: Block[];
+    published: boolean;
+    index: number;
 }
 
 export type BlockData = {
@@ -23,6 +25,7 @@ export type BlockData = {
 export type Block = {
     id: string;
     type: string;
+    name: string;
     blockData: BlockData;
 }
 
