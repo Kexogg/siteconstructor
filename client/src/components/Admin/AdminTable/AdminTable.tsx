@@ -7,6 +7,7 @@ type AdminTableProps<T> = {
         key: keyof T;
         title: string;
         isNarrow?: boolean;
+        render?: (value: T[keyof T]) => ReactNode;
     }[];
     actions: {
         edit: (id: string) => void;
@@ -15,22 +16,26 @@ type AdminTableProps<T> = {
     };
 }
 
-const AdminTable = <T,>({data, columns, actions}: AdminTableProps<T>) => {
+const AdminTable = <T, >({data, columns, actions}: AdminTableProps<T>) => {
     return (
-        <table className={'table grow table-auto'}>
+        <table className={'table grow table-auto border border-collapse'}>
             <thead>
-            <tr className={'border-b'}>
+            <tr className={'border-b bg-primary-200'}>
                 {columns.map(column => (
-                    <th className={`${column.isNarrow ? 'w-min' : ''}`} key={column.key.toString()}>{column.title}</th>
+                    <th className={`border p-1 ${column.isNarrow ? 'w-min' : ''}`}
+                        key={column.key.toString()}>{column.title}</th>
                 ))}
-                <th className={'hidden'}>Действия</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {data.map(row => (
                 <tr key={row.id} className={'hover:bg-primary-100/50 border-b'}>
                     {columns.map(column => (
-                        <td className={`p-1 ${column.isNarrow ? 'w-min' : ''}`} key={column.key.toString()}>{row[column.key] as ReactNode}</td>
+                        <td className={`border p-1 ${column.isNarrow ? 'w-min' : ''}`}
+                            key={column.key.toString()}>
+                            {column.render ? column.render(row[column.key]) : row[column.key] as ReactNode}
+                        </td>
                         // Fix this later
                     ))}
                     <td className={'w-min'}>
