@@ -15,8 +15,9 @@ export default {
                 "user-text": "var(--user-text-color)",
             },
             fontFamily: {
+                'sans': 'Montserrat, sans-serif',
                 'user-headers': 'var(--user-font-family-headers)',
-                'user-text': 'var(--user-font-family-text)'
+                'user': 'var(--user-font-family-text)'
             },
             fontSize: {
                 'user-text': 'var(--user-font-size)',
