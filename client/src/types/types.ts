@@ -1,3 +1,5 @@
+import {Block} from "./blocks";
+
 export type WithId<T> = T & { id: string };
 
 /**
@@ -16,17 +18,6 @@ export type UserPage = {
     blocks: Block[];
     published: boolean;
     index: number;
-}
-
-export type BlockData = {
-    text: string
-}
-
-export type Block = {
-    id: string;
-    type: string;
-    name: string;
-    blockData: BlockData;
 }
 
 

@@ -12,6 +12,7 @@ export const data = async (pageContext: PageContextServer) => {
         blocks: [
             {
                 id: "1",
+                name: "Text",
                 type: "text",
                 blockData: {
                     text: "Hello, world!"

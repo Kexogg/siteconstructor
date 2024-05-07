@@ -1,10 +1,12 @@
 import {ReactNode} from "react";
 import "./tailwind.css";
 import {Link} from "../../../components/Link";
+import "@fontsource/montserrat";
+
 
 const AdminLayout = ({children}: Readonly<{ children: ReactNode; }>) => {
     return (
-        <div className="bg-primary-50 min-h-screen">
+        <div className="bg-primary-50/25 min-h-screen">
             <Header/>
             {children}
         </div>

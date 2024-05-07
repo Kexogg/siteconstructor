@@ -1,4 +1,4 @@
-import {Block} from "../../../../../../../types/types";
+import {Block} from "../../../../../../../types/blocks";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

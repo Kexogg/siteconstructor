@@ -1,15 +1,26 @@
-import {Block, PageConfig} from "../../../../../types/types";
+import {PageConfig} from "../../../../../types/types";
+import {Block} from "../../../../../types/blocks";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async () => {
-    //Todo: remove mock data
     const blocks: Block[] = [
         {
             id: "1",
             type: "text",
+            name: "Текст на главной",
             blockData: {
-                text: "Главная страница сайта выставки"
+                text: "Hello, world!"
+            }
+        },
+        {
+            id: "2",
+            type: "hero",
+            name: "Основной баннер",
+            blockData: {
+                header: "Hello world",
+                text: "Основной баннер",
+                background: "123"
             }
         }
     ]

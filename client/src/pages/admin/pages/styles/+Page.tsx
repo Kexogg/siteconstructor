@@ -95,7 +95,7 @@ const PreviewComponent = ({style}: { style: CssConfig }) => {
         <div style={useInlineCustomCss(style)}
              className="flex flex-col p-3 justify-center flex-wrap bg-user-background h-fit">
             <div className="font-user-headers">Выставка</div>
-            <p className="font-user-text">Приходите на нашу выставку!</p>
+            <p className="font-user">Приходите на нашу выставку!</p>
             <UserButton>Подробнее</UserButton>
         </div>
     );

@@ -1,5 +1,8 @@
 import "./tailwind.css"
 import {ReactNode} from "react";
+import "@fontsource/montserrat";
+
+
 
 export default function FormLayout({children}: Readonly<{ children: ReactNode; }>) {
     return (

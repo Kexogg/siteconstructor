@@ -1,8 +1,10 @@
-const TextBlock = () => {
+import {TextBlockProps} from "../../../types/blocks";
+
+const TextBlock = ({data}: {data: TextBlockProps}) => {
     return (
         <div>
             <h2>Text block stub</h2>
-            Text content with basic formatting.
+            BlockData: {JSON.stringify(data)}
         </div>
     );
 };
