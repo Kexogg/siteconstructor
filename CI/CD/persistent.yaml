@@ -1,0 +1,128 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nyashdev-siteconstructor-frontend-service
+  namespace: nyashdev
+spec:
+  selector:
+    project: nyashdev-siteconstructor-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nyashdev-siteconstructor-ingress
+  namespace: nyashdev
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: "nyashdev.stk8s.66bit.ru"
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: nyashdev-siteconstructor-frontend-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /api
+            backend:
+              service:
+                name: nyashdev-siteconstructor-backend-service
+                port:
+                  number: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nyashdev-siteconstructor-backend-service
+  namespace: nyashdev
+spec:
+  selector:
+    project: nyashdev-siteconstructor-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nyashdev-siteconstructor-postgres-service
+  namespace: nyashdev
+spec:
+  selector:
+    app: nyashdev-siteconstructor-postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nyashdev-siteconstructor-database
+  namespace: nyashdev
+spec:
+  selector:
+    matchLabels:
+      app: nyashdev-siteconstructor-postgres
+  serviceName: "nyashdev-siteconstructor-database"
+  replicas: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: nyashdev-siteconstructor-postgres
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: nyashdev-siteconstructor-database
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: nyashdev-siteconstructor-database-volume
+              mountPath: /var/lib/postgresql/data
+          env:
+            - name: POSTGRES_USER
+              value: ###
+            - name: POSTGRES_PASSWORD
+              value: ###
+            - name: POSTGRES_DB
+              value: ###
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+      initContainers:
+        - name: nyashdev-siteconstructor-rights-to-data
+          image: busybox
+          command:
+            [
+              "sh",
+              "-c",
+              "mkdir -p /var/lib/postgresql/data/pgdata && chown -R 999:999 /var/lib/postgresql/data/pgdata",
+            ]
+          securityContext:
+            runAsUser: 0
+            privileged: true
+          volumeMounts:
+            - name: nyashdev-siteconstructor-database-volume
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: nyashdev-siteconstructor-database-volume
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "rook-ceph-block"
+        resources:
+          requests:
+            storage: 2Gi
