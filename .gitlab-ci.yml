@@ -1,37 +1,47 @@
 variables:
   FRONTEND_TAG_LATEST: $CI_REGISTRY_IMAGE/frontend:latest
   BACKEND_TAG_LATEST: $CI_REGISTRY_IMAGE/backend:latest
-
 stages:
-  - build
-  - first-test
-  - second-test
+  - make_docker_image
   - deploy
 
-build-job:
-  stage: build
-  image: docker:latest
-  script:
-    - echo "Hello, $GITLAB_USER_LOGIN!"
-    - echo "Building is ok!"
+.before script docker registry login: &before-script-docker-registry-login
+  - mkdir ~/.docker
+  - cat $CR_CONFIG > ~/.docker/config.json
 
-test-job1:
-  stage: first-test
+make_back_docker_image:
+  stage: make_docker_image
   image: docker:latest
+  before_script:
+    - *before-script-docker-registry-login
   script:
-    - echo "This job tests something"
+    - cd server
+    - docker build --pull -t $BACKEND_TAG_LATEST -f ./Dockerfile .
+    - docker push $BACKEND_TAG_LATEST
+  when: manual
+  only:
+    - main
 
-test-job2:
-  stage: second-test
+make_front_docker_image:
+  stage: make_docker_image
   image: docker:latest
+  before_script:
+    - *before-script-docker-registry-login
   script:
-    - echo "This job tests something more"
-    - echo "You see this after 10 seconds"
-    - echo "You see an error \/"
+    - cd client
+    - docker build --pull -t $FRONTEND_TAG_LATEST -f ./Dockerfile .
+    - docker push $FRONTEND_TAG_LATEST
+  when: manual
+  only:
+    - main
 
-deploy-prod:
+deploy:
   stage: deploy
-  image: docker:latest
+  image: hub.66bit.ru/shared/stk8s:1.26.2
   script:
-    - echo "This deploys from the $GIT_COMMIT_BRANCH branch."
-  environment: production
+    #- kubectl delete -f ./CI/CD/Deployment.yaml
+    - kubectl apply -f ./CI/CD/persistent.yaml
+    - kubectl apply -f ./CI/CD/Deployment.yaml
+  when: manual
+  only:
+    - main
