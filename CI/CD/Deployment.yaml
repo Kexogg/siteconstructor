@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nyashdev-siteconstructor-frontend
+  namespace: nyashdev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: nyashdev-siteconstructor-frontend
+  template:
+    metadata:
+      labels:
+        project: nyashdev-siteconstructor-frontend
+    spec:
+      containers:
+        - name: nyashdev-siteconstructor-frontend
+          image: hub.66bit.ru/urfu-2024-rtf/nyashdev/siteconstructor/frontend:latest
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: nyashdev-siteconstructor-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nyashdev-siteconstructor-backend
+  namespace: nyashdev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: nyashdev-siteconstructor-backend
+  template:
+    metadata:
+      labels:
+        project: nyashdev-siteconstructor-backend
+    spec:
+      containers:
+        - name: nyashdev-siteconstructor-backend
+          image: hub.66bit.ru/urfu-2024-rtf/nyashdev/siteconstructor/backend:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+      imagePullSecrets:
+        - name: nyashdev-siteconstructor-secret
