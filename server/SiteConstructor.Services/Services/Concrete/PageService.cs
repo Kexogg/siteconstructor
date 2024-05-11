@@ -20,12 +20,13 @@ public class PageService(ISitesRepository sitesRepository, IPagesRepository page
             IsEnabled = false,
             Site = site
         };
-        await _pagesRepository.AddAsync(site, page);
+        site.Pages.Add(page);
+        await _sitesRepository.UpdateAsync(site);
         return new OkResult();
     }
     
 
-    public async Task<IActionResult> DeleteAsync(long siteId,long id)
+    public async Task<IActionResult> DeleteAsync(long siteId, long id)
     {
         var site = await _sitesRepository.GetByIdAsync(siteId);
         var page = site.Pages.FirstOrDefault(p => p.Id == id);

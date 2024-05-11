@@ -39,7 +39,7 @@ public class BlocksRepository(DatabaseContext context) : IBlocksRepository
     public async Task UpdateBlockAsync(long blockId, string jsonb)
     {
         var block = await context.Blocks.FirstOrDefaultAsync(b=> b.Id==blockId);
-        if (block is not null) block.JSONB = jsonb;
+        if (block is not null) block.Jsonb = jsonb;
         await context.SaveChangesAsync();
     }
 }

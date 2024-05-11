@@ -11,7 +11,7 @@ public class PagesRepository(DatabaseContext context) : IPagesRepository
     public async Task AddAsync(SiteEntity site, PageEntity page)
     {
         await _context.AddAsync(page);
-        _context.Sites.Update(site); 
+        _context.Sites.Update(site);
         await _context.SaveChangesAsync();
     }
 

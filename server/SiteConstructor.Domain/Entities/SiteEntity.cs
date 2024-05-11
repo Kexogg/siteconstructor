@@ -10,5 +10,5 @@ public class SiteEntity
     public long Id { get; set; }
     public UserEntity User { get; set; }  = null!;
 
-    public IList<PageEntity> Pages { get; set; }
+    public virtual ICollection<PageEntity> Pages { get; set; } = new List<PageEntity>();
 }

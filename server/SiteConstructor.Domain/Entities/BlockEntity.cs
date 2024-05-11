@@ -13,5 +13,5 @@ public class BlockEntity : BaseEntity
     
     public bool IsEnabled { get; set; }
     
-    public required string JSONB { get; set; }
+    public required string Jsonb { get; set; }
 }

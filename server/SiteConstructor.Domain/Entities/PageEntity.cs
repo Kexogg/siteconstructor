@@ -12,6 +12,6 @@ public class PageEntity : BaseEntity
     public int PageNum { get; set; }
     
     public bool IsEnabled { get; set; }
-    
-    public IList<BlockEntity> Blocks { get; set; }
+
+    public virtual ICollection<BlockEntity> Blocks { get; set; } = new List<BlockEntity>();
 }
