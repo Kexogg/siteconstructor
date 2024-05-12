@@ -70,7 +70,6 @@ function auth(app: Express) {
 
     app.use(function (req, res, next) {
         const {token} = req.cookies
-        console.debug('token', token)
         if (!token) return next()
         req.token = token
         next()
