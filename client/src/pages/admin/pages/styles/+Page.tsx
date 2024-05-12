@@ -10,56 +10,84 @@ import {useState} from "react";
 import {CssConfig} from "../../../../types/types";
 import {useInlineCustomCss} from "../../../../hooks/useInlineCustomCss";
 import UserButton from "../../../../components/User/UserButton/UserButton";
+import {SubmitHandler, useForm} from "react-hook-form";
 
 const Page = () => {
     const data = useData<Data>()
     const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
     const [cssConfig, setCssConfig] = useState(useData<Data>())
 
-    const updateCss = (key: keyof CssConfig, value: string) => {
-        setCssConfig({...cssConfig, [key]: value})
-        console.log({...cssConfig, [key]: value})
+    interface Inputs {
+        primaryColor: string
+        secondaryColor: string
+        accentColor: string
+        backgroundColor: string
+        textColor: string
+        fontSize: string
+        fontSizeHeaders: string
+        fontFamily: string
+        fontFamilyHeaders: string
+        borderRadius: string
+    }
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+    } = useForm<Inputs>()
+
+    watch((data) => {
+        setCssConfig((prevConfig) => ({...prevConfig, ...data}))
+    })
+
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+        console.log(data)
     }
 
     return (
         <AdminPageContainer title="Оформление">
-            <div className="flex justify-center flex-wrap flex-row-reverse">
+            <div className="flex justify-center flex-wrap md:flex-nowrap flex-row-reverse">
                 <PreviewComponent style={cssConfig}/>
-                <div className="flex-grow">
+                <form className="flex-grow" onSubmit={handleSubmit(onSubmit)}>
                     <AdminEditorSection title="Цвета">
-                        <ColorPicker label={'Основной'} defaultValue={data.primaryColor}
-                                     onChange={(v) => updateCss("primaryColor", v)}/>
-                        <ColorPicker label={'Вторичный'} defaultValue={data.secondaryColor}
-                                     onChange={(v) => updateCss("secondaryColor", v)}/>
-                        <ColorPicker label={'Акцент'} defaultValue={data.accentColor}
-                                     onChange={(v) => updateCss("accentColor", v)}/>
-                        <ColorPicker label={'Фон'} defaultValue={data.backgroundColor}
-                                     onChange={(v) => updateCss("backgroundColor", v)}/>
-                        <ColorPicker label={'Текст'} defaultValue={data.textColor}
-                                     onChange={(v) => updateCss("textColor", v)}/>
+                        <AdminEditorItem label={'Основной'}>
+                            <Input type="color" {...register("primaryColor")} defaultValue={data.primaryColor}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Второстепенный'}>
+                            <Input type="color" {...register("secondaryColor")} defaultValue={data.secondaryColor}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Акцент'}>
+                            <Input type="color" {...register("accentColor")} defaultValue={data.accentColor}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Фон'}>
+                            <Input type="color" {...register("backgroundColor")} defaultValue={data.backgroundColor}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Текст'}>
+                            <Input type="color" {...register("textColor")} defaultValue={data.textColor}/>
+                        </AdminEditorItem>
                     </AdminEditorSection>
                     <AdminEditorSection title="Шрифты">
                         <AdminEditorItem label="Основной">
-                            <Select defaultValue={data.fontFamily}
-                                    onChange={(e) => updateCss("fontFamily", e.target.value)}>
+                            <Select defaultValue={data.fontFamily} {...register("fontFamily")}>
                                 {availableFonts.map(font => <option key={font} value={font}>{font}</option>)}
                             </Select>
                         </AdminEditorItem>
                         <AdminEditorItem label="Заголовки">
-                            <Select defaultValue={data.fontFamilyHeaders}
-                                    onChange={(e) => updateCss("fontFamilyHeaders", e.target.value)}>
+                            <Select
+                                defaultValue={data.fontFamilyHeaders} {...register("fontFamilyHeaders")}                                    >
                                 {availableFonts.map(font => <option key={font} value={font}>{font}</option>)}
                             </Select>
                         </AdminEditorItem>
                         <AdminEditorItem label="Размер текста">
-                            <Input type="number" onChange={(e) => updateCss("fontSize", e.target.value)}
+                            <Input {...register("fontSize")} type="number"
                                    defaultValue={data.fontSize.split("pt")[0]}/>
                         </AdminEditorItem>
                         <AdminEditorItem label="Размер заголовков">
-                            <Input type="number" defaultValue={data.fontSizeHeaders.split("pt")[0]}/>
+                            <Input {...register("fontSizeHeaders")} type="number"
+                                   defaultValue={data.fontSizeHeaders.split("pt")[0]}/>
                         </AdminEditorItem>
                     </AdminEditorSection>
-                    <AdminEditorSection title="Другие стили">
+                    {/*<AdminEditorSection title="Другие стили">
                         <AdminEditorItem label="Размер заголовков"><Input type="number"
                                                                           defaultValue="24"/></AdminEditorItem>
                         <AdminEditorItem label="Размер кнопок"><Input type="number"
@@ -67,28 +95,15 @@ const Page = () => {
                         <AdminEditorItem label="Скургление углов">
                             <Input type="number" defaultValue={data.borderRadius.split("px")[0]}/>
                         </AdminEditorItem>
-
-                    </AdminEditorSection>
+                    </AdminEditorSection>*/}
                     <div className="my-3">
                         <Button>Сохранить</Button>
                     </div>
-                </div>
+                </form>
             </div>
         </AdminPageContainer>
     );
 };
-
-const ColorPicker = ({label, defaultValue, onChange}: {
-    label: string,
-    defaultValue: string,
-    onChange: (value: string) => void
-}) => {
-    return (
-        <AdminEditorItem label={label}>
-            <Input type="color" onChange={(e) => onChange(e.target.value)} defaultValue={defaultValue}/>
-        </AdminEditorItem>
-    );
-}
 
 const PreviewComponent = ({style}: { style: CssConfig }) => {
     return (
