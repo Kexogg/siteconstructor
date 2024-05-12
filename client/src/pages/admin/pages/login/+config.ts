@@ -4,5 +4,5 @@ import Layout from "../../layouts/FormLayout";
 
 export default {
     Layout,
-    extends: vikeReact,
+    extends: vikeReact
 } satisfies Config
