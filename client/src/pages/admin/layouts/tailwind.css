@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--user-font-family-headers), serif;
+    }
     :root {
+        --user-font-family-headers: 'Montserrat', 'Roboto';
+        --user-font-family-text: 'Roboto, sans-serif';
+
         --text-50: #eff6ef;
         --text-100: #deedde;
         --text-200: #bddbbd;
