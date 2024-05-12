@@ -29,6 +29,9 @@ const Header = () => {
                         <li>
                             <Link href={"/admin/styles"}>Оформление</Link>
                         </li>
+                        <li>
+                            <Link href={"/admin/settings"}>Настройки</Link>
+                        </li>
                     </ul>
                 </nav>
             </div>
