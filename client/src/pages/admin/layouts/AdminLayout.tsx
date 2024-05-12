@@ -1,6 +1,5 @@
-import {ReactNode} from "react";
+import {ReactNode, useState} from "react";
 import "./tailwind.css";
-import {Link} from "../../../components/Link";
 import "@fontsource/montserrat";
 
 
@@ -14,23 +13,27 @@ const AdminLayout = ({children}: Readonly<{ children: ReactNode; }>) => {
 };
 
 const Header = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
     return (
-        <header className="w-full bg-primary-950 shadow text-white">
+        <header className="w-full bg-primary-950 shadow text-white h-14">
             <div className="container mx-auto p-3 flex items-center gap-5">
                 <h1 className="text-2xl font-bold">ExpoBuilder</h1>
                 <nav>
-                    <ul className="flex gap-3">
+                    <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>Меню</button>
+                    <ul className={`${menuOpen ? 
+                        'flex flex-col w-full top-14 left-0 absolute bg-primary-950/90 backdrop-blur p-3' : 'hidden'} 
+                        md:flex gap-3`}>
                         <li>
-                            <Link href={"/admin"}>Главная</Link>
+                            <a onClick={() => setMenuOpen(false)} href={"/admin"}>Главная</a>
                         </li>
                         <li>
-                            <Link href={"/admin/userpages"}>Страницы</Link>
+                            <a onClick={() => setMenuOpen(false)} href={"/admin/userpages"}>Страницы</a>
                         </li>
                         <li>
-                            <Link href={"/admin/styles"}>Оформление</Link>
+                            <a onClick={() => setMenuOpen(false)} href={"/admin/styles"}>Оформление</a>
                         </li>
                         <li>
-                            <Link href={"/admin/settings"}>Настройки</Link>
+                            <a onClick={() => setMenuOpen(false)} href={"/admin/settings"}>Настройки</a>
                         </li>
                     </ul>
                 </nav>
