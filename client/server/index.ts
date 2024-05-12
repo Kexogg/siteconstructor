@@ -11,67 +11,104 @@
 //  - HatTip (https://github.com/hattipjs/hattip)
 //    - You can use Bati (https://batijs.dev/) to scaffold a Vike + HatTip app. Note that Bati generates apps that use the V1 design (https://vike.dev/migration/v1-design) and Vike packages (https://vike.dev/vike-packages)
 
-import express from 'express'
+import express, {Express} from 'express'
 import compression from 'compression'
-import { renderPage } from 'vike/server'
-import { root } from './root.js'
+import {renderPage} from 'vike/server'
+import {root} from './root.js'
+import cookieParser from 'cookie-parser'
+
 const isProduction = process.env.NODE_ENV === 'production'
 
 startServer()
 
+// Augment the Express Request interface to include a `token` property.
+declare module 'express-serve-static-core' {
+    interface Request {
+        token?: string;
+    }
+}
+
+
 async function startServer() {
-  const app = express()
+    const app = express()
 
-  app.use(compression())
+    app.use(compression())
+    await vite(app)
+    auth(app)
+    authCookieMock(app)
+    vike(app)
 
-  // Vite integration
-  if (isProduction) {
-    // In production, we need to serve our static assets ourselves.
-    // (In dev, Vite's middleware serves our static assets.)
-    const sirv = (await import('sirv')).default
-    app.use(sirv(`${root}/dist/client`))
-  } else {
-    // We instantiate Vite's development server and integrate its middleware to our server.
-    // ⚠️ We instantiate it only in development. (It isn't needed in production and it
-    // would unnecessarily bloat our production server.)
-    const vite = await import('vite')
-    const viteDevMiddleware = (
-      await vite.createServer({
-        root,
-        server: { middlewareMode: true }
-      })
-    ).middlewares
-    app.use(viteDevMiddleware)
-  }
+    const port = process.env.PORT ?? 3000
+    app.listen(port)
+    console.log(`Server running at http://localhost:${port}`)
+}
 
-  // ...
-  // Other middlewares (e.g. some RPC middleware such as Telefunc)
-  // ...
-
-  // Vike middleware. It should always be our last middleware (because it's a
-  // catch-all middleware superseding any middleware placed after it).
-  app.get('*', async (req, res, next) => {
-    const pageContextInit = {
-      urlOriginal: req.originalUrl
-    }
-    const pageContext = await renderPage(pageContextInit)
-    if (pageContext.errorWhileRendering) {
-      // Install error tracking here, see https://vike.dev/errors
-    }
-    const { httpResponse } = pageContext
-    if (!httpResponse) {
-      return next()
+async function vite(app: Express) {
+    // Vite integration
+    if (isProduction) {
+        // In production, we need to serve our static assets ourselves.
+        // (In dev, Vite's middleware serves our static assets.)
+        const sirv = (await import('sirv')).default
+        app.use(sirv(`${root}/dist/client`))
     } else {
-      const { body, statusCode, headers, earlyHints } = httpResponse
-      if (res.writeEarlyHints) res.writeEarlyHints({ link: earlyHints.map((e) => e.earlyHintLink) })
-      headers.forEach(([name, value]) => res.setHeader(name, value))
-      res.status(statusCode)
-      // For HTTP streams use httpResponse.pipe() instead, see https://vike.dev/streaming
-      res.send(body)
+        // We instantiate Vite's development server and integrate its middleware to our server.
+        // ⚠️ We instantiate it only in development. (It isn't needed in production, and it
+        // would unnecessarily bloat our production server.)
+        const vite = await import('vite')
+        const viteDevMiddleware = (
+            await vite.createServer({
+                root,
+                server: {middlewareMode: true}
+            })
+        ).middlewares
+        app.use(viteDevMiddleware)
     }
-  })
+}
 
-  const port = process.env.PORT ?? 3000
-  app.listen(port)
-  console.log(`Server running at http://localhost:${port}`)
+function auth(app: Express) {
+    app.use(cookieParser())
+
+    app.use(function (req, res, next) {
+        const {token} = req.cookies
+        console.debug('token', token)
+        if (!token) return next()
+        req.token = token
+        next()
+    })
+}
+
+function authCookieMock(app: Express) {
+    app.get('/_auth/login', (req, res) => {
+        res.cookie('token', '123', {
+            maxAge: 24 * 60 * 60 * 1000, // One day
+            httpOnly: true
+        })
+        res.send({success: true})
+    })
+}
+
+function vike(app: Express) {
+    // Vike middleware. It should always be our last middleware (because it's a
+    // catch-all middleware superseding any middleware placed after it).
+    app.get('*', async (req, res, next) => {
+        const pageContextInit = {
+            urlOriginal: req.originalUrl,
+            token: req.token
+        }
+        const pageContext = await renderPage(pageContextInit)
+        if (pageContext.errorWhileRendering) {
+            // Install error tracking here, see https://vike.dev/errors
+        }
+        const {httpResponse} = pageContext
+        if (!httpResponse) {
+            return next()
+        } else {
+            const {body, statusCode, headers, earlyHints} = httpResponse
+            if (res.writeEarlyHints) res.writeEarlyHints({link: earlyHints.map((e) => e.earlyHintLink)})
+            headers.forEach(([name, value]) => res.setHeader(name, value))
+            res.status(statusCode)
+            // For HTTP streams use httpResponse.pipe() instead, see https://vike.dev/streaming
+            res.send(body)
+        }
+    })
 }
