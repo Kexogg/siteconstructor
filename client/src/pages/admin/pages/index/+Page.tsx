@@ -9,7 +9,9 @@ const Page = () => {
     return (
         <AdminPageContainer title="Главная">
             <p>Организация: {data.organization}</p>
-            <p>Баланс: {data.balance}</p>
+            <p>Баланс: {data.balance} рублей</p>
+            <p>Ожидаемые расходы: {data.expectedExpenses} рублей</p>
+            <p>Статус сайта: <span className={'text-green-500'}>Опубликован</span></p>
         </AdminPageContainer>
     )
 }

@@ -10,7 +10,7 @@ const Page = () => {
     return (
         <AdminPageContainer title="Страницы">
             <p>В этом разделе вы можете управлять страницами сайта</p>
-            <div className={'flex py-3'}>
+            <div className={'flex py-3 flex-col'}>
                 <AdminTable data={data} columns={[
                     {key: "index", title: "#", render: (value) => (value as number) + 1, isNarrow: true},
                     {key: "title", title: "Название"},
@@ -23,15 +23,15 @@ const Page = () => {
                     delete: (id) => {
                         console.log('Deleting page ' + id)
                     },
-                }}>
-                    <tr>
-                        <td colSpan={4}>
-                            <button className={'w-full text-2xl text-neutral-500'}>+</button>
-                        </td>
-                    </tr>
-                </AdminTable>
+                }}/>
+                <div className='ms-auto mt-3 w-fit'>
+                    <Button outline>Добавить блок</Button>
+                </div>
             </div>
-            <Button onClick={() => console.log('Saving pages')}>Сохранить</Button>
+            <div className={'flex gap-3'}>
+                <Button>Сохранить</Button>
+                <Button outline>Удалить</Button>
+            </div>
         </AdminPageContainer>
     );
 };

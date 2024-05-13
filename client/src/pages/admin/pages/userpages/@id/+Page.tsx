@@ -36,16 +36,15 @@ const Page = () => {
                     delete: (id) => {
                         console.log('Deleting block ' + id)
                     },
-                }}>
-                    <tr>
-                        <td colSpan={3}>
-                            <button className={'w-full text-2xl text-neutral-500'}>+</button>
-                        </td>
-                    </tr>
-                </AdminTable>
+                }}/>
+                <div className='ms-auto mt-3 w-fit'>
+                    <Button outline>Добавить блок</Button>
+                </div>
             </div>
-
-            <Button>Сохранить</Button>
+            <div className={'flex gap-3'}>
+                <Button>Сохранить</Button>
+                <Button outline>Удалить</Button>
+            </div>
         </AdminPageContainer>
     );
 };
