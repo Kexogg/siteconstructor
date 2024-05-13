@@ -1,5 +1,5 @@
-import "./style.css";
 import "./tailwind.css";
+import {CSSProperties, ReactNode} from "react";
 
 export default function LayoutDefault({children,}: Readonly<{ children: React.ReactNode; }>) {
     //TODO: remove styles stub
@@ -9,10 +9,9 @@ export default function LayoutDefault({children,}: Readonly<{ children: React.Re
         "--user-accent-color": "#666",
         "--user-text-color": "#666",
         "--user-background--color": "#666"
-    } as React.CSSProperties
+    } as CSSProperties
     return (
         <div style={style}>
-
             <Header data={[{label: 'Home', href: '#'}]}/>
             <Content>{children}</Content>
         </div>
@@ -39,10 +38,10 @@ type link = {
     href: string
 }
 
-function Content({children}: Readonly<{ children: React.ReactNode }>) {
+function Content({children}: Readonly<{ children: ReactNode }>) {
     return (
         <div id="page-container">
-            <div id="page-content" className="p-5 pb-12 min-h-screen">
+            <div id="page-content" className="pb-12 min-h-screen">
                 {children}
             </div>
         </div>
