@@ -33,6 +33,9 @@ const Header = () => {
                             <a onClick={() => setMenuOpen(false)} href={"/admin/styles"}>Оформление</a>
                         </li>
                         <li>
+                            <a onClick={() => setMenuOpen(false)} href={"/admin/finances"}>Финансы</a>
+                        </li>
+                        <li>
                             <a onClick={() => setMenuOpen(false)} href={"/admin/settings"}>Настройки</a>
                         </li>
                     </ul>
