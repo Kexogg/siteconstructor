@@ -20,7 +20,7 @@ export const data = async () => {
             blockData: {
                 header: "Hello world",
                 text: "Основной баннер",
-                background: "123"
+                background: "https://via.placeholder.com/1920x1080"
             }
         }
     ]
