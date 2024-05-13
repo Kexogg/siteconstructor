@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: nyashdev-siteconstructor-frontend
-          image: hub.66bit.ru/urfu-2024-rtf/nyashdev/siteconstructor/frontend:latest
+          image: hub.66bit.ru/urfu-2024/nyashdev/siteconstructor/frontend:latest
           ports:
             - containerPort: 80
       imagePullSecrets:
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: nyashdev-siteconstructor-backend
-          image: hub.66bit.ru/urfu-2024-rtf/nyashdev/siteconstructor/backend:latest
+          image: hub.66bit.ru/urfu-2024/nyashdev/siteconstructor/backend:latest
           ports:
             - containerPort: 80
           env:
