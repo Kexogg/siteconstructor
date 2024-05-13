@@ -36,6 +36,7 @@ async function startServer() {
     await vite(app)
     auth(app)
     authCookieMock(app)
+    logoutRoute(app)
     vike(app)
 
     const port = process.env.PORT ?? 3000
@@ -82,6 +83,13 @@ function authCookieMock(app: Express) {
             maxAge: 24 * 60 * 60 * 1000, // One day
             httpOnly: true
         })
+        res.send({success: true})
+    })
+}
+
+function logoutRoute(app: Express) {
+    app.get('/_auth/logout', (req, res) => {
+        res.clearCookie('token')
         res.send({success: true})
     })
 }

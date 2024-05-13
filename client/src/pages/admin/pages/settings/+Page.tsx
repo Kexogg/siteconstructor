@@ -6,6 +6,7 @@ import AdminEditorItem from "../../../../components/Admin/AdminEditor/AdminEdito
 import Input from "../../../../components/Input/Input";
 import {useForm} from "react-hook-form";
 import Button from "../../../../components/Button/Button";
+import {navigate} from "vike/client/router";
 
 
 const Page = () => {
@@ -40,7 +41,12 @@ const Page = () => {
                         <Input type="checkbox" defaultChecked={data.isPublished} {...register('isPublished')}/>
                     </AdminEditorItem>
                 </AdminEditorSection>
-                <Button>Сохранить</Button>
+                <div className={'flex gap-3'}>
+                    <Button>Сохранить</Button>
+                    <Button outline onClick={() => {
+                        fetch('/_auth/logout').then(() => navigate('/admin/login'))
+                    }}>Выйти</Button>
+                </div>
             </form>
         </AdminPageContainer>
     );
