@@ -18,9 +18,10 @@ type AdminTableProps<T> = {
         delete: (id: string) => void;
         drag?: (id: string, newIndex: number) => void;
     };
+    children?: ReactNode;
 }
 
-const AdminTable = <T, >({data, columns, actions}: AdminTableProps<T>) => {
+const AdminTable = <T, >({data, columns, actions, children}: AdminTableProps<T>) => {
     return (
         <table className={'table grow table-auto border border-collapse'}>
             <thead>
@@ -49,6 +50,7 @@ const AdminTable = <T, >({data, columns, actions}: AdminTableProps<T>) => {
                     </td>
                 </tr>
             ))}
+            {children}
             </tbody>
         </table>
     );
