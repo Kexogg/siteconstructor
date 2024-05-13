@@ -25,7 +25,7 @@ const Page = () => {
                 </AdminEditorItem>
             </AdminEditorSection>
             <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
-            <div className={'flex py-3'}>
+            <div className={'flex flex-col py-3'}>
                 <AdminTable data={data.blocks} columns={[
                     {key: "id", title: "ID", isNarrow: true},
                     {key: "type", title: "Тип"}
@@ -36,7 +36,13 @@ const Page = () => {
                     delete: (id) => {
                         console.log('Deleting block ' + id)
                     },
-                }}/>
+                }}>
+                    <tr>
+                        <td colSpan={3}>
+                            <button className={'w-full text-2xl text-neutral-500'}>+</button>
+                        </td>
+                    </tr>
+                </AdminTable>
             </div>
 
             <Button>Сохранить</Button>

@@ -7,13 +7,12 @@ import Button from "../../../../components/Button/Button";
 
 const Page = () => {
     const data = useData<Data>()
-    //TODO-API
     return (
         <AdminPageContainer title="Страницы">
             <p>В этом разделе вы можете управлять страницами сайта</p>
             <div className={'flex py-3'}>
                 <AdminTable data={data} columns={[
-                    {key: "index", title: "#"},
+                    {key: "index", title: "#", render: (value) => (value as number) + 1, isNarrow: true},
                     {key: "title", title: "Название"},
                     {key: "description", title: "Описание"},
                     {key: "published", title: "Опубликовано", isNarrow: true, render: (value) => value ? 'Да' : 'Нет'},
@@ -24,7 +23,13 @@ const Page = () => {
                     delete: (id) => {
                         console.log('Deleting page ' + id)
                     },
-                }}/>
+                }}>
+                    <tr>
+                        <td colSpan={4}>
+                            <button className={'w-full text-2xl text-neutral-500'}>+</button>
+                        </td>
+                    </tr>
+                </AdminTable>
             </div>
             <Button onClick={() => console.log('Saving pages')}>Сохранить</Button>
         </AdminPageContainer>
