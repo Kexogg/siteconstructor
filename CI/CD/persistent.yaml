@@ -20,7 +20,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "nyashdev.stk8s.66bit.ru"
+    - host: "nyashdev-siteconstructor.stk8s.66bit.ru"
       http:
         paths:
           - pathType: Prefix
