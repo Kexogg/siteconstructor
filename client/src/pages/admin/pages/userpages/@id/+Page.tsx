@@ -25,7 +25,7 @@ const Page = () => {
                 </AdminEditorItem>
             </AdminEditorSection>
             <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
-            <div className={'flex flex-col py-3'}>
+            <div className={'flex flex-col'}>
                 <AdminTable data={data.blocks} columns={[
                     {key: "id", title: "ID", isNarrow: true},
                     {key: "type", title: "Тип"}
@@ -38,7 +38,7 @@ const Page = () => {
                     },
                 }}/>
                 <div className='ms-auto mt-3 w-fit'>
-                    <Button outline>Добавить блок</Button>
+                    <span className={'mr-3'}>Количество элементов: {data.blocks.length}</span><Button outline>Добавить блок</Button>
                 </div>
             </div>
             <div className={'flex gap-3'}>

@@ -25,7 +25,8 @@ const Page = () => {
                     },
                 }}/>
                 <div className='ms-auto mt-3 w-fit'>
-                    <Button outline>Добавить блок</Button>
+                    <span className={'mr-3'}>Количество элементов: {data.length}</span>
+                    <Button outline>Добавить страницу</Button>
                 </div>
             </div>
             <div className={'flex gap-3'}>
