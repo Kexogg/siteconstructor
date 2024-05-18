@@ -11,7 +11,7 @@ public static class ServicesStartUp
         serviceCollection.AddScoped<IUserService, UserService>();
         serviceCollection.AddScoped<ISiteService, SiteService>();
         serviceCollection.AddScoped<IPageService, PageService>();
-        
+        serviceCollection.AddScoped<IBlockService, BlockService>();
         return serviceCollection;
     }
 }

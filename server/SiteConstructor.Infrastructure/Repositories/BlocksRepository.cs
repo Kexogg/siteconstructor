@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SiteConstructor.Domain.Entities;
+using SiteConstructor.Domain.Models.Blocks;
 using SiteConstructor.Domain.Repositories;
 using SiteConstructor.Infrastructure.Persistence;
 
@@ -36,10 +37,14 @@ public class BlocksRepository(DatabaseContext context) : IBlocksRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task UpdateBlockAsync(long blockId, string jsonb)
+    public async Task UpdateBlockAsync(long blockId, AddBlockModel updatedBlock)
     {
         var block = await context.Blocks.FirstOrDefaultAsync(b=> b.Id==blockId);
-        if (block is not null) block.Jsonb = jsonb;
+        if (block is not null)
+        {
+            block.Jsonb = updatedBlock.Jsonb;
+            block.IsEnabled = updatedBlock.IsEnabled;
+        }
         await context.SaveChangesAsync();
     }
 }

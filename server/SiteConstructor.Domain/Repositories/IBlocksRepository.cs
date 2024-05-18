@@ -1,4 +1,5 @@
 ﻿using SiteConstructor.Domain.Entities;
+using SiteConstructor.Domain.Models.Blocks;
 
 namespace SiteConstructor.Domain.Repositories;
 
@@ -10,5 +11,5 @@ public interface IBlocksRepository
     
     public Task DisableBlocksAsync(long pageId, List<long> blocksId);
 
-    public Task UpdateBlockAsync(long blockId, string jsonb);
+    public Task UpdateBlockAsync(long blockId, AddBlockModel updatedBlock);
 }

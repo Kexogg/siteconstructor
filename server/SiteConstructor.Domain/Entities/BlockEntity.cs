@@ -9,7 +9,7 @@ public class BlockEntity : BaseEntity
     public long PageId { get; set; }
     public required PageEntity Page { get; set; }
     
-    public int BlockNum { get; set; }
+    public int Num { get; set; }
     
     public bool IsEnabled { get; set; }
     

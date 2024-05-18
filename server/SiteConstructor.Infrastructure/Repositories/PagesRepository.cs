@@ -8,14 +8,14 @@ namespace SiteConstructor.Infrastructure.Repositories;
 public class PagesRepository(DatabaseContext context) : IPagesRepository
 {
     private readonly DatabaseContext _context = context;
-    public async Task AddAsync(SiteEntity site, PageEntity page)
+    public async Task AddPageAsync(SiteEntity site, PageEntity page)
     {
         await _context.AddAsync(page);
         _context.Sites.Update(site);
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(long pageId)
+    public async Task DeletePageAsync(long pageId)
     {
         await _context.Pages.Where(p => p.Id == pageId).ExecuteDeleteAsync();
         await _context.SaveChangesAsync();
@@ -26,17 +26,10 @@ public class PagesRepository(DatabaseContext context) : IPagesRepository
         _context.Pages.Update(newPage);
         await _context.SaveChangesAsync();
     }
-    
 
-    public async Task SwitchPageAsync(long pageId)
+    public async Task<PageEntity?> GetPageByIdAsync(long pageId)
     {
-        var page = await _context.Pages.FirstOrDefaultAsync(p => p.Id == pageId);
-        if (page is not null) page.IsEnabled = Switch(page.IsEnabled);
-        await _context.SaveChangesAsync();
-    }
-
-    public static bool Switch(bool value)
-    {
-        return !value;
+        var page = await _context.Pages.FirstOrDefaultAsync();
+        return page;
     }
 }

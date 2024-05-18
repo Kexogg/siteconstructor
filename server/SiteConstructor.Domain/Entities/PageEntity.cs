@@ -9,7 +9,7 @@ public class PageEntity : BaseEntity
     public long SiteId { get; set; }
     public required SiteEntity Site { get; set; }
     
-    public int PageNum { get; set; }
+    public string Name { get; set; }
     
     public bool IsEnabled { get; set; }
 
