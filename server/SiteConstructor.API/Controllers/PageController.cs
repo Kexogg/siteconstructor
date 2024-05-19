@@ -7,32 +7,42 @@ namespace server.Controllers;
 
 [ApiController]
 [Authorize]
-[Route("api/site/pages")]
+[Route("api/site/[controller]")]
 public class PageController(IPageService pageService) : Controller
 {
-    private readonly IPageService _pageService = pageService;
-    
     //POST
     [HttpPost]
     public async Task<IActionResult> AddPage([FromBody]string pageName)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await _pageService.AddPageAsync(siteId, pageName);
+        return await pageService.AddPageAsync(siteId, pageName);
     }
 
-    [HttpPatch]
-    [Route("/{pageId:long}")]
+    [HttpGet("{pageId:long}")]
+    public async Task<IActionResult> GetPage(long pageId)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await pageService.GetPageByIdAsync(siteId, pageId);
+    }
+
+    [HttpPatch("{pageId:long}")]
     public async Task<IActionResult> UpdatePage([FromBody] UpdatePageModel updatedPage, long pageId)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await _pageService.UpdatePageAsync(siteId,pageId,updatedPage);
+        return await pageService.UpdatePageAsync(siteId,pageId,updatedPage);
     }
 
-    [HttpDelete]
-    [Route("/{pageId:long}")]
+    [HttpPatch]
+    public async Task<IActionResult> SwitchPages([FromBody] List<SwitchPagesModel> pagesToSwitch)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await pageService.SwitchPagesAsync(siteId, pagesToSwitch);
+    }
+
+    [HttpDelete("{pageId:long}")]
     public async Task<IActionResult> DeletePage(long pageId)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await _pageService.DeletePageAsync(siteId, pageId);
+        return await pageService.DeletePageAsync(siteId, pageId);
     }
 }

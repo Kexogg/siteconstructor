@@ -53,6 +53,10 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+});
 
 builder.Services.AddControllers();
 builder.Services.AddAuthentication();

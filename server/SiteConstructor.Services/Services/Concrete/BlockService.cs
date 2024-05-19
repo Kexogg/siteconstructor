@@ -11,7 +11,7 @@ public class BlockService(ISitesRepository sitesRepository,
 {
     public async Task<IActionResult> AddBlockAsync(long siteId, long pageId, AddBlockModel newBlock)
     {
-        var site = await sitesRepository.GetByIdAsync(siteId);
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
         if (page == null) return new NotFoundResult();
         var block = new BlockEntity
@@ -23,34 +23,40 @@ public class BlockService(ISitesRepository sitesRepository,
         };
         page.Blocks.Add(block);
         await pagesRepository.UpdatePageAsync(page);
-        return new OkResult();
+        return new OkObjectResult( new
+        {
+            block = new BlockResponseModel(block)
+        });
     }
 
     public async Task<IActionResult> GetBlockByIdAsync(long siteId, long pageId, long blockId)
     {
-        var site = await sitesRepository.GetByIdAsync(siteId);
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
         if (block == null) return new NotFoundResult();
-        return new OkObjectResult(new { block });
+        return new OkObjectResult(new { block = new BlockResponseModel(block) });
     }
 
     public async Task<IActionResult> UpdateBlockAsync(long siteId, long pageId, long blockId, AddBlockModel updatedBlock)
     {
-        var site = await sitesRepository.GetByIdAsync(siteId);
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
         if (block == null) return new NotFoundResult();
         await blocksRepository.UpdateBlockAsync(block.Id, updatedBlock);
-        
-        return new OkResult();
+
+        return new OkObjectResult(new
+        {
+            block = new BlockResponseModel(block)
+        });
     }
 
     public async Task<IActionResult> DeleteBlockAsync(long siteId, long pageId, long blockId)
     {
-        var site = await sitesRepository.GetByIdAsync(siteId);
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
@@ -61,14 +67,17 @@ public class BlockService(ISitesRepository sitesRepository,
         }
 
         page.Blocks.Remove(block);
-        await pagesRepository.UpdatePageAsync(page);
+        await sitesRepository.UpdateSiteAsync(site);
 
-        return new OkResult();
+        return new OkObjectResult(new
+        {
+            blocks = page.Blocks.Select(b=> new BlockResponseModel(b))
+        });
     }
 
     public async Task<IActionResult> SwitchBlocksAsync(long siteId, long pageId, List<SwitchBlocksModel> blocksToSwitch)
     {
-        var site = await sitesRepository.GetByIdAsync(siteId);
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
         if (page == null) return new NotFoundResult();
         foreach (var blockToSwitch in blocksToSwitch)
@@ -78,7 +87,10 @@ public class BlockService(ISitesRepository sitesRepository,
         }
 
         await pagesRepository.UpdatePageAsync(page);
-        return new OkResult();
+        return new OkObjectResult( new
+        {
+            blocks = page.Blocks.Select(b=> new BlockResponseModel(b))
+        });
     }
     
     

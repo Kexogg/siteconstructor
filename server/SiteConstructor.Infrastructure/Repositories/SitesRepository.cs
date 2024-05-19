@@ -7,28 +7,27 @@ namespace SiteConstructor.Infrastructure.Repositories;
 
 public class SitesRepository(DatabaseContext context) : ISitesRepository
 {
-    private readonly DatabaseContext _context = context;
-    public async Task AddAsync(SiteEntity site)
+    public async Task AddSiteAsync(SiteEntity site)
     {
-        await _context.Sites.AddAsync(site);
-        await _context.SaveChangesAsync();
+        await context.Sites.AddAsync(site);
+        await context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(long siteId)
+    public async Task DeleteSiteAsync(long siteId)
     {
-        await _context.Sites.Where(s => s.Id == siteId).ExecuteDeleteAsync();
-        await _context.SaveChangesAsync();
+        await context.Sites.Where(s => s.Id == siteId).ExecuteDeleteAsync();
+        await context.SaveChangesAsync();
     }
 
-    public async Task<SiteEntity?> GetByIdAsync(long siteId)
+    public async Task<SiteEntity?> GetSiteByIdAsync(long siteId)
     {
-        return await _context.Sites.Include(s=>s.Pages)
+        return await context.Sites.Include(s=>s.Pages).ThenInclude(p=>p.Blocks)
             .FirstOrDefaultAsync(s => s.Id == siteId);
     }
 
-    public async Task UpdateAsync(SiteEntity site)
+    public async Task UpdateSiteAsync(SiteEntity site)
     {
-        _context.Sites.Update(site);
-        await _context.SaveChangesAsync();
+        context.Sites.Update(site);
+        await context.SaveChangesAsync();
     }
 }
