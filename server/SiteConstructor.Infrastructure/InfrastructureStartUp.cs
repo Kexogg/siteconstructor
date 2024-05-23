@@ -12,8 +12,20 @@ public static class InfrastructureStartUp
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection serviceCollection,
         IConfiguration configuration)
     {
-        string databaseConnection =
-            "Database = site_constructor;Host = localhost;Port = 5432;Username=postgres;Password=Shary221";
+        var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+        var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
+        var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+        var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+        var dbPort = Environment.GetEnvironmentVariable("DB_PORT");
+        
+        if (string.IsNullOrEmpty(dbUser) || string.IsNullOrEmpty(dbPassword) || string.IsNullOrEmpty(dbName) ||
+            string.IsNullOrEmpty(dbHost) || string.IsNullOrEmpty(dbPort))
+        {
+            throw new Exception("Database connection string is not set");
+        }
+        
+        var databaseConnection = $"Database={dbName};Host={dbHost};Port={dbPort};Username={dbUser};Password={dbPassword}";
+
         serviceCollection.AddDbContext<DatabaseContext>(options =>
         {
             options.UseNpgsql(databaseConnection);
