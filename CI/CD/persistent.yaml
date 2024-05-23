@@ -60,7 +60,7 @@ metadata:
   namespace: nyashdev
   annotations:
     DB_USER: user
-    DB_PASSWORD: dsflg235uihn;araf5a87236gfyobiew
+    DB_PASSWORD: dsflg235uihnaraf5a87236gfyobiew
 spec:
   selector:
     app: nyashdev-siteconstructor-postgres
@@ -108,7 +108,9 @@ spec:
             - name: DB_USER
               value: user
             - name: DB_PASSWORD
-              value: dsflg235uihn;araf5a87236gfyobiew
+              value: dsflg235uihnaraf5a87236gfyobiew
+            - name: DB_NAME
+              value: site_constructor
       initContainers:
         - name: nyashdev-siteconstructor-rights-to-data
           image: busybox
