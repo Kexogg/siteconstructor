@@ -47,7 +47,7 @@ spec:
             - name: DB_USER
               value: user
             - name: DB_PASSWORD
-              value: dsflg235uihn;araf5a87236gfyobiew
+              value: dsflg235uihnaraf5a87236gfyobiew
             - name: DB_HOST
               value: host
             - name: DB_NAME
