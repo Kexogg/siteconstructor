@@ -58,9 +58,6 @@ kind: Service
 metadata:
   name: nyashdev-siteconstructor-postgres-service
   namespace: nyashdev
-  annotations:
-    DB_USER: user
-    DB_PASSWORD: dsflg235uihn;araf5a87236gfyobiew
 spec:
   selector:
     app: nyashdev-siteconstructor-postgres
