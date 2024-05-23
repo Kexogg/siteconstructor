@@ -97,16 +97,16 @@ spec:
             - name: nyashdev-siteconstructor-database-volume
               mountPath: /var/lib/postgresql/data
           env:
-            - name: DB_USER
-              value: user
-            - name: DB_PASSWORD
-              value: dsflg235uihn;araf5a87236gfyobiew
             - name: DB_NAME
               value: site_constructor
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
+            - name: DB_USER
+              value: user
+            - name: DB_PASSWORD
+              value: dsflg235uihn;araf5a87236gfyobiew
             - name: DB_HOST
-              value: localhost
+              value: host
             - name: DB_PORT
               value: "5432"
       initContainers:
