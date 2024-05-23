@@ -58,6 +58,9 @@ kind: Service
 metadata:
   name: nyashdev-siteconstructor-postgres-service
   namespace: nyashdev
+  annotations:
+    DB_USER: user
+    DB_PASSWORD: dsflg235uihn;araf5a87236gfyobiew
 spec:
   selector:
     app: nyashdev-siteconstructor-postgres
@@ -94,22 +97,16 @@ spec:
             - name: nyashdev-siteconstructor-database-volume
               mountPath: /var/lib/postgresql/data
           env:
-            - name: POSTGRES_USER
-              value: postgres
-            - name: POSTGRES_PASSWORD
-              value: Shary221
-            - name: POSTGRES_DB
+            - name: DB_USER
+              value: user
+            - name: DB_PASSWORD
+              value: dsflg235uihn;araf5a87236gfyobiew
+            - name: DB_NAME
               value: site_constructor
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
-            - name: DB_USER
-              value: postgres
-            - name: DB_PASSWORD
-              value: Shary221
             - name: DB_HOST
               value: localhost
-            - name: DB_NAME
-              value: site_constructor
             - name: DB_PORT
               value: "5432"
       initContainers:
