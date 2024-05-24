@@ -3,7 +3,7 @@ using SiteConstructor.Domain.Entities;
 
 namespace SiteConstructor.Infrastructure.Persistence;
 
-public class DatabaseContext : DbContext
+public sealed class DatabaseContext : DbContext
 {
     public DbSet<UserEntity> Users { get; set; }
     public DbSet<SiteEntity> Sites { get; set; }
@@ -13,5 +13,7 @@ public class DatabaseContext : DbContext
     public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
+        Database.Migrate();
+        Database.EnsureCreated();
     }
 }

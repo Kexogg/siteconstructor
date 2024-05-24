@@ -11,8 +11,8 @@ using SiteConstructor.Infrastructure.Persistence;
 namespace SiteConstructor.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240512062522_ReplacedPageNumWithName")]
-    partial class ReplacedPageNumWithName
+    [Migration("20240524130104_Intial")]
+    partial class Intial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,15 +32,19 @@ namespace SiteConstructor.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("BlockNum")
-                        .HasColumnType("integer");
-
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Jsonb")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Num")
+                        .HasColumnType("integer");
 
                     b.Property<long>("PageId")
                         .HasColumnType("bigint");
@@ -66,6 +70,9 @@ namespace SiteConstructor.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Num")
+                        .HasColumnType("integer");
 
                     b.Property<long>("SiteId")
                         .HasColumnType("bigint");
