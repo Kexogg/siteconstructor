@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using server.Helpers;
 using SiteConstructor.Domain.Entities;
 using SiteConstructor.Domain.Models.Users;
@@ -7,48 +8,51 @@ using SiteConstructor.Services.Services.Abstract;
 
 namespace SiteConstructor.Services.Services.Concrete;
 
-public class UserService(IUsersRepository usersRepository, IPasswordHasher passwordHasher, ISitesRepository sitesRepository) : IUserService
+public class UserService(IUsersRepository usersRepository, IPasswordHasher passwordHasher) : IUserService
 {
-    private readonly IUsersRepository _usersRepository = usersRepository;
-    
-    private readonly IPasswordHasher _passwordHasher = passwordHasher;
-
-    private readonly ISitesRepository _sitesRepository = sitesRepository;
-    public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel)
+    public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, IResponseCookies cookies)
     {
-        var userExists = await _usersRepository.IsLoginExists(registerModel.Login);
+        var userExists = await usersRepository.IsLoginExists(registerModel.Login);
         if (userExists) return new ConflictObjectResult(new {Field = nameof(registerModel.Login)});
-        var user = CreateUser(registerModel, _passwordHasher);
-        await _usersRepository.AddAsync(user);
+        var user = CreateUser(registerModel, passwordHasher);
+        await usersRepository.AddAsync(user);
         var token = TokenHelper.GetToken(user);
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true
+        };
+        cookies.Append("token", token, cookieOptions);
         return new OkObjectResult(new
         {
             user.Id,
             user.Login,
-            user.OrgName,
-            token
+            user.OrgName
         });
     }
 
-    public async Task<IActionResult> LoginAsync(UserLoginModel loginModel)
+    public async Task<IActionResult> LoginAsync(UserLoginModel loginModel, IResponseCookies cookies)
     {
-        var user = await _usersRepository.GetUserByLogin(loginModel.Login);
+        var user = await usersRepository.GetUserByLogin(loginModel.Login);
         if (user is null) return new NotFoundObjectResult(new{ Field = nameof(loginModel.Login)});
-        if (!_passwordHasher.Verify(loginModel.Password, user.Password)) 
+        if (!passwordHasher.Verify(loginModel.Password, user.Password)) 
             return new BadRequestObjectResult(new { Field = nameof(loginModel.Password)});
         var token = TokenHelper.GetToken(user);
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true
+        };
+        cookies.Append("token", token, cookieOptions);
         return new OkObjectResult(new
         {
             user.Id,
             user.Login,
-            user.OrgName,
-            token
+            user.OrgName
         });
     }
 
     public async Task<IActionResult> GetUserInfo(long userId)
     {
-        var user = await _usersRepository.GetUserById(userId);
+        var user = await usersRepository.GetUserById(userId);
         if (user is not null)
         {
             return new OkObjectResult(new
@@ -64,7 +68,7 @@ public class UserService(IUsersRepository usersRepository, IPasswordHasher passw
 
     public async Task<IActionResult> DeleteUser(long userId)
     {
-        await _usersRepository.DeleteAsync(userId);
+        await usersRepository.DeleteAsync(userId);
         return new OkResult();
     }
 

@@ -28,7 +28,7 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] UserRegisterModel newUser)
     {
-        return await _userService.RegisterAsync(newUser);
+        return await _userService.RegisterAsync(newUser, Response.Cookies);
     }
     
     // POST
@@ -40,7 +40,7 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] UserLoginModel loginUser)
     {
-        return await _userService.LoginAsync(loginUser);
+        return await _userService.LoginAsync(loginUser, Response.Cookies);
     }
     
     //GET
