@@ -94,18 +94,15 @@ spec:
             - name: nyashdev-siteconstructor-database-volume
               mountPath: /var/lib/postgresql/data
           env:
+            - name: POSTGRES_USER
+              value: site_constructor
+            - name: POSTGRES_PASSWORD
+              value: 3k3s38Ku7MPFgT5MAmbQ8TdwLJ2ZHfxZ2w3VYa7tonkCt9q6nPTYtQEiNhF3y7GTsgYZw2auhwX5UBEXLjSABMtkJX9g6E9funQnHBdREohELQYp8JYuD6cKkh2Yr4zk
+            - name: POSTGRES_DB
+              value: site_constructor
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
-            - name: DB_USER
-              value: user
-            - name: DB_PASSWORD
-              value: dsflg235uihnaraf5a87236gfyobiew
-            - name: DB_NAME
-              value: site_constructor
-            - name: DB_HOST
-              value: host
-            - name: DB_PORT
-              value: "5432"
+
       initContainers:
         - name: nyashdev-siteconstructor-rights-to-data
           image: busybox

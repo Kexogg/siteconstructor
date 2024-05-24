@@ -44,15 +44,15 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production
-            # - name: DB_USER
-            #   value: user
-            # - name: DB_PASSWORD
-            #   value: dsflg235uihnaraf5a87236gfyobiew
-            # - name: DB_HOST
-            #   value: host
-            # - name: DB_NAME
-            #   value: site_constructor
-            # - name: DB_PORT
-            #   value: "5432"
+            - name: DB_USER
+              value: site_constructor
+            - name: DB_PASSWORD
+              value: dsflg235uihnaraf5a87236gfyobiew
+            - name: DB_HOST
+              value: nyashdev-siteconstructor-postgres-service
+            - name: DB_NAME
+              value: site_constructor
+            - name: DB_PORT
+              value: "5432"
       imagePullSecrets:
         - name: nyashdev-siteconstructor-secret
