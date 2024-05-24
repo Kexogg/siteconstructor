@@ -47,7 +47,7 @@ spec:
             - name: DB_USER
               value: site_constructor
             - name: DB_PASSWORD
-              value: dsflg235uihnaraf5a87236gfyobiew
+              value: 3k3s38Ku7MPFgT5MAmbQ8TdwLJ2ZHfxZ2w3VYa7tonkCt9q6nPTYtQEiNhF3y7GTsgYZw2auhwX5UBEXLjSABMtkJX9g6E9funQnHBdREohELQYp8JYuD6cKkh2Yr4zk
             - name: DB_HOST
               value: nyashdev-siteconstructor-postgres-service
             - name: DB_NAME
