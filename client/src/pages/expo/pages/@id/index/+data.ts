@@ -24,6 +24,27 @@ export const data = async () => {
                 textSmall: "Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст "
             }
         },
+        {
+            id: "3",
+            type: "speakers",
+            name: "Спикеры",
+            blockData: {
+                speakers: [
+                    {
+                        name: "Спикер 1",
+                        photo: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
+                    },
+                    {
+                        name: "Спикер 2",
+                        photo: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
+                    },
+                    {
+                        name: "Спикер 3",
+                        photo: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
+                    }
+                ]
+            }
+        }
     ]
     const pageConfig: PageConfig = {
         blocks,

@@ -8,7 +8,7 @@ export default function LayoutDefault({children,}: Readonly<{ children: React.Re
         "--user-secondary-color": "#FFF",
         "--user-accent-color": "#ff0000",
         "--user-text-color": "#666",
-        "--user-background--color": "#666"
+        "--user-background-color": "#ffe97d"
     } as CSSProperties
     return (
         <div style={style}>
@@ -41,7 +41,7 @@ type link = {
 function Content({children}: Readonly<{ children: ReactNode }>) {
     return (
         <div id="page-container">
-            <div id="page-content" className="pb-12 min-h-screen">
+            <div id="page-content" className="min-h-screen">
                 {children}
             </div>
         </div>

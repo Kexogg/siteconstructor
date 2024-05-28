@@ -20,4 +20,15 @@ export type HeroBlockProps = BaseBlock & {
     }
 }
 
-export type Block = TextBlockProps | HeroBlockProps;
+export type SpeakersBlockProps = BaseBlock & {
+    type: 'speakers',
+    blockData: {
+        speakers: {
+            name: string;
+            position?: string;
+            photo: string;
+        }[]
+    }
+}
+
+export type Block = TextBlockProps | HeroBlockProps | SpeakersBlockProps;
