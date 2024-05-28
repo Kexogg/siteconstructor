@@ -6,7 +6,7 @@ import {Link} from "../../../../components/Link";
 
 const Page = () => {
     interface Inputs {
-        email: string,
+        login: string,
         companyName: string,
         password: string
     }
@@ -20,7 +20,7 @@ const Page = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email: data.email,
+                login: data.login,
                 orgName: data.companyName,
                 password: data.password,
             }),
@@ -39,7 +39,7 @@ const Page = () => {
         <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
             <h1 className="text-2xl font-bold text-center">ExpoBuilder</h1>
             <h2 className="text-xl text-center">Регистрация</h2>
-            <Input {...register('email')} placeholder="E-mail" required type="email"/>
+            <Input {...register('login')} placeholder="E-mail" required type="email"/>
             <Input {...register('companyName')} placeholder="Название компании" required type="text"/>
             <Input {...register('password')} placeholder="Пароль" required type="password"/>
             <Button>Зарегестрироватся</Button>

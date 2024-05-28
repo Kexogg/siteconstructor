@@ -7,6 +7,7 @@ export type TextBlockProps = BaseBlock & {
     type: 'text',
     blockData: {
         text: string
+        textSmall: string
     }
 }
 

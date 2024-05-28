@@ -6,23 +6,24 @@ export type Data = Awaited<ReturnType<typeof data>>;
 export const data = async () => {
     const blocks: Block[] = [
         {
-            id: "1",
-            type: "text",
-            name: "Текст на главной",
-            blockData: {
-                text: "Hello, world!"
-            }
-        },
-        {
             id: "2",
             type: "hero",
             name: "Основной баннер",
             blockData: {
-                header: "Hello world",
+                header: "Выставка",
                 text: "Основной баннер",
-                background: "https://via.placeholder.com/1920x1080"
+                background: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
             }
-        }
+        },
+        {
+            id: "1",
+            type: "text",
+            name: "Текст на главной",
+            blockData: {
+                text: "Большой текст",
+                textSmall: "Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст "
+            }
+        },
     ]
     const pageConfig: PageConfig = {
         blocks,
