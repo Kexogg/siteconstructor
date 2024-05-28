@@ -17,6 +17,7 @@ public class BlockService(ISitesRepository sitesRepository,
         var block = new BlockEntity
         {
             Num = page.Blocks.Count + 1,
+            Name = newBlock.Name,
             IsEnabled = newBlock.IsEnabled,
             Jsonb = newBlock.Jsonb,
             Page = page

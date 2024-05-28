@@ -24,6 +24,19 @@ public class BlockController(IBlockService blockService) : Controller
         return await blockService.GetBlockByIdAsync(siteId, pageId, blockId);
     }
 
+    [HttpPatch("{blockId:long}")]
+    public async Task<IActionResult> PatchBlock([FromBody]AddBlockModel updatedBlock, long pageId, long blockId)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await blockService.UpdateBlockAsync(siteId, pageId, blockId, updatedBlock);
+    }
+
+    [HttpPatch]
+    public async Task<IActionResult> SwitchBlocks([FromBody] List<SwitchBlocksModel> blocksToSwitch, long pageId)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await blockService.SwitchBlocksAsync(siteId, pageId, blocksToSwitch);
+    }
     [HttpDelete("{blockId:long}")]
     public async Task<IActionResult> DeleteBlock(long pageId, long blockId)
     {
