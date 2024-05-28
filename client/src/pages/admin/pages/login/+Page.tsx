@@ -13,7 +13,7 @@ const Page = () => {
     const { register, handleSubmit } = useForm<Inputs>();
 
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
-        const response = await fetch('/api/auth', {
+        const response = await fetch('/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
