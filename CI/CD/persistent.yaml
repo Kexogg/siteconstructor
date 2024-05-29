@@ -24,17 +24,17 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: nyashdev-siteconstructor-frontend-service
-                port:
-                  number: 80
-          - pathType: Prefix
             path: /api
             backend:
               service:
                 name: nyashdev-siteconstructor-backend-service
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: nyashdev-siteconstructor-frontend-service
                 port:
                   number: 80
 
