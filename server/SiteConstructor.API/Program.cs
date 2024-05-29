@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -60,22 +61,16 @@ builder.Services.Configure<RouteOptions>(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
 
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidIssuer = AuthOptions.ISSUER,
-            ValidAudience = AuthOptions.AUDIENCE,
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateIssuerSigningKey = true,
-            ValidateLifetime = true,
-            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
-        };
+        options.ExpireTimeSpan = TimeSpan.FromHours(6);
+        options.SlidingExpiration = true;
     });
+
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices();

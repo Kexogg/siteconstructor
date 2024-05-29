@@ -8,24 +8,17 @@ namespace server.Helpers;
 
 public class TokenHelper
 {
-    public static string GetToken(UserEntity user)
+    public static ClaimsIdentity GetToken(UserEntity user)
     {
         var userId = user.Id.ToString();
         var claims = new List<Claim>
         {
-            new Claim("id", userId)
+            new("id", userId)
         };
         
-        var jwt = new JwtSecurityToken(
-            issuer: AuthOptions.ISSUER,
-            audience: AuthOptions.AUDIENCE,
-            claims: claims,
-            expires: DateTime.UtcNow.Add(TimeSpan.FromHours(24)),
-            signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), 
-                SecurityAlgorithms.HmacSha256));
         
-        var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+        var claimsIdentity = new ClaimsIdentity(claims, "Cookie");
         
-        return token;
+        return claimsIdentity;
     }
 }

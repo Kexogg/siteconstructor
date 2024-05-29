@@ -11,14 +11,8 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/users")]
-public class UserController(IPasswordHasher passwordHasher,IUserService userService, IUsersRepository usersRepository) : Controller
+public class UserController(IUserService userService, IUsersRepository usersRepository) : Controller
 {
-    private readonly IPasswordHasher _passwordHasher = passwordHasher;
-
-    private readonly IUsersRepository _usersRepository = usersRepository;
-
-    private readonly IUserService _userService = userService;
-    
     // POST
     /// <summary>
     /// Create a new account and log in
@@ -28,7 +22,7 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] UserRegisterModel newUser)
     {
-        return await _userService.RegisterAsync(newUser, Response.Cookies);
+        return await userService.RegisterAsync(newUser, HttpContext);
     }
     
     // POST
@@ -40,7 +34,7 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] UserLoginModel loginUser)
     {
-        return await _userService.LoginAsync(loginUser, Response.Cookies);
+        return await userService.LoginAsync(loginUser, HttpContext);
     }
     
     //GET
@@ -49,7 +43,7 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     public async Task<IActionResult> GetUserInfo()
     {
         var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await _userService.GetUserInfo(userId);
+        return await userService.GetUserInfo(userId);
     }
 
     [HttpDelete("delete")]
@@ -57,6 +51,6 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     public async Task<IActionResult> Delete()
     {
         var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await _userService.DeleteUser(userId);
+        return await userService.DeleteUser(userId);
     }
 }
