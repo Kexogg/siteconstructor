@@ -44,6 +44,15 @@ export const data = async () => {
                     }
                 ]
             }
+        },
+        {
+            id: "4",
+            type: "iframe",
+            name: "Видео",
+            blockData: {
+                src: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+                title: "Видео"
+            }
         }
     ]
     const pageConfig: PageConfig = {

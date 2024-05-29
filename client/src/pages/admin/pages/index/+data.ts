@@ -1,10 +1,6 @@
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async () => {
-    const data = {
-        organization: "ООО 'Рога и копыта'",
-        balance: 6000,
-        expectedExpenses: 2000
-    }
-    return data;
+    const response = await fetch("https://nyashdev-siteconstructor.stk8s.66bit.ru/api/users/info");
+    return await response.json();
 }
