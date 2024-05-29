@@ -2,9 +2,10 @@ import Button from "../../../../components/Button/Button";
 import {Link} from "../../../../components/Link";
 import Input from "../../../../components/Input/Input";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {reload} from "vike/client/router";
+import {useState} from "react";
 
 const Page = () => {
+    const [error, setError] = useState<string | null>(null);
     interface Inputs {
         login: string,
         password: string
@@ -25,11 +26,9 @@ const Page = () => {
         });
 
         if (response.ok) {
-            const result = await response.json();
-            await reload();
-            console.log(result);
+            window.location.reload();
         } else {
-            console.error('Authentication failed');
+            setError('Ошибка авторизации');
         }
     };
     return (
@@ -42,6 +41,7 @@ const Page = () => {
             <p className='text-center'>Нет аккаунта? <Link href={"/admin/register"}><span
                 className="text-blue-500 underline">Регистрация</span></Link>
             </p>
+            {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
     );
 };

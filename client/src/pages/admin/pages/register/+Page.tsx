@@ -1,10 +1,13 @@
 import {SubmitHandler, useForm} from "react-hook-form";
-import {reload} from "vike/client/router";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 import {Link} from "../../../../components/Link";
+import {useState} from "react";
+import {reload} from "vike/client/router";
 
 const Page = () => {
+    const [error, setError] = useState<string | null>(null);
+
     interface Inputs {
         login: string,
         companyName: string,
@@ -27,11 +30,9 @@ const Page = () => {
         });
 
         if (response.ok) {
-            const result = await response.json();
-            await reload();
-            console.log(result);
+            window.location.reload();
         } else {
-            console.error('Registration failed');
+            setError('Ошибка регистрации');
         }
     };
 
@@ -46,6 +47,7 @@ const Page = () => {
             <p className='text-center'>Есть аккаунт? <Link href={"/admin/login"}><span
                 className="text-blue-500 underline">Войти</span></Link>
             </p>
+            {error && <p className="text-red-500 text-center">{error}</p>}
         </form>
     );
 };
