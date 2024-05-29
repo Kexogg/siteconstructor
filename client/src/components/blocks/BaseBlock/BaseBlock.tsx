@@ -2,6 +2,7 @@ import TextBlock from "../TextBlock/TextBlock";
 import HeroBlock from "../HeroBlock/HeroBlock";
 import {Block} from "../../../types/blocks";
 import SpeakersBlock from "../SpeakersBlock/SpeakersBlock";
+import IFrameBlock from "../IFrameBlock/IFrameBlock";
 
 const BaseBlock = ({block}: {block: Block }) => {
     switch (block.type) {
@@ -12,7 +13,7 @@ const BaseBlock = ({block}: {block: Block }) => {
         case "speakers":
             return <SpeakersBlock data={block}/>;
         default:
-            return <div>Block type error: {block}</div>
+            return <IFrameBlock data={block}/>
     }
 };
 

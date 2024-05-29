@@ -31,4 +31,12 @@ export type SpeakersBlockProps = BaseBlock & {
     }
 }
 
-export type Block = TextBlockProps | HeroBlockProps | SpeakersBlockProps;
+export type IFrameBlockProps = BaseBlock & {
+    type: 'iframe',
+    blockData: {
+        src: string;
+        title: string;
+    }
+}
+
+export type Block = TextBlockProps | HeroBlockProps | SpeakersBlockProps | IFrameBlockProps;
