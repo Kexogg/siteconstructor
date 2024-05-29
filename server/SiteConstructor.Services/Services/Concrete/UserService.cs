@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Helpers;
 using SiteConstructor.Domain.Entities;
@@ -12,15 +10,18 @@ namespace SiteConstructor.Services.Services.Concrete;
 
 public class UserService(IUsersRepository usersRepository, IPasswordHasher passwordHasher) : IUserService
 {
-    public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, HttpContext context)
+    public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, IResponseCookies cookies)
     {
         var userExists = await usersRepository.IsLoginExists(registerModel.Login);
         if (userExists) return new ConflictObjectResult(new {Field = nameof(registerModel.Login)});
         var user = CreateUser(registerModel, passwordHasher);
         await usersRepository.AddAsync(user);
-        var claimsIdentity = TokenHelper.GetToken(user);
-        
-        await context.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+        var token = TokenHelper.GetToken(user);
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true
+        };
+        cookies.Append("token", token, cookieOptions);
         return new OkObjectResult(new
         {
             user.Id,
@@ -29,15 +30,18 @@ public class UserService(IUsersRepository usersRepository, IPasswordHasher passw
         });
     }
 
-    public async Task<IActionResult> LoginAsync(UserLoginModel loginModel, HttpContext context)
+    public async Task<IActionResult> LoginAsync(UserLoginModel loginModel, IResponseCookies cookies)
     {
         var user = await usersRepository.GetUserByLogin(loginModel.Login);
         if (user is null) return new NotFoundObjectResult(new{ Field = nameof(loginModel.Login)});
         if (!passwordHasher.Verify(loginModel.Password, user.Password)) 
             return new BadRequestObjectResult(new { Field = nameof(loginModel.Password)});
-        var claimsIdentity = TokenHelper.GetToken(user);
-        
-        await context.SignInAsync(new ClaimsPrincipal(claimsIdentity));
+        var token = TokenHelper.GetToken(user);
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true
+        };
+        cookies.Append("token", token, cookieOptions);
         return new OkObjectResult(new
         {
             user.Id,

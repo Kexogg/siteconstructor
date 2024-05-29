@@ -7,9 +7,9 @@ namespace SiteConstructor.Services.Services.Abstract;
 
 public interface IUserService
 {
-    public Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, HttpContext context);
+    public Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, IResponseCookies response);
 
-    public Task<IActionResult> LoginAsync(UserLoginModel loginModel, HttpContext context);
+    public Task<IActionResult> LoginAsync(UserLoginModel loginModel, IResponseCookies cookies);
 
     public Task<IActionResult> GetUserInfo(long userId);
 
