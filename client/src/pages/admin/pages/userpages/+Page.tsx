@@ -2,7 +2,7 @@ import AdminPageContainer from "../../../../components/Admin/AdminPageContainer/
 import AdminTable from "../../../../components/Admin/AdminTable/AdminTable";
 import {useData} from "vike-react/useData";
 import {Data} from "./+data";
-import {navigate} from "vike/client/router";
+import {navigate, reload} from "vike/client/router";
 import Button from "../../../../components/Button/Button";
 import Dialog from "../../../../components/Dialog/Dialog";
 import Input from "../../../../components/Input/Input";
@@ -11,21 +11,30 @@ import {usePageContext} from "vike-react/usePageContext";
 
 const Page = () => {
     const data = useData<Data>()
-    console.log(data)
     const context = usePageContext();
     const [dialogOpen, setDialogOpen] = useState(false)
     const createPage = async (title: string) => {
-        console.log('Creating page')
         await fetch('/api/site/page',
             {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + context.token,
-                    "Accept":"application/json",
-                    "Content-Type":"application/json"
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
                 },
                 body: `"${title}"`
             })
+        await reload()
+    }
+    const deletePage = async (id: string) => {
+        await fetch('/api/site/page/' + id,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + context.token,
+                }
+            })
+        await reload()
     }
     return (
         <AdminPageContainer title="Страницы">
@@ -40,17 +49,13 @@ const Page = () => {
                         navigate('/admin/userpages/' + id)
                     },
                     delete: (id) => {
-                        console.log('Deleting page ' + id)
+                        deletePage(id)
                     },
                 }}/>
                 <div className='ms-auto mt-3 w-fit'>
-                    <span className={'mr-3'}>Количество элементов: {data.length}</span>
+                    <span className={'mr-3'}>Количество элементов: {data.site.pages.length}</span>
                     <Button outline onClick={() => setDialogOpen(true)}>Добавить страницу</Button>
                 </div>
-            </div>
-            <div className={'flex gap-3'}>
-                <Button>Сохранить</Button>
-                <Button outline>Удалить</Button>
             </div>
             <NewPageDialog onAdd={createPage} open={dialogOpen} onClose={() => setDialogOpen(false)}/>
         </AdminPageContainer>

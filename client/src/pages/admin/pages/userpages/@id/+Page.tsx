@@ -53,7 +53,7 @@ const Page = () => {
                         {key: "isEnabled", title: "Публиковать", render: (value) => value ? 'Да' : 'Нет'},
                     ]} actions={{
                         edit: (id) => {
-                            navigate('/admin/userpages/' + data.id + '/blocks/' + id)
+                            navigate('/admin/userpages/' + context.routeParams!.id + '/blocks/' + id)
                         },
                         delete: (id) => {
                             console.log('Deleting block ' + id)
