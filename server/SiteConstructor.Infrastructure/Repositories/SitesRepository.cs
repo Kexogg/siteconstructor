@@ -24,6 +24,17 @@ public class SitesRepository(DatabaseContext context) : ISitesRepository
         return await context.Sites.Include(s=>s.Pages).ThenInclude(p=>p.Blocks)
             .FirstOrDefaultAsync(s => s.Id == siteId);
     }
+    
+    public async Task<SiteEntity?> GetSiteByNameAsync(string siteName)
+    {
+        return await context.Sites.Include(s=>s.Pages).ThenInclude(p=>p.Blocks)
+            .FirstOrDefaultAsync(s => s.SiteName== siteName);
+    }
+    
+    public async Task<bool> IsSiteNameExists(string siteName)
+    {
+        return await context.Sites.AnyAsync(s=> s.SiteName == siteName);
+    }
 
     public async Task UpdateSiteAsync(SiteEntity site)
     {

@@ -7,6 +7,9 @@ public class SiteEntity
     [ForeignKey("User")]
     public long Id { get; set; }
     public UserEntity User { get; set; }  = null!;
-
+    
+    public string SiteName { get; set; }
+    
+    public string? Jsonb { get; set; }
     public virtual ICollection<PageEntity> Pages { get; set; } = new List<PageEntity>();
 }

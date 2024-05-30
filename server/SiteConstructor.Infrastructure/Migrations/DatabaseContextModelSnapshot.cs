@@ -86,6 +86,13 @@ namespace SiteConstructor.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Jsonb")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SiteName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Sites");

@@ -8,6 +8,8 @@ public interface IPageService
     public Task<IActionResult> AddPageAsync(long siteId, string pageName);
 
     public Task<IActionResult> GetPageByIdAsync(long siteId, long pageId);
+    
+    public Task<IActionResult> GetPageByNameAsync(string siteName, string pageName);
 
     public Task<IActionResult> UpdatePageAsync(long siteId,long id, UpdatePageModel updatedPage);
 

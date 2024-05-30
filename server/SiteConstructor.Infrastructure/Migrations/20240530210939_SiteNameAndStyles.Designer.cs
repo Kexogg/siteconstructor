@@ -11,8 +11,8 @@ using SiteConstructor.Infrastructure.Persistence;
 namespace SiteConstructor.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240524130104_Intial")]
-    partial class Intial
+    [Migration("20240530210939_SiteNameAndStyles")]
+    partial class SiteNameAndStyles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,6 +88,13 @@ namespace SiteConstructor.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Jsonb")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SiteName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

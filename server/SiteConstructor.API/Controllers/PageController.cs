@@ -24,6 +24,12 @@ public class PageController(IPageService pageService) : Controller
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
         return await pageService.GetPageByIdAsync(siteId, pageId);
     }
+    [AllowAnonymous]
+    [HttpGet("/api/site/{siteName}/page/{pageName}")]
+    public async Task<IActionResult> GetPageByClient(string siteName, string pageName)
+    {
+        return await pageService.GetPageByNameAsync(siteName, pageName);
+    }
 
     [HttpPatch("{pageId:long}")]
     public async Task<IActionResult> UpdatePage([FromBody] UpdatePageModel updatedPage, long pageId)

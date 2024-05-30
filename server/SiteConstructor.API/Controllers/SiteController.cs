@@ -15,6 +15,13 @@ public class SiteController(ISiteService siteService) : Controller
     public async Task<IActionResult> GetSite()
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await siteService.GetSiteAsync(siteId);
+        return await siteService.GetSiteByUserAsync(siteId);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("{siteName}")]
+    public async Task<IActionResult> GetSiteByClient(string siteName)
+    {
+        return await siteService.GetSiteByClientAsync(siteName);
     }
 }

@@ -6,5 +6,6 @@ public class UserRegisterModel
     
     public required string Password { get; set; }
     
+    public required string SiteName { get; set; }
     public required string OrgName { get; set; }
 }

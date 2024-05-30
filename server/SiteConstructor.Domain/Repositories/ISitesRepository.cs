@@ -10,5 +10,9 @@ public interface ISitesRepository
 
     public Task<SiteEntity?> GetSiteByIdAsync(long siteId);
 
+    public Task<SiteEntity?> GetSiteByNameAsync(string siteName);
+
+    public Task<bool> IsSiteNameExists(string siteName);
+
     public Task UpdateSiteAsync(SiteEntity site);
 }

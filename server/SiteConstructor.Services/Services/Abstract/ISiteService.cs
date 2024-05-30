@@ -4,5 +4,7 @@ namespace SiteConstructor.Services.Services.Abstract;
 
 public interface ISiteService
 {
-    public Task<IActionResult> GetSiteAsync(long siteId);
+    public Task<IActionResult> GetSiteByUserAsync(long siteId);
+
+    public Task<IActionResult> GetSiteByClientAsync(string siteName);
 }

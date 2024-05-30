@@ -11,8 +11,6 @@ public class UsersRepository(DatabaseContext context) : IUsersRepository
     public async Task AddAsync(UserEntity? user)
     {
         await _context.Users.AddAsync(user);
-        var site = new SiteEntity{ User = user };
-        await _context.Sites.AddAsync(site);
         await _context.SaveChangesAsync();
     }
 

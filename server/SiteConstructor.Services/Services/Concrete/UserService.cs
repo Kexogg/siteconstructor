@@ -8,13 +8,16 @@ using SiteConstructor.Services.Services.Abstract;
 
 namespace SiteConstructor.Services.Services.Concrete;
 
-public class UserService(IUsersRepository usersRepository, IPasswordHasher passwordHasher) : IUserService
+public class UserService(ISitesRepository sitesRepository, IUsersRepository usersRepository, IPasswordHasher passwordHasher) : IUserService
 {
     public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, IResponseCookies cookies)
     {
         var userExists = await usersRepository.IsLoginExists(registerModel.Login);
-        if (userExists) return new ConflictObjectResult(new {Field = nameof(registerModel.Login)});
+        var siteExists = await sitesRepository.IsSiteNameExists(registerModel.SiteName);
+        if (userExists || siteExists) return new ConflictResult();
         var user = CreateUser(registerModel, passwordHasher);
+        var site = new SiteEntity{ User = user, SiteName = registerModel.SiteName};
+        user.Site = site;
         await usersRepository.AddAsync(user);
         var token = TokenHelper.GetToken(user);
         var cookieOptions = new CookieOptions
@@ -26,7 +29,8 @@ public class UserService(IUsersRepository usersRepository, IPasswordHasher passw
         {
             user.Id,
             user.Login,
-            user.OrgName
+            user.OrgName,
+            site.SiteName
         });
     }
 
