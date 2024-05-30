@@ -6,10 +6,11 @@ import Button from "../../../../../components/Button/Button";
 import AdminEditorSection from "../../../../../components/Admin/AdminEditor/AdminEditorSection";
 import AdminEditorItem from "../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Input from "../../../../../components/Input/Input";
-import {navigate} from "vike/client/router";
+import {navigate, reload} from "vike/client/router";
 import Dialog from "../../../../../components/Dialog/Dialog";
 import {useState} from "react";
 import {usePageContext} from "vike-react/usePageContext";
+import {SubmitHandler, useForm} from "react-hook-form";
 
 const Page = () => {
     const data = useData<Data>()
@@ -17,7 +18,6 @@ const Page = () => {
     const addBlock = async (name: string) => {
         const isEnabled = true
         const jsonb = ""
-        console.log('Adding block ' + name)
         await fetch('/api/site/pages/' + context.routeParams!.id + '/block',
             {
                 method: 'POST',
@@ -28,24 +28,61 @@ const Page = () => {
                 },
                 body: JSON.stringify({name, isEnabled, jsonb})
             })
+        await reload()
+    }
+    const deleteBlock = async (id: string) => {
+        await fetch('/api/site/pages/' + context.routeParams!.id + '/block/' + id,
+            {
+                method: 'DELETE',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + context.token,
+                },
+            })
+        await reload()
     }
     const [dialogOpen, setDialogOpen] = useState(false)
+
+    interface FormData {
+        name: string;
+        num: number;
+        isEnabled: boolean;
+    }
+
+    const {register, handleSubmit} = useForm<FormData>();
+    const onSubmit: SubmitHandler<FormData> = async (formData) => {
+        fetch(`/api/site/page/${context.routeParams!.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + context.token,
+            },
+            body: JSON.stringify({formData}),
+        })
+        await reload()
+    }
+
     return (
         <>
             <AdminPageContainer title={`Страница "${data.page.name}"`}>
-                <pre>ID {data.id}</pre>
-                <AdminEditorSection title={'Настройки страницы'}>
-                    <AdminEditorItem label={'Название'}>
-                        <Input defaultValue={data.page.name}/>
-                    </AdminEditorItem>
-                    <AdminEditorItem label={'Порядок'}>
-                        <Input defaultValue={data.page.num}/>
-                    </AdminEditorItem>
-                    <AdminEditorItem label={'Публиковать'}>
-                        <Input type='checkbox' defaultValue={data.page.isEnabled}/>
-                    </AdminEditorItem>
-
-                </AdminEditorSection>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <AdminEditorSection title={'Настройки страницы'}>
+                        <AdminEditorItem label={'Название'}>
+                            <Input defaultValue={data.page.name} {...register('name')}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Порядок'}>
+                            <Input defaultValue={data.page.num} {...register('num')}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Публиковать'}>
+                            <Input type='checkbox' defaultChecked={data.page.isEnabled} {...register('isEnabled')}/>
+                        </AdminEditorItem>
+                    </AdminEditorSection>
+                    <div className={'flex gap-3'}>
+                        <Button type="submit">Сохранить</Button>
+                        <Button outline>Удалить</Button>
+                    </div>
+                </form>
                 <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
                 <div className={'flex flex-col'}>
                     <AdminTable data={data.page.blocks} columns={[
@@ -56,17 +93,13 @@ const Page = () => {
                             navigate('/admin/userpages/' + context.routeParams!.id + '/blocks/' + id)
                         },
                         delete: (id) => {
-                            console.log('Deleting block ' + id)
+                            deleteBlock(id)
                         },
                     }}/>
                     <div className='ms-auto mt-3 w-fit'>
                         <span className={'mr-3'}>Количество элементов: {data.page.blocks.length}</span><Button
                         onClick={() => setDialogOpen(true)} outline>Добавить блок</Button>
                     </div>
-                </div>
-                <div className={'flex gap-3'}>
-                    <Button>Сохранить</Button>
-                    <Button outline>Удалить</Button>
                 </div>
             </AdminPageContainer>
             <NewBlockDialog onAdd={addBlock} open={dialogOpen} onClose={() => setDialogOpen(false)}/>

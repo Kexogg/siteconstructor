@@ -1,51 +1,41 @@
 import AdminPageContainer from "../../../../../../../components/Admin/AdminPageContainer/AdminPageContainer";
 import {useData} from "vike-react/useData";
 import {Data} from "./+data";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import AdminEditorSection from "../../../../../../../components/Admin/AdminEditor/AdminEditorSection";
 import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
+import blockSchema from '../../../../../../../types/blockSchema.json';
+import Select from "../../../../../../../components/Select/Select";
 
 const Page = () => {
     const data = useData<Data>()
     const [block, setBlock] = useState({
         ...data.block, jsonb: data.block.jsonb.type ?
             data.block.jsonb : {
-                type: "text",
-                name: "Текст на главной",
-                blockData: {
-                    text: "Hello, world!"
-                }
+                type: "speakersBlock",
+                blockData: {}
             }
     })
-    //TODO-API
-    useEffect(() => {
-        if (!block.jsonb.type) {
-            setBlock({
-                ...block, jsonb: {
-                    id: "1",
-                    type: "text",
-                    name: "Текст на главной",
-                    blockData: {
-                        text: "Hello, world!"
-                    }
-                }
-            })
-        }
-    }, [block])
     console.log(block)
+    const blockTypes = Object.keys(blockSchema.definitions);
+
     return (
         <AdminPageContainer title={`Редактирование блока`}>
             <AdminEditorSection>
-                <AdminEditorItem label={'Название'}>
-                    <Input value={block.name} onChange={(e) => setBlock({...block, name: e.target.value})}/>
-                </AdminEditorItem>
                 <AdminEditorItem label={'ID'}>
                     <Input disabled value={block.id}/>
                 </AdminEditorItem>
+                <AdminEditorItem label={'Порядок'}>
+                    <Input value={block.num}/>
+                </AdminEditorItem>
                 <AdminEditorItem label={'Тип'}>
-                    <Input disabled value={block.type}/>
+                    <Select value={block.jsonb.type} onChange={(v) => setBlock({...block, jsonb: {...block.jsonb, type: v.target.value}})}>
+                        {blockTypes.map((type) => (
+                            <option key={type} value={type}>{type}</option>
+                        ))}
+                    </Select>
                 </AdminEditorItem>
                 {Object.entries(block.jsonb.blockData).map(([key, value]) => (
                     <AdminEditorItem label={key} key={key}>

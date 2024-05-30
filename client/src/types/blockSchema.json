@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "baseBlock": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    },
+    "textBlock": {
+      "allOf": [
+        { "$ref": "#/definitions/baseBlock" },
+        {
+          "properties": {
+            "type": { "const": "text" },
+            "blockData": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "textSmall": { "type": "string" }
+              },
+              "required": ["text", "textSmall"]
+            }
+          },
+          "required": ["type", "blockData"]
+        }
+      ]
+    },
+    "heroBlock": {
+      "allOf": [
+        { "$ref": "#/definitions/baseBlock" },
+        {
+          "properties": {
+            "type": { "const": "hero" },
+            "blockData": {
+              "type": "object",
+              "properties": {
+                "header": { "type": "string" },
+                "text": { "type": "string" },
+                "background": { "type": "string" }
+              },
+              "required": ["header", "text", "background"]
+            }
+          },
+          "required": ["type", "blockData"]
+        }
+      ]
+    },
+    "speakersBlock": {
+      "allOf": [
+        { "$ref": "#/definitions/baseBlock" },
+        {
+          "properties": {
+            "type": { "const": "speakers" },
+            "blockData": {
+              "type": "object",
+              "properties": {
+                "speakers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": { "type": "string" },
+                      "position": { "type": "string" },
+                      "photo": { "type": "string" }
+                    },
+                    "required": ["name", "photo"]
+                  }
+                }
+              },
+              "required": ["speakers"]
+            }
+          },
+          "required": ["type", "blockData"]
+        }
+      ]
+    },
+    "iFrameBlock": {
+      "allOf": [
+        { "$ref": "#/definitions/baseBlock" },
+        {
+          "properties": {
+            "type": { "const": "iframe" },
+            "blockData": {
+              "type": "object",
+              "properties": {
+                "src": { "type": "string" },
+                "title": { "type": "string" }
+              },
+              "required": ["src", "title"]
+            }
+          },
+          "required": ["type", "blockData"]
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "oneOf": [
+    { "$ref": "#/definitions/textBlock" },
+    { "$ref": "#/definitions/heroBlock" },
+    { "$ref": "#/definitions/speakersBlock" },
+    { "$ref": "#/definitions/iFrameBlock" }
+  ]
+}
