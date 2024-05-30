@@ -4,7 +4,6 @@ import BaseBlock from "../../../../../components/blocks/BaseBlock/BaseBlock";
 
 const Page = () => {
     const data = useData<Data>()
-    console.log(data)
     return (
         <main>
             {data.blocks.map(block => (

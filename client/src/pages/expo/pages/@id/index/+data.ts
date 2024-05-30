@@ -4,14 +4,16 @@ import {Block} from "../../../../../types/blocks";
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async () => {
+    const response = await fetch('https://nyashdev-siteconstructor.stk8s.66bit.ru/api/site')
+    console.log(response)
     const blocks: Block[] = [
         {
             id: "2",
             type: "hero",
             name: "Основной баннер",
             blockData: {
-                header: "Выставка",
-                text: "Основной баннер",
+                header: "Выставка ExpoBuild",
+                text: "Наша выставка очень интересная - приходите на неё",
                 background: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
             }
         },
@@ -20,8 +22,8 @@ export const data = async () => {
             type: "text",
             name: "Текст на главной",
             blockData: {
-                text: "Большой текст",
-                textSmall: "Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст Маленький текст "
+                text: "Анонс дат",
+                textSmall: "Мы анонсировали нашу выстаку - она пройдет 3 июля"
             }
         },
         {
@@ -31,16 +33,19 @@ export const data = async () => {
             blockData: {
                 speakers: [
                     {
-                        name: "Спикер 1",
-                        photo: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
+                        name: "Иванов И.",
+                        position: "Компания А",
+                        photo: "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
                     },
                     {
-                        name: "Спикер 2",
-                        photo: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
+                        name: "Алексей А.",
+                        position: "Комания Б",
+                        photo: "https://st2.depositphotos.com/4196725/6216/i/450/depositphotos_62168411-stock-photo-young-cool-black-man-celebratin.jpg"
                     },
                     {
-                        name: "Спикер 3",
-                        photo: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Plenary_chamber_of_the_Council_of_Europe%27s_Palace_of_Europe_2014_01.JPG"
+                        name: "Петров П.",
+                        position: "Компания В",
+                        photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDRq2uK8vemZWrys8JcWzTuKGyS1dh-KjBag&s"
                     }
                 ]
             }
