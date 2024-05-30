@@ -4,5 +4,9 @@ import Layout from "./layouts/AdminLayout";
 
 export default {
     Layout,
+    passToClient: [
+        'token',
+        'routeParams'
+    ],
     extends: vikeReact,
 } satisfies Config

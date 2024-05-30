@@ -7,19 +7,34 @@ import Button from "../../../../components/Button/Button";
 import Dialog from "../../../../components/Dialog/Dialog";
 import Input from "../../../../components/Input/Input";
 import {useState} from "react";
+import {usePageContext} from "vike-react/usePageContext";
 
 const Page = () => {
     const data = useData<Data>()
+    console.log(data)
+    const context = usePageContext();
     const [dialogOpen, setDialogOpen] = useState(false)
+    const createPage = async (title: string) => {
+        console.log('Creating page')
+        await fetch('/api/site/page',
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + context.token,
+                    "Accept":"application/json",
+                    "Content-Type":"application/json"
+                },
+                body: `"${title}"`
+            })
+    }
     return (
         <AdminPageContainer title="Страницы">
             <p>В этом разделе вы можете управлять страницами сайта</p>
             <div className={'flex py-3 flex-col'}>
-                <AdminTable data={data} columns={[
-                    {key: "index", title: "#", render: (value) => (value as number) + 1, isNarrow: true},
-                    {key: "title", title: "Название"},
-                    {key: "description", title: "Описание"},
-                    {key: "published", title: "Опубликовано", isNarrow: true, render: (value) => value ? 'Да' : 'Нет'},
+                <AdminTable data={data.site.pages} columns={[
+                    {key: "num", title: "#", render: (value) => (value as number) + 1, isNarrow: true},
+                    {key: "name", title: "Название"},
+                    {key: "isEnabled", title: "Опубликовано", isNarrow: true, render: (value) => value ? 'Да' : 'Нет'},
                 ]} actions={{
                     edit: (id) => {
                         navigate('/admin/userpages/' + id)
@@ -37,7 +52,7 @@ const Page = () => {
                 <Button>Сохранить</Button>
                 <Button outline>Удалить</Button>
             </div>
-            <NewPageDialog open={dialogOpen} onClose={() => setDialogOpen(false)}/>
+            <NewPageDialog onAdd={createPage} open={dialogOpen} onClose={() => setDialogOpen(false)}/>
         </AdminPageContainer>
     );
 };
@@ -45,15 +60,19 @@ const Page = () => {
 type NewPageDialogProps = {
     open: boolean;
     onClose: () => void;
+    onAdd: (title: string) => void;
 }
 
-const NewPageDialog = ({open, onClose}: NewPageDialogProps) => {
+const NewPageDialog = ({open, onClose, onAdd}: NewPageDialogProps) => {
+    const [newPageTitle, setNewPageTitle] = useState('')
     return (
         <Dialog open={open} onClose={onClose} title={'Добавить страницу'}>
             <div className={'flex flex-col gap-3'}>
-                <Input placeholder={'Название'}/>
-                <Input placeholder={'Адрес'}/>
-                <Button onClick={() => navigate('/admin/userpages/new')}>Добавить</Button>
+                <Input placeholder={'Название'} onChange={(e) => setNewPageTitle(e.target.value)}/>
+                <Button onClick={() => {
+                    onClose()
+                    onAdd(newPageTitle)
+                }}>Добавить</Button>
             </div>
         </Dialog>
     )

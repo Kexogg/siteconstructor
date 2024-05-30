@@ -1,15 +1,13 @@
-import {Block} from "../../../../../../../types/blocks";
+import {PageContextServer} from "vike/types";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
-export const data = async () => {
-    const block: Block = {
-        id: "1",
-        type: "text",
-        name: "Текст на главной",
-        blockData: {
-            text: "Hello, world!"
-        }
-    }
-    return block;
+export const data = async (pageContext: PageContextServer) => {
+    const response = await fetch('https://nyashdev-siteconstructor.stk8s.66bit.ru/api/site/pages/' + pageContext.routeParams.id + '/block/' + pageContext.routeParams.block,
+        {
+            headers: {
+                'Authorization': 'Bearer ' + pageContext.token,
+            }
+        })
+    return await response.json();
 }

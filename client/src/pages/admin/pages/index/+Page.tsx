@@ -6,12 +6,12 @@ import {useData} from "vike-react/useData";
 const Page = () => {
     //throw redirect("/admin/login")
     const data = useData<Data>()
+    console.log(data)
     return (
         <AdminPageContainer title="Главная">
-            <p>Организация: {data.organization}</p>
-            <p>Баланс: {data.balance} рублей</p>
-            <p>Ожидаемые расходы: {data.expectedExpenses} рублей</p>
-            <p>Статус сайта: <span className={'text-green-500'}>Опубликован</span></p>
+            <p>ID: {data.id}</p>
+            <p>Email: {data.login}</p>
+            <p>Организация: {data.orgName}</p>
         </AdminPageContainer>
     )
 }

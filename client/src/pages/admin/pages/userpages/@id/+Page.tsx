@@ -9,31 +9,48 @@ import Input from "../../../../../components/Input/Input";
 import {navigate} from "vike/client/router";
 import Dialog from "../../../../../components/Dialog/Dialog";
 import {useState} from "react";
-import Select from "../../../../../components/Select/Select";
+import {usePageContext} from "vike-react/usePageContext";
 
 const Page = () => {
     const data = useData<Data>()
+    const context = usePageContext();
+    const addBlock = async (name: string) => {
+        const isEnabled = true
+        const jsonb = ""
+        console.log('Adding block ' + name)
+        await fetch('/api/site/pages/' + context.routeParams!.id + '/block',
+            {
+                method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + context.token,
+                },
+                body: JSON.stringify({name, isEnabled, jsonb})
+            })
+    }
     const [dialogOpen, setDialogOpen] = useState(false)
     return (
         <>
-            <AdminPageContainer title={`Страница "${data.title}"`}>
+            <AdminPageContainer title={`Страница "${data.page.name}"`}>
                 <pre>ID {data.id}</pre>
                 <AdminEditorSection title={'Настройки страницы'}>
                     <AdminEditorItem label={'Название'}>
-                        <Input defaultValue={data.title}/>
+                        <Input defaultValue={data.page.name}/>
                     </AdminEditorItem>
-                    <AdminEditorItem label={'Описание'}>
-                        <Input defaultValue={data.description}/>
+                    <AdminEditorItem label={'Порядок'}>
+                        <Input defaultValue={data.page.num}/>
                     </AdminEditorItem>
-                    <AdminEditorItem label={'Адрес'}>
-                        <Input defaultValue={data.pageUrl}/>
+                    <AdminEditorItem label={'Публиковать'}>
+                        <Input type='checkbox' defaultValue={data.page.isEnabled}/>
                     </AdminEditorItem>
+
                 </AdminEditorSection>
                 <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
                 <div className={'flex flex-col'}>
-                    <AdminTable data={data.blocks} columns={[
+                    <AdminTable data={data.page.blocks} columns={[
                         {key: "id", title: "ID", isNarrow: true},
-                        {key: "type", title: "Тип"}
+                        {key: "isEnabled", title: "Публиковать", render: (value) => value ? 'Да' : 'Нет'},
                     ]} actions={{
                         edit: (id) => {
                             navigate('/admin/userpages/' + data.id + '/blocks/' + id)
@@ -43,7 +60,7 @@ const Page = () => {
                         },
                     }}/>
                     <div className='ms-auto mt-3 w-fit'>
-                        <span className={'mr-3'}>Количество элементов: {data.blocks.length}</span><Button
+                        <span className={'mr-3'}>Количество элементов: {data.page.blocks.length}</span><Button
                         onClick={() => setDialogOpen(true)} outline>Добавить блок</Button>
                     </div>
                 </div>
@@ -52,7 +69,7 @@ const Page = () => {
                     <Button outline>Удалить</Button>
                 </div>
             </AdminPageContainer>
-            <NewBlockDialog open={dialogOpen} onClose={() => setDialogOpen(false)}/>
+            <NewBlockDialog onAdd={addBlock} open={dialogOpen} onClose={() => setDialogOpen(false)}/>
         </>
     );
 };
@@ -60,19 +77,19 @@ const Page = () => {
 type NewBlockDialogProps = {
     open: boolean;
     onClose: () => void;
+    onAdd: (name: string) => void;
 }
 
-const NewBlockDialog = ({open, onClose}: NewBlockDialogProps) => {
+const NewBlockDialog = ({open, onClose, onAdd}: NewBlockDialogProps) => {
+    const [newBlockName, setNewBlockName] = useState('')
     return (
         <Dialog open={open} onClose={onClose} title={'Добавить блок'}>
             <div className={'flex flex-col gap-3'}>
-                <Input placeholder={'Название'}/>
-                <Select>
-                    <option>Текст</option>
-                    <option>Картинка</option>
-                    <option>Кнопка</option>
-                </Select>
-                <Button onClick={() => navigate('/admin/userpages/TODO/blocks/new')}>Добавить</Button>
+                <Input placeholder={'Название'} onChange={(e) => setNewBlockName(e.target.value)}/>
+                <Button onClick={() => {
+                    onClose()
+                    onAdd(newBlockName)
+                }}>Добавить</Button>
             </div>
         </Dialog>
     )
