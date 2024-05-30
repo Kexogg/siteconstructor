@@ -16,6 +16,7 @@ import compression from 'compression'
 import {renderPage} from 'vike/server'
 import {root} from './root.js'
 import cookieParser from 'cookie-parser'
+import {createProxyMiddleware} from "http-proxy-middleware";
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -52,6 +53,7 @@ async function vite(app: Express) {
         const sirv = (await import('sirv')).default
         app.use(sirv(`${root}/dist/client`))
     } else {
+        proxy(app)
         // We instantiate Vite's development server and integrate its middleware to our server.
         // ⚠️ We instantiate it only in development. (It isn't needed in production, and it
         // would unnecessarily bloat our production server.)
@@ -66,9 +68,15 @@ async function vite(app: Express) {
     }
 }
 
+function proxy(app: Express) {
+    app.use('/api', createProxyMiddleware({
+        target: 'https://nyashdev-siteconstructor.stk8s.66bit.ru/api',
+        changeOrigin: true,
+    }));
+}
+
 function auth(app: Express) {
     app.use(cookieParser())
-
     app.use(function (req, res, next) {
         const {token} = req.cookies
         if (!token) return next()
