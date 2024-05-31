@@ -41,7 +41,7 @@ const Page = () => {
             <p>В этом разделе вы можете управлять страницами сайта</p>
             <div className={'flex py-3 flex-col'}>
                 <AdminTable data={data.site.pages} columns={[
-                    {key: "num", title: "#", render: (value) => (value as number) + 1, isNarrow: true},
+                    {key: "num", title: "Позиция", isNarrow: true},
                     {key: "name", title: "Название"},
                     {key: "isEnabled", title: "Опубликовано", isNarrow: true, render: (value) => value ? 'Да' : 'Нет'},
                 ]} actions={{

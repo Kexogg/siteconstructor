@@ -58,7 +58,7 @@ const Page = () => {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + context.token,
             },
-            body: JSON.stringify({formData}),
+            body: JSON.stringify(formData)
         })
         await reload()
     }
