@@ -13,6 +13,8 @@ public sealed class DatabaseContext : DbContext
     public DatabaseContext(DbContextOptions<DatabaseContext> options)
         : base(options)
     {
+        //reset db
+        Database.EnsureDeleted();
         Database.Migrate();
         Database.EnsureCreated();
     }
