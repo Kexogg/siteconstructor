@@ -7,10 +7,10 @@ public class SiteResponseModelForClient
 {
         public SiteResponseModelForClient(SiteEntity site)
         {
-            Jsonb = site.Jsonb;
+            Styles = site.Styles;
             Pages = site.Pages.Where(p=>p.IsEnabled).Select(p => new PageResponseModelForSite(p));
         } 
-        public string? Jsonb { get; set; }
+        public string? Styles { get; set; }
 
         public IEnumerable<PageResponseModelForSite> Pages { get; set; }
 
