@@ -33,8 +33,7 @@ namespace SiteConstructor.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Jsonb")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("jsonb");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,6 +44,10 @@ namespace SiteConstructor.Infrastructure.Migrations
 
                     b.Property<long>("PageId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -60,6 +63,14 @@ namespace SiteConstructor.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("boolean");
@@ -91,7 +102,7 @@ namespace SiteConstructor.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Styles")
-                        .HasColumnType("text");
+                        .HasColumnType("jsonb");
 
                     b.HasKey("Id");
 

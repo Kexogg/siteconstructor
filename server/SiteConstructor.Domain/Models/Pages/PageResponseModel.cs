@@ -2,20 +2,13 @@
 
 namespace SiteConstructor.Domain.Models.Pages;
 
-public class PageResponseModel
+public class PageResponseModel(PageEntity page)
 {
-    public PageResponseModel(PageEntity page)
-    {
-        Id = page.Id;
-        Num = page.Num;
-        Name = page.Name;
-        IsEnabled = page.IsEnabled;
-    }
-    public long Id { get; set; }
-    
-    public int Num { get; set; }
-    
-    public string Name { get; set; }
-    
-    public bool IsEnabled { get; set; }
+    public long Id { get; set; } = page.Id;
+
+    public int Num { get; set; } = page.Num;
+    public string Address { get; set; } = page.Address;
+    public string Name { get; set; } = page.Name;
+    public string Description { get; set; } = page.Description;
+    public bool IsEnabled { get; set; } = page.IsEnabled;
 }

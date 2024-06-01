@@ -8,13 +8,16 @@ namespace SiteConstructor.Services.Services.Concrete;
 
 public class PageService(ISitesRepository sitesRepository, IPagesRepository pagesRepository) : IPageService
 {
-    public async Task<IActionResult> AddPageAsync(long siteId, string pageName)
+    public async Task<IActionResult> AddPageAsync(long siteId, AddPageModel newPage)
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);
+        if (site.Pages.FirstOrDefault(p => p.Address == newPage.Address) != null) return new ConflictResult();
         var page = new PageEntity
         {
             IsEnabled = false,
-            Name = pageName,
+            Address = newPage.Address,
+            Name = newPage.Name,
+            Description = newPage.Description,
             Num = site.Pages.Count+1,
             Site = site
         };
@@ -41,12 +44,12 @@ public class PageService(ISitesRepository sitesRepository, IPagesRepository page
         return new NotFoundResult();
     }
 
-    public async Task<IActionResult> GetPageByNameAsync(string siteName, string pageName)
+    public async Task<IActionResult> GetPageByAddressAsync(string siteName, string address)
     {
         var site = await sitesRepository.GetSiteByNameAsync(siteName);
         if (site == null) return new NotFoundResult();
-        var page = site.Pages.FirstOrDefault(p => p.Name == pageName);
-        if (page != null)
+        var page = site.Pages.FirstOrDefault(p => p.Address == address);
+        if (page is { IsEnabled: true })
         {
             return new OkObjectResult(new
             {
@@ -61,18 +64,21 @@ public class PageService(ISitesRepository sitesRepository, IPagesRepository page
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site.Pages.FirstOrDefault(p => p.Id == id);
-        if (page != null)
+        var pageByAddress = site.Pages.FirstOrDefault(p => p.Address == updatedPage.Address);
+        if (page == null) return new NotFoundResult();
+        if (pageByAddress != null && 
+            pageByAddress != page) 
+            return new ConflictResult();
+        page.Address = updatedPage.Address;
+        page.Name = updatedPage.Name;
+        page.Description = updatedPage.Description;
+        page.IsEnabled = updatedPage.IsEnabled;
+        await pagesRepository.UpdatePageAsync(page);
+        return new OkObjectResult(new
         {
-            page.Name = updatedPage.Name;
-            page.IsEnabled = updatedPage.IsEnabled;
-            await pagesRepository.UpdatePageAsync(page);
-            return new OkObjectResult(new
-            {
-                page = new PageResponseModel(page)
-            });
-        }
+            page = new PageResponseModel(page)
+        });
 
-        return new NotFoundResult();
     }
 
     public async Task<IActionResult> SwitchPagesAsync(long siteId, List<SwitchPagesModel> pagesToSwitch)

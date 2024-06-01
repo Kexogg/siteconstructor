@@ -10,6 +10,7 @@ public class SiteEntity
     
     public string SiteName { get; set; }
     
+    [Column(TypeName = "jsonb")]
     public string? Styles { get; set; }
     public virtual ICollection<PageEntity> Pages { get; set; } = new List<PageEntity>();
 }

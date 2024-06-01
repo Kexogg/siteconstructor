@@ -57,12 +57,14 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
     public async Task<IActionResult> GetUserInfo(long userId)
     {
         var user = await usersRepository.GetUserById(userId);
+        var site = await sitesRepository.GetSiteByIdAsync(userId);
         if (user is not null)
         {
             return new OkObjectResult(new
             {
                 user.Id,
                 user.Login,
+                site.SiteName,
                 user.OrgName
             });
         }

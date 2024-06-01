@@ -14,6 +14,8 @@ public class BlockEntity : BaseEntity
     public int Num { get; set; }
     
     public bool IsEnabled { get; set; }
+    [Column(TypeName = "jsonb")]
+    public string? Jsonb { get; set; }
     
-    public required string Jsonb { get; set; }
+    public string Type { get; set; }
 }

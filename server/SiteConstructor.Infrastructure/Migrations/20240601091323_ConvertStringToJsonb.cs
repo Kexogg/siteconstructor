@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SiteConstructor.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class SiteNameAndStyles : Migration
+    public partial class ConvertStringToJsonb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,7 +32,7 @@ namespace SiteConstructor.Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     SiteName = table.Column<string>(type: "text", nullable: false),
-                    Jsonb = table.Column<string>(type: "text", nullable: true)
+                    Styles = table.Column<string>(type: "jsonb", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,9 @@ namespace SiteConstructor.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SiteId = table.Column<long>(type: "bigint", nullable: false),
                     Num = table.Column<int>(type: "integer", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
                     IsEnabled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -77,7 +79,8 @@ namespace SiteConstructor.Infrastructure.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Num = table.Column<int>(type: "integer", nullable: false),
                     IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    Jsonb = table.Column<string>(type: "text", nullable: false)
+                    Jsonb = table.Column<string>(type: "jsonb", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -11,8 +11,8 @@ using SiteConstructor.Infrastructure.Persistence;
 namespace SiteConstructor.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240530210939_SiteNameAndStyles")]
-    partial class SiteNameAndStyles
+    [Migration("20240601091323_ConvertStringToJsonb")]
+    partial class ConvertStringToJsonb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace SiteConstructor.Infrastructure.Migrations
 
                     b.Property<string>("Jsonb")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("jsonb");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -48,6 +48,10 @@ namespace SiteConstructor.Infrastructure.Migrations
 
                     b.Property<long>("PageId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -63,6 +67,14 @@ namespace SiteConstructor.Infrastructure.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnType("boolean");
@@ -89,12 +101,12 @@ namespace SiteConstructor.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Jsonb")
-                        .HasColumnType("text");
-
                     b.Property<string>("SiteName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("Styles")
+                        .HasColumnType("jsonb");
 
                     b.HasKey("Id");
 

@@ -20,7 +20,8 @@ public class BlockService(ISitesRepository sitesRepository,
             Name = newBlock.Name,
             IsEnabled = newBlock.IsEnabled,
             Jsonb = newBlock.Jsonb,
-            Page = page
+            Page = page,
+            Type = newBlock.Type
         };
         page.Blocks.Add(block);
         await pagesRepository.UpdatePageAsync(page);

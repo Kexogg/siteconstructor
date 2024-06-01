@@ -9,6 +9,7 @@ public class PageResponseModelForClient
     {
         Num = page.Num;
         Name = page.Name;
+        Description = page.Description;
         Blocks = page.Blocks.Where(b=>b.IsEnabled).Select(b => new BlockResponseModelForPage(b));
     }
     
@@ -16,7 +17,7 @@ public class PageResponseModelForClient
     
     public string Name { get; set; }
     
-    
+    public string Description { get; set; }
     public IEnumerable<BlockResponseModelForPage> Blocks { get; set; }
 
     public class BlockResponseModelForPage(BlockEntity block)
@@ -26,5 +27,7 @@ public class PageResponseModelForClient
         public string Name { get; set; } = block.Name;
         
         public string Jsonb { get; set; } = block.Jsonb;
+
+        public string Type { get; set; } = block.Type;
     }
 }

@@ -11,4 +11,6 @@ public class BlockResponseModel(BlockEntity block)
     public bool IsEnabled { get; set; } = block.IsEnabled;
 
     public string Jsonb { get; set; } = block.Jsonb;
+
+    public string Type { get; set; } = block.Type;
 }

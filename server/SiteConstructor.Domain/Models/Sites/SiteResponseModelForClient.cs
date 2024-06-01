@@ -17,6 +17,8 @@ public class SiteResponseModelForClient
         public class PageResponseModelForSite(PageEntity page)
         {
             public int Num { get; set; } = page.Num;
+            public string Address { get; set; } = page.Address;
             public string Name { get; set; } = page.Name;
+            public string Description { get; set; } = page.Description;
         }
 }

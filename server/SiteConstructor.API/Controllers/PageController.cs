@@ -12,10 +12,10 @@ public class PageController(IPageService pageService) : Controller
 {
     //POST
     [HttpPost]
-    public async Task<IActionResult> AddPage([FromBody]string pageName)
+    public async Task<IActionResult> AddPage([FromBody]AddPageModel newPage)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await pageService.AddPageAsync(siteId, pageName);
+        return await pageService.AddPageAsync(siteId, newPage);
     }
 
     [HttpGet("{pageId:long}")]
@@ -28,14 +28,14 @@ public class PageController(IPageService pageService) : Controller
     [HttpGet("/api/site/{siteName}/page/{pageName}")]
     public async Task<IActionResult> GetPageByClient(string siteName, string pageName)
     {
-        return await pageService.GetPageByNameAsync(siteName, pageName);
+        return await pageService.GetPageByAddressAsync(siteName, pageName);
     }
 
     [HttpPatch("{pageId:long}")]
     public async Task<IActionResult> UpdatePage([FromBody] UpdatePageModel updatedPage, long pageId)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
-        return await pageService.UpdatePageAsync(siteId,pageId,updatedPage);
+        return await pageService.UpdatePageAsync(siteId,pageId, updatedPage);
     }
 
     [HttpPatch]
