@@ -6,6 +6,5 @@ import Layout from "./layouts/LayoutDefault";
 export default {
     Layout,
     Head,
-    extends: vikeReact,
-    filesystemRoutingRoot: '/'
+    extends: vikeReact
 } satisfies Config
