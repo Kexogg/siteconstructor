@@ -7,7 +7,9 @@ export default {
     Layout,
     Head,
     passToClient: [
-        'routeParams'
+        'routeParams',
+        'site',
+        'style'
     ],
     extends: vikeReact
 } satisfies Config

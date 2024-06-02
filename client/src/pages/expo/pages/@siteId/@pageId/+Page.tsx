@@ -6,10 +6,9 @@ import { Block } from "../../../../../types/blocks";
 const Page = () => {
     const data = useData<Data>()
     console.log(data)
-    return <pre>{JSON.stringify(data)}</pre>
     return (
         <main>
-            {data.blocks.map((block: Block) => (
+            {data.page.blocks.map((block: Block) => (
                 <BaseBlock key={block.num} block={block}/>
             ))}
         </main>
