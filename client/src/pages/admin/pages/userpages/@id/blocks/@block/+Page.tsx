@@ -12,11 +12,8 @@ import Select from "../../../../../../../components/Select/Select";
 const Page = () => {
     const data = useData<Data>()
     const [block, setBlock] = useState({
-        ...data.block, jsonb: data.block.jsonb.type ?
-            data.block.jsonb : {
-                type: "speakersBlock",
-                blockData: {}
-            }
+        ...data.block, jsonb: data.block.jsonb ?
+            data.block.jsonb : {}
     })
     console.log(block)
     const blockTypes = Object.keys(blockSchema.definitions);
@@ -31,13 +28,13 @@ const Page = () => {
                     <Input value={block.num}/>
                 </AdminEditorItem>
                 <AdminEditorItem label={'Тип'}>
-                    <Select value={block.jsonb.type} onChange={(v) => setBlock({...block, jsonb: {...block.jsonb, type: v.target.value}})}>
+                    <Select value={block.jsonb} onChange={(v) => setBlock({...block, jsonb: {...block.jsonb, type: v.target.value}})}>
                         {blockTypes.map((type) => (
                             <option key={type} value={type}>{type}</option>
                         ))}
                     </Select>
                 </AdminEditorItem>
-                {Object.entries(block.jsonb.blockData).map(([key, value]) => (
+                {Object.entries(block.jsonb).map(([key, value]) => (
                     <AdminEditorItem label={key} key={key}>
                         <AutoEdit value={value as string | number | boolean | object}
                                   onChange={(v) => setBlock({...block, blockData: {...block.blockData, [key]: v}})}/>

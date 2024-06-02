@@ -11,13 +11,15 @@ import Dialog from "../../../../../components/Dialog/Dialog";
 import {useState} from "react";
 import {usePageContext} from "vike-react/usePageContext";
 import {SubmitHandler, useForm} from "react-hook-form";
+import Select from "../../../../../components/Select/Select";
+import {BlockType} from "../../../../../types/blocks";
 
 const Page = () => {
     const data = useData<Data>()
     const context = usePageContext();
-    const addBlock = async (name: string) => {
+    const addBlock = async (data: INewBlockDialogProps) => {
         const isEnabled = true
-        const jsonb = ""
+        const jsonb = null
         await fetch('/api/site/pages/' + context.routeParams!.id + '/block',
             {
                 method: 'POST',
@@ -26,7 +28,7 @@ const Page = () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + context.token,
                 },
-                body: JSON.stringify({name, isEnabled, jsonb})
+                body: JSON.stringify({...data, isEnabled, jsonb})
             })
         await reload()
     }
@@ -46,6 +48,8 @@ const Page = () => {
 
     interface FormData {
         name: string;
+        address: string;
+        description: string;
         num: number;
         isEnabled: boolean;
     }
@@ -71,6 +75,12 @@ const Page = () => {
                         <AdminEditorItem label={'Название'}>
                             <Input defaultValue={data.page.name} {...register('name')}/>
                         </AdminEditorItem>
+                        <AdminEditorItem label={'Адрес'}>
+                            <Input defaultValue={data.page.address} {...register('address')}/>
+                        </AdminEditorItem>
+                        <AdminEditorItem label={'Описание'}>
+                            <Input defaultValue={data.page.description} {...register('description')}/>
+                        </AdminEditorItem>
                         <AdminEditorItem label={'Порядок'}>
                             <Input defaultValue={data.page.num} {...register('num')}/>
                         </AdminEditorItem>
@@ -87,6 +97,7 @@ const Page = () => {
                 <div className={'flex flex-col'}>
                     <AdminTable data={data.page.blocks} columns={[
                         {key: "id", title: "ID", isNarrow: true},
+                        {key: "type", title: "Тип", isNarrow: true},
                         {key: "isEnabled", title: "Публиковать", render: (value) => value ? 'Да' : 'Нет'},
                     ]} actions={{
                         edit: (id) => {
@@ -107,23 +118,40 @@ const Page = () => {
     );
 };
 
+interface INewBlockDialogProps {
+    name: string;
+    type: string;
+}
+
 type NewBlockDialogProps = {
     open: boolean;
     onClose: () => void;
-    onAdd: (name: string) => void;
+    onAdd: (data: INewBlockDialogProps) => void;
 }
 
 const NewBlockDialog = ({open, onClose, onAdd}: NewBlockDialogProps) => {
-    const [newBlockName, setNewBlockName] = useState('')
+    const { register, handleSubmit, reset } = useForm<INewBlockDialogProps>();
+
+    const onSubmit = (data: INewBlockDialogProps) => {
+        onAdd(data);
+        reset();
+        onClose();
+    }
+
     return (
         <Dialog open={open} onClose={onClose} title={'Добавить блок'}>
-            <div className={'flex flex-col gap-3'}>
-                <Input placeholder={'Название'} onChange={(e) => setNewBlockName(e.target.value)}/>
-                <Button onClick={() => {
-                    onClose()
-                    onAdd(newBlockName)
-                }}>Добавить</Button>
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
+                <Input placeholder={'Название'} {...register('name')}/>
+                <Select {...register('type')}>
+                    <option value={''}>Выберите тип блока</option>
+                    {
+                        Object.values(BlockType).map((key) => (
+                            <option key={key} value={key}>{key}</option>
+                        ))
+                    }
+                </Select>
+                <Button type="submit">Добавить</Button>
+            </form>
         </Dialog>
     )
 }

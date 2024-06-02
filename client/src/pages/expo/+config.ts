@@ -6,5 +6,8 @@ import Layout from "./layouts/LayoutDefault";
 export default {
     Layout,
     Head,
+    passToClient: [
+        'routeParams'
+    ],
     extends: vikeReact
 } satisfies Config

@@ -12,8 +12,10 @@ const BaseBlock = ({block}: {block: Block }) => {
             return <HeroBlock data={block}/>
         case "speakers":
             return <SpeakersBlock data={block}/>;
+        case "iframe":
+            return <IFrameBlock data={block}/>;
         default:
-            return <IFrameBlock data={block}/>
+            return null;
     }
 };
 

@@ -1,19 +1,26 @@
+export enum BlockType {
+    Text = 'text',
+    Hero = 'hero',
+    Speakers = 'speakers',
+    IFrame = 'iframe'
+}
+
 type BaseBlock = {
-    id: string;
+    num: string;
     name: string;
 }
 
 export type TextBlockProps = BaseBlock & {
-    type: 'text',
-    blockData: {
+    type: BlockType.Text,
+    jsonb: {
         text: string
         textSmall: string
     }
 }
 
 export type HeroBlockProps = BaseBlock & {
-    type: 'hero',
-    blockData: {
+    type: BlockType.Hero,
+    jsonb: {
         header: string;
         text: string;
         background: string;
@@ -21,8 +28,8 @@ export type HeroBlockProps = BaseBlock & {
 }
 
 export type SpeakersBlockProps = BaseBlock & {
-    type: 'speakers',
-    blockData: {
+    type: BlockType.Speakers,
+    jsonb: {
         speakers: {
             name: string;
             position?: string;
@@ -32,8 +39,8 @@ export type SpeakersBlockProps = BaseBlock & {
 }
 
 export type IFrameBlockProps = BaseBlock & {
-    type: 'iframe',
-    blockData: {
+    type: BlockType.IFrame,
+    jsonb: {
         src: string;
         title: string;
     }

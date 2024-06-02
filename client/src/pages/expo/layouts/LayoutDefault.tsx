@@ -1,8 +1,13 @@
 import "./tailwind.css";
 import {CSSProperties, ReactNode} from "react";
+import {usePageContext} from "vike-react/usePageContext";
 
 export default function LayoutDefault({children,}: Readonly<{ children: React.ReactNode; }>) {
-    //TODO: remove styles stub
+    const context = usePageContext()
+    const time = new Date().getTime()
+
+
+    console.log('Layout render!', time)
     const style = {
         "--user-primary-color": "#666",
         "--user-secondary-color": "#FFF",
@@ -12,7 +17,7 @@ export default function LayoutDefault({children,}: Readonly<{ children: React.Re
     } as CSSProperties
     return (
         <div style={style}>
-            <Header data={[{label: 'Главная', href: '#'},{label: 'О нас', href: '#'},{label: 'Контакты', href: '#'}]}/>
+            <Header data={[{label: 'Главная', href: `/expo/${context.routeParams!.siteId}`},{label: 'О нас', href: `/expo/${context.routeParams!.siteId}/about`},{label: 'Контакты', href: '#'}]}/>
             <Content>{children}</Content>
         </div>
     );

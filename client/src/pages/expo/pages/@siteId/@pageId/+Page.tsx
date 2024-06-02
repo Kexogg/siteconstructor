@@ -5,11 +5,12 @@ import { Block } from "../../../../../types/blocks";
 
 const Page = () => {
     const data = useData<Data>()
-    if (!data.blocks) return null
+    console.log(data)
+    return <pre>{JSON.stringify(data)}</pre>
     return (
         <main>
             {data.blocks.map((block: Block) => (
-                <BaseBlock key={block.id} block={block}/>
+                <BaseBlock key={block.num} block={block}/>
             ))}
         </main>
     );

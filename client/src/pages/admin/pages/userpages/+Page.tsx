@@ -8,12 +8,19 @@ import Dialog from "../../../../components/Dialog/Dialog";
 import Input from "../../../../components/Input/Input";
 import {useState} from "react";
 import {usePageContext} from "vike-react/usePageContext";
+import {useForm} from "react-hook-form";
+
+interface IPage {
+    address: string;
+    name: string;
+    description: string;
+}
 
 const Page = () => {
     const data = useData<Data>()
     const context = usePageContext();
     const [dialogOpen, setDialogOpen] = useState(false)
-    const createPage = async (title: string) => {
+    const createPage = async (data: IPage) => {
         await fetch('/api/site/page',
             {
                 method: 'POST',
@@ -22,7 +29,7 @@ const Page = () => {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
-                body: `"${title}"`
+                body: JSON.stringify(data)
             })
         await reload()
     }
@@ -43,6 +50,8 @@ const Page = () => {
                 <AdminTable data={data.site.pages} columns={[
                     {key: "num", title: "Позиция", isNarrow: true},
                     {key: "name", title: "Название"},
+                    {key: "description", title: "Описание"},
+                    {key: "address", title: "Адрес"},
                     {key: "isEnabled", title: "Опубликовано", isNarrow: true, render: (value) => value ? 'Да' : 'Нет'},
                 ]} actions={{
                     edit: (id) => {
@@ -65,20 +74,31 @@ const Page = () => {
 type NewPageDialogProps = {
     open: boolean;
     onClose: () => void;
-    onAdd: (title: string) => void;
+    onAdd: (data: IPage) => void;
 }
 
 const NewPageDialog = ({open, onClose, onAdd}: NewPageDialogProps) => {
-    const [newPageTitle, setNewPageTitle] = useState('')
+    const { register, handleSubmit, formState: { errors } } = useForm<IPage>();
+
+    const onSubmit = (data: IPage) => {
+        onAdd(data);
+        onClose();
+    }
+
     return (
         <Dialog open={open} onClose={onClose} title={'Добавить страницу'}>
-            <div className={'flex flex-col gap-3'}>
-                <Input placeholder={'Название'} onChange={(e) => setNewPageTitle(e.target.value)}/>
-                <Button onClick={() => {
-                    onClose()
-                    onAdd(newPageTitle)
-                }}>Добавить</Button>
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className={'flex flex-col gap-3'}>
+                <Input placeholder={'Адрес'} {...register('address', { required: true })} />
+                {errors.address && <span>Это поле обязательно</span>}
+
+                <Input placeholder={'Название'} {...register('name', { required: true })} />
+                {errors.name && <span>Это поле обязательно</span>}
+
+                <Input placeholder={'Описание'} {...register('description', { required: true })} />
+                {errors.description && <span>Это поле обязательно</span>}
+
+                <Button type="submit">Добавить</Button>
+            </form>
         </Dialog>
     )
 }
