@@ -1,3 +1,4 @@
+using System.Text.Json;
 using SiteConstructor.Domain.Entities;
 using SiteConstructor.Domain.Models.Pages;
 
@@ -7,10 +8,10 @@ public class SiteResponseModelForClient
 {
         public SiteResponseModelForClient(SiteEntity site)
         {
-            Styles = site.Styles;
+            Styles = site.Styles!=null ? JsonDocument.Parse(site.Styles) : null;
             Pages = site.Pages.Where(p=>p.IsEnabled).Select(p => new PageResponseModelForSite(p));
         } 
-        public string? Styles { get; set; }
+        public JsonDocument? Styles { get; set; }
 
         public IEnumerable<PageResponseModelForSite> Pages { get; set; }
 
