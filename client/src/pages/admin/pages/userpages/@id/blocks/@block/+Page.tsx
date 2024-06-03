@@ -1,7 +1,7 @@
 import AdminPageContainer from "../../../../../../../components/Admin/AdminPageContainer/AdminPageContainer";
 import {useData} from "vike-react/useData";
 import {Data} from "./+data";
-import {useState} from "react";
+import {forwardRef, useState} from "react";
 import AdminEditorSection from "../../../../../../../components/Admin/AdminEditor/AdminEditorSection";
 import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
@@ -53,17 +53,18 @@ type AutoEditProps = {
     onChange: (value: string | number | boolean | object) => void;
 }
 
-const AutoEdit = ({value, onChange}: AutoEditProps) => {
+const AutoEdit = forwardRef<HTMLInputElement, AutoEditProps>(({value, onChange}, ref) => {
     if (typeof value === 'string') {
-        return <Input type="text" value={value} onChange={(e) => onChange(e.target.value)}/>
+        return <Input type="text" ref={ref} value={value} onChange={(e) => onChange(e.target.value)}/>
     }
     if (typeof value === 'number') {
-        return <Input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))}/>
+        return <Input type="number" ref={ref} value={value} onChange={(e) => onChange(Number(e.target.value))}/>
     }
     if (typeof value === 'boolean') {
-        return <Input type="checkbox" checked={value} onChange={(e) => onChange(e.target.checked)}/>
+        return <Input type="checkbox" ref={ref} checked={value} onChange={(e) => onChange(e.target.checked)}/>
     }
     return <pre>{JSON.stringify(value)}</pre>
-}
+})
+AutoEdit.displayName = 'AutoEdit';
 
 export default Page;
