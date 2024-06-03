@@ -60,6 +60,18 @@ public class PageService(ISitesRepository sitesRepository, IPagesRepository page
         return new NotFoundResult();
     }
 
+    public async Task<IActionResult> GetDefaultPageAsync(string siteName)
+    {
+        var site = await sitesRepository.GetSiteByNameAsync(siteName);
+        if (site == null) return new NotFoundResult();
+        var page = site.Pages.Where(p => p.IsEnabled).MinBy(p=>p.Num);
+        if (page == null) return new NotFoundResult();
+        return new OkObjectResult(new
+        {
+            page = new PageResponseModelForClient(page)
+        });
+    }
+
     public async Task<IActionResult> UpdatePageAsync(long siteId, long id, UpdatePageModel updatedPage)
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);

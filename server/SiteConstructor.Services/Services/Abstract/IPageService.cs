@@ -11,6 +11,8 @@ public interface IPageService
     
     public Task<IActionResult> GetPageByAddressAsync(string siteName, string address);
 
+    public Task<IActionResult> GetDefaultPageAsync(string siteName);
+
     public Task<IActionResult> UpdatePageAsync(long siteId,long id, UpdatePageModel updatedPage);
 
     public Task<IActionResult> SwitchPagesAsync(long siteId, List<SwitchPagesModel> pagesToSwitch);

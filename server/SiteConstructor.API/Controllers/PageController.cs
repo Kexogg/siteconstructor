@@ -30,6 +30,13 @@ public class PageController(IPageService pageService) : Controller
     {
         return await pageService.GetPageByAddressAsync(siteName, pageName);
     }
+    
+    [AllowAnonymous]
+    [HttpGet("/api/site/{siteName}/page/")]
+    public async Task<IActionResult> GetDefaultPageByClient(string siteName)
+    {
+        return await pageService.GetDefaultPageAsync(siteName);
+    }
 
     [HttpPatch("{pageId:long}")]
     public async Task<IActionResult> UpdatePage([FromBody] UpdatePageModel updatedPage, long pageId)
