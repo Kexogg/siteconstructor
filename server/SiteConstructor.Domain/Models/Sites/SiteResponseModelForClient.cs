@@ -8,9 +8,13 @@ public class SiteResponseModelForClient
 {
         public SiteResponseModelForClient(SiteEntity site)
         {
+            SiteAddress = site.SiteAddress;
+            SiteName = site.SiteName;
             Styles = site.Styles!=null ? JsonDocument.Parse(site.Styles) : null;
             Pages = site.Pages.Where(p=>p.IsEnabled).Select(p => new PageResponseModelForSite(p));
         } 
+        public string SiteAddress { get; set; }
+        public string? SiteName { get; set; }
         public JsonDocument? Styles { get; set; }
 
         public IEnumerable<PageResponseModelForSite> Pages { get; set; }

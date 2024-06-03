@@ -8,7 +8,7 @@ public interface ISiteService
 {
     public Task<IActionResult> GetSiteByUserAsync(long siteId);
 
-    public Task<IActionResult> GetSiteByClientAsync(string siteName);
+    public Task<IActionResult> GetSiteByClientAsync(string siteAddress);
 
     public Task<IActionResult> PatchSiteAsync(long siteId, UpdateSiteModel updatedSite);
 }

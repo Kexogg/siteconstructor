@@ -18,9 +18,9 @@ public class SiteService(ISitesRepository sitesRepository) : ISiteService
         });
     }
 
-    public async Task<IActionResult> GetSiteByClientAsync(string siteName)
+    public async Task<IActionResult> GetSiteByClientAsync(string siteAddress)
     {
-        var site = await sitesRepository.GetSiteByNameAsync(siteName);
+        var site = await sitesRepository.GetSiteByAddressAsync(siteAddress);
         if (site == null) return new NotFoundResult();
         return new OkObjectResult(new
         {
@@ -32,8 +32,9 @@ public class SiteService(ISitesRepository sitesRepository) : ISiteService
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);
         if (site == null) return new NotFoundResult();
-        if (site.SiteName != updatedSite.SiteName && await sitesRepository.GetSiteByNameAsync(updatedSite.SiteName) != null)
+        if (site.SiteAddress != updatedSite.SiteAddress && await sitesRepository.GetSiteByAddressAsync(updatedSite.SiteAddress) != null)
             return new ConflictResult();
+        site.SiteAddress = updatedSite.SiteAddress;
         site.SiteName = updatedSite.SiteName;
         site.Styles = updatedSite.Styles;
         await sitesRepository.UpdateSiteAsync(site);

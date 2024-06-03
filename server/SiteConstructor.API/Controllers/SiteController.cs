@@ -20,10 +20,10 @@ public class SiteController(ISiteService siteService) : Controller
     }
 
     [AllowAnonymous]
-    [HttpGet("{siteName}")]
-    public async Task<IActionResult> GetSiteByClient(string siteName)
+    [HttpGet("{siteAddress}")]
+    public async Task<IActionResult> GetSiteByClient(string siteAddress)
     {
-        return await siteService.GetSiteByClientAsync(siteName);
+        return await siteService.GetSiteByClientAsync(siteAddress);
     }
 
     [HttpPatch]

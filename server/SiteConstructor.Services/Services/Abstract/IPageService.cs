@@ -9,9 +9,9 @@ public interface IPageService
 
     public Task<IActionResult> GetPageByIdAsync(long siteId, long pageId);
     
-    public Task<IActionResult> GetPageByAddressAsync(string siteName, string address);
+    public Task<IActionResult> GetPageByAddressAsync(string siteAddress, string address);
 
-    public Task<IActionResult> GetDefaultPageAsync(string siteName);
+    public Task<IActionResult> GetDefaultPageAsync(string siteAddress);
 
     public Task<IActionResult> UpdatePageAsync(long siteId,long id, UpdatePageModel updatedPage);
 

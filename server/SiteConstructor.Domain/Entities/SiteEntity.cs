@@ -8,7 +8,8 @@ public class SiteEntity
     public long Id { get; set; }
     public UserEntity User { get; set; }  = null!;
     
-    public string SiteName { get; set; }
+    public string? SiteName { get; set; }
+    public string SiteAddress { get; set; }
     
     [Column(TypeName = "jsonb")]
     public string? Styles { get; set; }

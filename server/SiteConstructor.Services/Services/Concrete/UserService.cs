@@ -13,10 +13,10 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
     public async Task<IActionResult> RegisterAsync(UserRegisterModel registerModel, IResponseCookies cookies)
     {
         var userExists = await usersRepository.IsLoginExists(registerModel.Login);
-        var siteExists = await sitesRepository.IsSiteNameExists(registerModel.SiteName);
+        var siteExists = await sitesRepository.IsSiteNameExists(registerModel.SiteAddress);
         if (userExists || siteExists) return new ConflictResult();
         var user = CreateUser(registerModel, passwordHasher);
-        var site = new SiteEntity{ User = user, SiteName = registerModel.SiteName};
+        var site = new SiteEntity{ User = user, SiteAddress = registerModel.SiteAddress, SiteName = registerModel.SiteName};
         user.Site = site;
         await usersRepository.AddAsync(user);
         var token = TokenHelper.GetToken(user);
@@ -30,7 +30,7 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
             user.Id,
             user.Login,
             user.OrgName,
-            site.SiteName
+            SiteName = site.SiteAddress
         });
     }
 
@@ -64,7 +64,7 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
             {
                 user.Id,
                 user.Login,
-                site.SiteName,
+                SiteName = site.SiteAddress,
                 user.OrgName
             });
         }

@@ -25,15 +25,15 @@ public class SitesRepository(DatabaseContext context) : ISitesRepository
             .FirstOrDefaultAsync(s => s.Id == siteId);
     }
     
-    public async Task<SiteEntity?> GetSiteByNameAsync(string siteName)
+    public async Task<SiteEntity?> GetSiteByAddressAsync(string siteAddress)
     {
         return await context.Sites.Include(s=>s.Pages).ThenInclude(p=>p.Blocks)
-            .FirstOrDefaultAsync(s => s.SiteName== siteName);
+            .FirstOrDefaultAsync(s => s.SiteAddress== siteAddress);
     }
     
-    public async Task<bool> IsSiteNameExists(string siteName)
+    public async Task<bool> IsSiteNameExists(string siteAddress)
     {
-        return await context.Sites.AnyAsync(s=> s.SiteName == siteName);
+        return await context.Sites.AnyAsync(s=> s.SiteAddress == siteAddress);
     }
 
     public async Task UpdateSiteAsync(SiteEntity site)

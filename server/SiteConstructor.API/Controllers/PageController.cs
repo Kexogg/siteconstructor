@@ -25,17 +25,17 @@ public class PageController(IPageService pageService) : Controller
         return await pageService.GetPageByIdAsync(siteId, pageId);
     }
     [AllowAnonymous]
-    [HttpGet("/api/site/{siteName}/page/{pageName}")]
-    public async Task<IActionResult> GetPageByClient(string siteName, string pageName)
+    [HttpGet("/api/site/{siteAddress}/page/{pageName}")]
+    public async Task<IActionResult> GetPageByClient(string siteAddress, string pageName)
     {
-        return await pageService.GetPageByAddressAsync(siteName, pageName);
+        return await pageService.GetPageByAddressAsync(siteAddress, pageName);
     }
     
     [AllowAnonymous]
-    [HttpGet("/api/site/{siteName}/page/")]
-    public async Task<IActionResult> GetDefaultPageByClient(string siteName)
+    [HttpGet("/api/site/{siteAddress}/page/")]
+    public async Task<IActionResult> GetDefaultPageByClient(string siteAddress)
     {
-        return await pageService.GetDefaultPageAsync(siteName);
+        return await pageService.GetDefaultPageAsync(siteAddress);
     }
 
     [HttpPatch("{pageId:long}")]

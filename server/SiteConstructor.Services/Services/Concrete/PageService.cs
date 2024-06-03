@@ -44,9 +44,9 @@ public class PageService(ISitesRepository sitesRepository, IPagesRepository page
         return new NotFoundResult();
     }
 
-    public async Task<IActionResult> GetPageByAddressAsync(string siteName, string address)
+    public async Task<IActionResult> GetPageByAddressAsync(string siteAddress, string address)
     {
-        var site = await sitesRepository.GetSiteByNameAsync(siteName);
+        var site = await sitesRepository.GetSiteByAddressAsync(siteAddress);
         if (site == null) return new NotFoundResult();
         var page = site.Pages.FirstOrDefault(p => p.Address == address);
         if (page is { IsEnabled: true })
@@ -60,9 +60,9 @@ public class PageService(ISitesRepository sitesRepository, IPagesRepository page
         return new NotFoundResult();
     }
 
-    public async Task<IActionResult> GetDefaultPageAsync(string siteName)
+    public async Task<IActionResult> GetDefaultPageAsync(string siteAddress)
     {
-        var site = await sitesRepository.GetSiteByNameAsync(siteName);
+        var site = await sitesRepository.GetSiteByAddressAsync(siteAddress);
         if (site == null) return new NotFoundResult();
         var page = site.Pages.Where(p => p.IsEnabled).MinBy(p=>p.Num);
         if (page == null) return new NotFoundResult();
