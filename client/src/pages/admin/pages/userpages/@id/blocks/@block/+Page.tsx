@@ -10,7 +10,7 @@ import Select from "../../../../../../../components/Select/Select";
 import { BlockType } from "../../../../../../../types/blocks";
 import { generateBlockStub } from "../../../../../../../helpers/generateBlockStub";
 import { usePageContext } from "vike-react/usePageContext";
-import { reload } from "vike/client/router";
+import { navigate, reload } from "vike/client/router";
 
 const Page = () => {
   const data = useData<Data>();
@@ -29,12 +29,23 @@ const Page = () => {
         },
         body: JSON.stringify({
           ...block,
-          name: block.name ?? "",
           jsonb: JSON.stringify(block.jsonb),
         }),
       },
     );
     await reload();
+  };
+  const deleteBlock = async () => {
+    await fetch(
+      "/api/site/pages/" + context.routeParams.id + "/block/" + block.id,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + context.token,
+        },
+      },
+    );
+    await navigate("/admin/userpages/" + context.routeParams.id);
   };
 
   return (
@@ -46,7 +57,7 @@ const Page = () => {
           </AdminEditorItem>
           <AdminEditorItem label={"Название"}>
             <Input
-              value={block.name ?? ""}
+              value={block.name}
               onChange={(e) => setBlock({ ...block, name: e.target.value })}
             />
           </AdminEditorItem>
@@ -96,7 +107,7 @@ const Page = () => {
         </AdminEditorSection>
         <div className={"flex gap-2"}>
           <Button>Сохранить</Button>
-          <Button>Удалить</Button>
+          <Button onClick={deleteBlock}>Удалить</Button>
         </div>
       </form>
     </AdminPageContainer>

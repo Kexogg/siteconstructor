@@ -22,9 +22,7 @@ export const data = async (pageContext: PageContextServer) => {
         ...data,
         block: {
           ...data.block,
-          jsonb:
-            JSON.parse(data.block.jsonb as unknown as string) ??
-            generateBlockStub(data.block.type).jsonb,
+          jsonb: data.block.jsonb ?? generateBlockStub(data.block.type).jsonb,
         },
       };
     });
