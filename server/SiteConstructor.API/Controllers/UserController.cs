@@ -10,7 +10,7 @@ using SiteConstructor.Services.Services.Abstract;
 namespace server.Controllers;
 
 [ApiController]
-[Route("api/users")]
+[Route("api/user")]
 public class UserController(IPasswordHasher passwordHasher,IUserService userService, IUsersRepository usersRepository) : Controller
 {
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
@@ -52,7 +52,7 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
         return await _userService.GetUserInfo(userId);
     }
 
-    [HttpDelete("delete")]
+    [HttpDelete]
     [Authorize]
     public async Task<IActionResult> Delete()
     {
