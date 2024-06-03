@@ -18,9 +18,7 @@ const Page = () => {
     const data = useData<Data>()
     const context = usePageContext();
     const addBlock = async (data: INewBlockDialogProps) => {
-        const isEnabled = true
-        const jsonb = null
-        await fetch('/api/site/pages/' + context.routeParams!.id + '/block',
+        await fetch('/api/site/pages/' + context.routeParams.id + '/block',
             {
                 method: 'POST',
                 headers: {
@@ -28,12 +26,12 @@ const Page = () => {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + context.token,
                 },
-                body: JSON.stringify({...data, isEnabled, jsonb})
+                body: JSON.stringify({...data, isEnabled: false})
             })
         await reload()
     }
     const deleteBlock = async (id: string) => {
-        await fetch('/api/site/pages/' + context.routeParams!.id + '/block/' + id,
+        await fetch('/api/site/pages/' + context.routeParams.id + '/block/' + id,
             {
                 method: 'DELETE',
                 headers: {

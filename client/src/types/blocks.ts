@@ -8,6 +8,9 @@ export enum BlockType {
 type BaseBlock = {
     num: string;
     name: string;
+    type: BlockType;
+    isEnabled?: boolean;
+    id?: string;
 }
 
 export type TextBlockProps = BaseBlock & {

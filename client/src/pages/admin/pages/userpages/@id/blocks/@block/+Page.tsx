@@ -6,18 +6,15 @@ import AdminEditorSection from "../../../../../../../components/Admin/AdminEdito
 import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
-import blockSchema from '../../../../../../../types/blockSchema.json';
 import Select from "../../../../../../../components/Select/Select";
+import {BlockType} from "../../../../../../../types/blocks";
+import {generateBlockStub} from "../../../../../../../helpers/generateBlockStub";
 
 const Page = () => {
     const data = useData<Data>()
-    const [block, setBlock] = useState({
-        ...data.block, jsonb: data.block.jsonb ?
-            data.block.jsonb : {}
-    })
+    const [block, setBlock] = useState(data.block)
     console.log(block)
-    const blockTypes = Object.keys(blockSchema.definitions);
-
+    const blockTypes = Object.values(BlockType)
     return (
         <AdminPageContainer title={`Редактирование блока`}>
             <AdminEditorSection>
@@ -28,7 +25,8 @@ const Page = () => {
                     <Input value={block.num}/>
                 </AdminEditorItem>
                 <AdminEditorItem label={'Тип'}>
-                    <Select value={block.jsonb} onChange={(v) => setBlock({...block, jsonb: {...block.jsonb, type: v.target.value}})}>
+                    <Select value={block.type} onChange={(v) =>
+                        setBlock({...block, type: v.target.value as BlockType, jsonb: generateBlockStub(v.target.value as BlockType).jsonb})}>
                         {blockTypes.map((type) => (
                             <option key={type} value={type}>{type}</option>
                         ))}
@@ -37,7 +35,7 @@ const Page = () => {
                 {Object.entries(block.jsonb).map(([key, value]) => (
                     <AdminEditorItem label={key} key={key}>
                         <AutoEdit value={value as string | number | boolean | object}
-                                  onChange={(v) => setBlock({...block, blockData: {...block.blockData, [key]: v}})}/>
+                                  onChange={(v) => setBlock({...block, jsonb: {...block.jsonb, [key]: v}})}/>
                     </AdminEditorItem>
                 ))}
             </AdminEditorSection>
