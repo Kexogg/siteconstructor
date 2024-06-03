@@ -30,7 +30,8 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
             user.Id,
             user.Login,
             user.OrgName,
-            SiteName = site.SiteAddress
+            siteName = site.SiteName,
+            siteAddress = site.SiteAddress
         });
     }
 
@@ -64,7 +65,8 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
             {
                 user.Id,
                 user.Login,
-                SiteName = site.SiteAddress,
+                siteAddress = site.SiteAddress,
+                siteName = site.SiteName,
                 user.OrgName
             });
         }
