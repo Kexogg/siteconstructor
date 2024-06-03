@@ -37,15 +37,9 @@ public class BlocksRepository(DatabaseContext context) : IBlocksRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task UpdateBlockAsync(long blockId, AddBlockModel updatedBlock)
+    public async Task UpdateBlockAsync(BlockEntity updatedBlock)
     {
-        var block = await context.Blocks.FirstOrDefaultAsync(b=> b.Id==blockId);
-        if (block is not null)
-        {
-            block.Name = updatedBlock.Name;
-            block.Jsonb = updatedBlock.Jsonb;
-            block.IsEnabled = updatedBlock.IsEnabled;
-        }
+        context.Blocks.Update(updatedBlock);
         await context.SaveChangesAsync();
     }
 }

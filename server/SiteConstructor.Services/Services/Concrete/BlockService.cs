@@ -48,7 +48,11 @@ public class BlockService(ISitesRepository sitesRepository,
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
         if (block == null) return new NotFoundResult();
-        await blocksRepository.UpdateBlockAsync(block.Id, updatedBlock);
+        block.IsEnabled = updatedBlock.IsEnabled;
+        block.Jsonb = updatedBlock.Jsonb;
+        block.Type = updatedBlock.Type;
+        block.Name = updatedBlock.Name;
+        await blocksRepository.UpdateBlockAsync(block);
 
         return new OkObjectResult(new
         {

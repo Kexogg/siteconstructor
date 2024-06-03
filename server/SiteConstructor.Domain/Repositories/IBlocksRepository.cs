@@ -11,5 +11,5 @@ public interface IBlocksRepository
     
     public Task DisableBlocksAsync(long pageId, List<long> blocksId);
 
-    public Task UpdateBlockAsync(long blockId, AddBlockModel updatedBlock);
+    public Task UpdateBlockAsync(BlockEntity updatedBlock);
 }
