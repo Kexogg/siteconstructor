@@ -25,7 +25,7 @@ const Page = () => {
           <Input disabled value={data.orgName} onChange={() => {}} />
         </AdminEditorItem>
         <AdminEditorItem label={"Название сайта"}>
-          <Input disabled value={data.siteName} onChange={() => {}} />
+          <Input disabled value={data.siteAddress} onChange={() => {}} />
         </AdminEditorItem>
       </AdminEditorSection>
       <div className={"flex gap-3"}>

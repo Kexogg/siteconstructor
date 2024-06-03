@@ -9,6 +9,7 @@ const Page = () => {
 
   interface Inputs {
     login: string;
+    siteAddress: string;
     siteName: string;
     companyName: string;
     password: string;
@@ -26,6 +27,7 @@ const Page = () => {
         login: data.login,
         orgName: data.companyName,
         password: data.password,
+        siteAddress: data.siteAddress,
         siteName: data.siteName,
       }),
     });
@@ -60,12 +62,18 @@ const Page = () => {
         type="text"
       />
       <Input
+        {...register("siteAddress")}
+        placeholder="Адрес сайта"
+        required
+        type="text"
+      />
+      <Input
         {...register("password")}
         placeholder="Пароль"
         required
         type="password"
       />
-      <Button>Зарегестрироватся</Button>
+      <Button>Зарегистрироваться</Button>
       <p className="text-center">
         Есть аккаунт?{" "}
         <Link href={"/admin/login"}>

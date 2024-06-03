@@ -18,8 +18,8 @@ export default function LayoutDefault({
 function HeaderLink(props: Readonly<{ link: link }>) {
   const context = usePageContext();
   const { urlPathname } = context;
-  const siteName = context.routeParams.siteId;
-  const fullLink = `/expo/${siteName}/${props.link.address}`;
+  const siteAddress = context.routeParams.siteId;
+  const fullLink = `/expo/${siteAddress}/${props.link.address}`;
   const isActive = urlPathname === fullLink;
   return (
     <a

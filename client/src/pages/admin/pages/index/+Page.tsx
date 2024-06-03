@@ -11,8 +11,8 @@ const Page = () => {
       <p>Организация: {data.orgName}</p>
       <p>
         Ваш сайт:{" "}
-        <a className={"underline"} href={`/expo/${data.siteName}/`}>
-          {data.siteName}
+        <a className={"underline"} href={`/expo/${data.siteAddress}/`}>
+          {data.siteAddress}
         </a>
       </p>
     </AdminPageContainer>
