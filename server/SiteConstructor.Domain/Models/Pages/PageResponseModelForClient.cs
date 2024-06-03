@@ -1,3 +1,4 @@
+using System.Text.Json;
 using SiteConstructor.Domain.Entities;
 using SiteConstructor.Domain.Models.Blocks;
 
@@ -26,7 +27,7 @@ public class PageResponseModelForClient
         
         public string Name { get; set; } = block.Name;
         
-        public string Jsonb { get; set; } = block.Jsonb;
+        public JsonDocument? Jsonb { get; set; } = block.Jsonb!=null ? JsonDocument.Parse(block.Jsonb) : null;
 
         public string Type { get; set; } = block.Type;
     }
