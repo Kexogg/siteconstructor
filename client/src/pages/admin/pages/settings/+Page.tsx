@@ -9,7 +9,7 @@ import { navigate } from "vike/client/router";
 
 const Page = () => {
   const deleteUser = async () => {
-    await fetch("/api/users/delete", {
+    await fetch("/api/user", {
       method: "DELETE",
     });
     navigate("/admin/login");
