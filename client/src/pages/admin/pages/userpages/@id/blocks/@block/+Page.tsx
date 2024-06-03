@@ -56,7 +56,7 @@ const Page = () => {
               onChange={(e) => setBlock({ ...block, num: e.target.value })}
             />
           </AdminEditorItem>
-          <AdminEditorItem label={"Пуликовать"}>
+          <AdminEditorItem label={"Публиковать"}>
             <Input
               type={"checkbox"}
               checked={block.isEnabled as boolean}
