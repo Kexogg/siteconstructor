@@ -1,17 +1,17 @@
-import {CSSProperties} from "react";
+import { CssConfig } from "../../types/types";
 
 declare global {
-    namespace Vike {
-        interface PageContext {
-            site: {
-                pages: {name: string, address: string}[]
-            }
-            style: CSSProperties
-            routeParams: {
-                siteId: string
-            }
-        }
+  namespace Vike {
+    interface PageContext {
+      site: {
+        pages: { name: string; address: string }[];
+        styles: CssConfig;
+      };
+      routeParams: {
+        siteId: string;
+      };
     }
+  }
 }
 
-export {}
+export {};

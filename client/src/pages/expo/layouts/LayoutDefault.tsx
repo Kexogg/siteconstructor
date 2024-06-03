@@ -1,20 +1,14 @@
 import "./tailwind.css";
-import { CSSProperties, ReactNode } from "react";
+import { ReactNode } from "react";
 import { usePageContext } from "vike-react/usePageContext";
+import { useInlineCustomCss } from "../../../hooks/useInlineCustomCss";
 
 export default function LayoutDefault({
   children,
 }: Readonly<{ children: ReactNode }>) {
   const context = usePageContext();
-  const style = {
-    "--user-primary-color": "#666",
-    "--user-secondary-color": "#FFF",
-    "--user-accent-color": "#ff0000",
-    "--user-text-color": "#666",
-    "--user-background-color": "#ffe97d",
-  } as CSSProperties;
   return (
-    <div style={style}>
+    <div style={useInlineCustomCss(context.site.styles)}>
       <Header data={context.site.pages} />
       <Content>{children}</Content>
     </div>
