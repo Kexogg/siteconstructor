@@ -1,19 +1,12 @@
-import {CssConfig} from "../../../../types/types";
+import { getSiteByToken } from "../../../../helpers/api";
+import { PageContextServer } from "vike/types";
+import { DEFAULT_STYLES } from "../../../../helpers/const";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
-export const data = async () => {
-    const cssConfig: CssConfig = {
-        primaryColor: "#123000",
-        secondaryColor: "#456000",
-        accentColor: "#789000",
-        backgroundColor: "#ABC000",
-        textColor: "#DEF000",
-        fontSize: "16pt",
-        fontSizeHeaders: "24pt",
-        fontFamily: "Open Sans",
-        fontFamilyHeaders: "Roboto",
-        borderRadius: "4px"
-    }
-    return cssConfig;
+export const data = async (PageContext: PageContextServer) => {
+  return (
+    (await getSiteByToken(PageContext.token).then((s) => s.styles)) ??
+    DEFAULT_STYLES
+  );
 };

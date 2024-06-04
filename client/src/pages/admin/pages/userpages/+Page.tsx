@@ -9,6 +9,7 @@ import Input from "../../../../components/Input/Input";
 import { useState } from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { useForm } from "react-hook-form";
+import { createPage, deletePage } from "../../../../helpers/api";
 
 interface IPage {
   address: string;
@@ -17,31 +18,10 @@ interface IPage {
 }
 
 const Page = () => {
-  const data = useData<Data>();
+  const data = useData<Data>().site;
   console.log(data);
   const context = usePageContext();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const createPage = async (data: IPage) => {
-    await fetch("/api/site/page", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + context.token,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    await reload();
-  };
-  const deletePage = async (id: string) => {
-    await fetch("/api/site/page/" + id, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + context.token,
-      },
-    });
-    await reload();
-  };
   return (
     <AdminPageContainer title="Страницы">
       <p>В этом разделе вы можете управлять страницами сайта</p>
@@ -64,8 +44,9 @@ const Page = () => {
             edit: (id) => {
               navigate("/admin/userpages/" + id);
             },
+            //FIXME: not reloading
             delete: (id) => {
-              deletePage(id);
+              deletePage(id, context.token).then(() => reload());
             },
           }}
         />
@@ -79,7 +60,7 @@ const Page = () => {
         </div>
       </div>
       <NewPageDialog
-        onAdd={createPage}
+        onAdd={(data) => createPage(data, context.token).then(() => reload())}
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
       />

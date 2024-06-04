@@ -11,6 +11,24 @@ export interface IPage {
   isEnabled: boolean;
 }
 
+export interface ISite {
+  site: {
+    id: number;
+    siteAddress: string;
+    siteName: string;
+    styles: CssConfig | null;
+    pages: WithId<IPage>[];
+  };
+}
+
+export interface IUserInfo {
+  id: number;
+  login: string;
+  siteAddress: string;
+  siteName: string;
+  orgName: string;
+}
+
 export interface IPageData extends IPage {
   blocks: Block[];
 }
