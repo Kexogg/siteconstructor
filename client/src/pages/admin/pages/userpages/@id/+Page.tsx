@@ -13,10 +13,10 @@ import { usePageContext } from "vike-react/usePageContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Select from "../../../../../components/Select/Select";
 import { BlockType } from "../../../../../types/blocks";
-import { generateBlockStub } from "../../../../../helpers/generateBlockStub";
 
 const Page = () => {
   const data = useData<Data>();
+  console.log(data);
   const context = usePageContext();
   const addBlock = async (data: INewBlockDialogProps) => {
     await fetch("/api/site/pages/" + context.routeParams.id + "/block", {
@@ -56,7 +56,7 @@ const Page = () => {
 
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    fetch(`/api/site/page/${context.routeParams!.id}`, {
+    fetch(`/api/site/page/${context.routeParams.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -69,31 +69,28 @@ const Page = () => {
 
   return (
     <>
-      <AdminPageContainer title={`Страница "${data.page.name}"`}>
+      <AdminPageContainer title={`Страница "${data.name}"`}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <AdminEditorSection title={"Настройки страницы"}>
             <AdminEditorItem label={"Название"}>
-              <Input defaultValue={data.page.name} {...register("name")} />
+              <Input defaultValue={data.name} {...register("name")} />
             </AdminEditorItem>
             <AdminEditorItem label={"Адрес"}>
-              <Input
-                defaultValue={data.page.address}
-                {...register("address")}
-              />
+              <Input defaultValue={data.address} {...register("address")} />
             </AdminEditorItem>
             <AdminEditorItem label={"Описание"}>
               <Input
-                defaultValue={data.page.description}
+                defaultValue={data.description}
                 {...register("description")}
               />
             </AdminEditorItem>
             <AdminEditorItem label={"Порядок"}>
-              <Input defaultValue={data.page.num} {...register("num")} />
+              <Input defaultValue={data.num} {...register("num")} />
             </AdminEditorItem>
             <AdminEditorItem label={"Публиковать"}>
               <Input
                 type="checkbox"
-                defaultChecked={data.page.isEnabled}
+                defaultChecked={data.isEnabled}
                 {...register("isEnabled")}
               />
             </AdminEditorItem>
@@ -106,7 +103,7 @@ const Page = () => {
         <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
         <div className={"flex flex-col"}>
           <AdminTable
-            data={data.page.blocks}
+            data={data.blocks}
             columns={[
               { key: "id", title: "ID", isNarrow: true },
               { key: "num", title: "Позиция", isNarrow: true },
@@ -135,7 +132,7 @@ const Page = () => {
           />
           <div className="ms-auto mt-3 w-fit">
             <span className={"mr-3"}>
-              Количество элементов: {data.page.blocks.length}
+              Количество элементов: {data.blocks.length}
             </span>
             <Button onClick={() => setDialogOpen(true)} outline>
               Добавить блок

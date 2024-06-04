@@ -7,14 +7,15 @@ import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
 import Select from "../../../../../../../components/Select/Select";
-import { BlockType } from "../../../../../../../types/blocks";
+import { Block, BlockType } from "../../../../../../../types/blocks";
 import { generateBlockStub } from "../../../../../../../helpers/generateBlockStub";
 import { usePageContext } from "vike-react/usePageContext";
 import { navigate, reload } from "vike/client/router";
 
 const Page = () => {
   const data = useData<Data>();
-  const [block, setBlock] = useState(data.block);
+  console.log(data);
+  const [block, setBlock] = useState<Block>(data);
   const blockTypes = Object.values(BlockType);
   const context = usePageContext();
   const updateBlock = async (e: FormEvent) => {
@@ -84,7 +85,7 @@ const Page = () => {
                   ...block,
                   type: v.target.value as BlockType,
                   jsonb: generateBlockStub(v.target.value as BlockType).jsonb,
-                })
+                } as Block)
               }
             >
               {blockTypes.map((type) => (
@@ -99,7 +100,10 @@ const Page = () => {
               <AutoEdit
                 value={value as string | number | boolean | object}
                 onChange={(v) =>
-                  setBlock({ ...block, jsonb: { ...block.jsonb, [key]: v } })
+                  setBlock({
+                    ...block,
+                    jsonb: { ...block.jsonb, [key]: v },
+                  } as Block)
                 }
               />
             </AdminEditorItem>

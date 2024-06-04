@@ -15,11 +15,12 @@ const Page = () => {
     navigate("/admin/login");
   };
   const data = useData<Data>();
+  console.log(data);
   return (
     <AdminPageContainer title={"Настройки"}>
       <AdminEditorSection>
-        <AdminEditorItem label={"Имя"}>
-          <Input disabled value={data.name} onChange={() => {}} />
+        <AdminEditorItem label={"Email"}>
+          <Input disabled value={data.login} onChange={() => {}} />
         </AdminEditorItem>
         <AdminEditorItem label={"Навзание организации"}>
           <Input disabled value={data.orgName} onChange={() => {}} />

@@ -19,11 +19,8 @@ export const data = async (pageContext: PageContextServer) => {
     .then((res) => res.json())
     .then((data: { block: Block }) => {
       return {
-        ...data,
-        block: {
-          ...data.block,
-          jsonb: data.block.jsonb ?? generateBlockStub(data.block.type).jsonb,
-        },
-      };
+        ...data.block,
+        jsonb: data.block.jsonb ?? generateBlockStub(data.block.type).jsonb,
+      } as Block;
     });
 };
