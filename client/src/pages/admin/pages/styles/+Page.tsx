@@ -11,11 +11,16 @@ import { CssConfig } from "../../../../types/types";
 import { useInlineCustomCss } from "../../../../hooks/useInlineCustomCss";
 import UserButton from "../../../../components/User/UserButton/UserButton";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { updateSite } from "../../../../helpers/api";
+import { usePageContext } from "vike-react/usePageContext";
+import { reload } from "vike/client/router";
 
 const Page = () => {
   const data = useData<Data>();
+  console.log(data);
+  const context = usePageContext();
   const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
-  const [cssConfig, setCssConfig] = useState(useData<Data>());
+  const [cssConfig, setCssConfig] = useState(data.styles);
 
   interface Inputs {
     primaryColor: string;
@@ -36,8 +41,13 @@ const Page = () => {
     setCssConfig((prevConfig: CssConfig) => ({ ...prevConfig, ...data }));
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (formData) => {
+    updateSite(
+      { siteName: data.siteName, styles: formData },
+      context.token,
+    ).then(() => {
+      reload();
+    });
   };
 
   return (
@@ -50,42 +60,42 @@ const Page = () => {
               <Input
                 type="color"
                 {...register("primaryColor")}
-                defaultValue={data.primaryColor}
+                defaultValue={data.styles.primaryColor}
               />
             </AdminEditorItem>
             <AdminEditorItem label={"Второстепенный"}>
               <Input
                 type="color"
                 {...register("secondaryColor")}
-                defaultValue={data.secondaryColor}
+                defaultValue={data.styles.secondaryColor}
               />
             </AdminEditorItem>
             <AdminEditorItem label={"Акцент"}>
               <Input
                 type="color"
                 {...register("accentColor")}
-                defaultValue={data.accentColor}
+                defaultValue={data.styles.accentColor}
               />
             </AdminEditorItem>
             <AdminEditorItem label={"Фон"}>
               <Input
                 type="color"
                 {...register("backgroundColor")}
-                defaultValue={data.backgroundColor}
+                defaultValue={data.styles.backgroundColor}
               />
             </AdminEditorItem>
             <AdminEditorItem label={"Текст"}>
               <Input
                 type="color"
                 {...register("textColor")}
-                defaultValue={data.textColor}
+                defaultValue={data.styles.textColor}
               />
             </AdminEditorItem>
           </AdminEditorSection>
           <AdminEditorSection title="Шрифты">
             <AdminEditorItem label="Основной">
               <Select
-                defaultValue={data.fontFamily}
+                defaultValue={data.styles.fontFamily}
                 {...register("fontFamily")}
               >
                 {availableFonts.map((font) => (
@@ -97,7 +107,7 @@ const Page = () => {
             </AdminEditorItem>
             <AdminEditorItem label="Заголовки">
               <Select
-                defaultValue={data.fontFamilyHeaders}
+                defaultValue={data.styles.fontFamilyHeaders}
                 {...register("fontFamilyHeaders")}
               >
                 {availableFonts.map((font) => (
@@ -111,14 +121,14 @@ const Page = () => {
               <Input
                 {...register("fontSize")}
                 type="number"
-                defaultValue={data.fontSize.split("pt")[0]}
+                defaultValue={data.styles.fontSize.split("pt")[0]}
               />
             </AdminEditorItem>
             <AdminEditorItem label="Размер заголовков">
               <Input
                 {...register("fontSizeHeaders")}
                 type="number"
-                defaultValue={data.fontSizeHeaders.split("pt")[0]}
+                defaultValue={data.styles.fontSizeHeaders.split("pt")[0]}
               />
             </AdminEditorItem>
           </AdminEditorSection>

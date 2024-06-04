@@ -5,8 +5,10 @@ import { DEFAULT_STYLES } from "../../../../helpers/const";
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async (PageContext: PageContextServer) => {
-  return (
-    (await getSiteByToken(PageContext.token).then((s) => s.styles)) ??
-    DEFAULT_STYLES
-  );
+  return await getSiteByToken(PageContext.token).then((r) => {
+    return {
+      siteName: r.siteName,
+      styles: r.styles ?? DEFAULT_STYLES,
+    };
+  });
 };

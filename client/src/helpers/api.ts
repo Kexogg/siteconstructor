@@ -29,6 +29,9 @@ const request = async (
       body: data ? JSON.stringify(data) : undefined,
     },
   );
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.statusText}`);
+  }
   return await response.json();
 };
 
@@ -51,10 +54,6 @@ export const deleteBlock = async (id: string, token: string) => {
     undefined,
     token,
   );
-};
-
-export const getBlocks = async (token: string) => {
-  return await request("/api/site/page", Method.GET, undefined, token);
 };
 
 export const getPages = async (token: string) => {
