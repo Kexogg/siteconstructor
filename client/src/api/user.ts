@@ -37,6 +37,6 @@ export const userLogout = async () => {
   return await request("/_auth/logout", Method.POST);
 };
 
-export const deleteUser = async () => {
-  return await request("/api/user", Method.DELETE);
+export const deleteUser = async (token: string) => {
+  return await request("/api/user", Method.DELETE, undefined, token);
 };

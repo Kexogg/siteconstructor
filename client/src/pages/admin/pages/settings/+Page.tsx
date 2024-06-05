@@ -7,10 +7,11 @@ import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 import { navigate } from "vike/client/router";
 import { deleteUser, userLogout } from "../../../../api/user";
+import { usePageContext } from "vike-react/usePageContext";
 
 const Page = () => {
   const data = useData<Data>();
-  console.log(data);
+  const context = usePageContext();
   return (
     <AdminPageContainer title={"Настройки"}>
       <AdminEditorSection>
@@ -34,7 +35,9 @@ const Page = () => {
           Выйти
         </Button>
         <Button
-          onClick={() => deleteUser().then(() => navigate("/admin/login"))}
+          onClick={() =>
+            deleteUser(context.token).then(() => navigate("/admin/login"))
+          }
         >
           Удалить аккаунт
         </Button>

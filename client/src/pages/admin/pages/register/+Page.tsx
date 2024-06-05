@@ -27,7 +27,7 @@ const Page = () => {
       data.siteAddress,
     );
 
-    if (response.ok) {
+    if (response.id) {
       window.location.reload();
     } else {
       setError("Ошибка регистрации");

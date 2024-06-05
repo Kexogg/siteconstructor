@@ -17,7 +17,7 @@ const Page = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const response = await userLogin(data.login, data.password);
 
-    if (response.ok) {
+    if (response.id) {
       window.location.reload();
     } else {
       setError("Ошибка авторизации");
