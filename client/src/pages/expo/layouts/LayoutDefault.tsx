@@ -9,7 +9,7 @@ export default function LayoutDefault({
   const context = usePageContext();
   return (
     <div style={useInlineCustomCss(context.site.styles)}>
-      <Header data={context.site.pages} />
+      <Header />
       <Content>{children}</Content>
     </div>
   );
@@ -31,12 +31,14 @@ function HeaderLink(props: Readonly<{ link: link }>) {
   );
 }
 
-function Header({ data }: Readonly<{ data: link[] }>) {
-  if (!data) return null;
+function Header() {
+  const context = usePageContext();
+  console.log(context.site);
   return (
-    <header className="text-white h-10 bg-user-secondary flex">
+    <header className="text-white h-10 bg-user-secondary flex px-2">
+      <h1 className={"text-lg m-0 my-auto block"}>{context.site.siteName}</h1>
       <div className="flex justify-between items-center px-5 h-full">
-        {data.map((link) => (
+        {context.site.pages.map((link) => (
           <HeaderLink key={link.name} link={link} />
         ))}
       </div>

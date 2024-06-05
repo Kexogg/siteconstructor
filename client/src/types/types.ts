@@ -12,13 +12,16 @@ export interface IPage {
 }
 
 export interface ISite {
-  site: {
-    id: number;
-    siteAddress: string;
-    siteName: string;
-    styles: IStyles | null;
-    pages: WithId<IPage>[];
-  };
+  id: number;
+  siteAddress: string;
+  siteName: string;
+  styles: IStyles | null;
+  pages: {
+    address: string;
+    description: string;
+    name: string;
+    num: number;
+  }[];
 }
 
 export interface IUserInfo {

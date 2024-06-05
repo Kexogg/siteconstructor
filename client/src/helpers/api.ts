@@ -100,7 +100,9 @@ export const updateSite = async (
 };
 
 export const getSite = async (siteName: string) => {
-  return (await request(`/api/site/${siteName}`, Method.GET)) as Promise<ISite>;
+  return (await request(`/api/site/${siteName}`, Method.GET)) as Promise<{
+    site: ISite;
+  }>;
 };
 
 export const getUserInfo = async (token: string) => {

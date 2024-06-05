@@ -8,7 +8,7 @@ export const onBeforeRender: OnBeforeRenderAsync = async (
   const site = await getSite(pageContext.routeParams.siteId);
   return {
     pageContext: {
-      site: { ...site.site, styles: site.site.styles ?? DEFAULT_STYLES },
+      site: site.site,
     },
   };
 };
