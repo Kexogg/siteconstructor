@@ -16,6 +16,7 @@ import { usePageContext } from "vike-react/usePageContext";
 import { reload } from "vike/client/router";
 
 const Page = () => {
+  //FIXME: hydration error
   const data = useData<Data>();
   const context = usePageContext();
   const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
