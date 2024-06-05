@@ -17,7 +17,6 @@ import { reload } from "vike/client/router";
 
 const Page = () => {
   const data = useData<Data>();
-  console.log(data);
   const context = usePageContext();
   const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
   const [cssConfig, setCssConfig] = useState(data.styles);
@@ -43,7 +42,11 @@ const Page = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
     updateSite(
-      { siteName: data.siteName, styles: formData },
+      {
+        siteName: data.siteName,
+        styles: formData,
+        siteAddress: data.siteAddress,
+      },
       context.token,
     ).then(() => {
       reload();

@@ -89,7 +89,7 @@ export const getSiteByToken = async (token: string) => {
 };
 
 export const updateSite = async (
-  data: { siteName: string; styles: CssConfig },
+  data: { siteName: string; styles: CssConfig; siteAddress: string },
   token: string,
 ) => {
   const serializedData = {
