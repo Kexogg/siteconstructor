@@ -11,9 +11,9 @@ import { IStyles } from "../../../../types/types";
 import { useInlineCustomCss } from "../../../../hooks/useInlineCustomCss";
 import UserButton from "../../../../components/User/UserButton/UserButton";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { updateSite } from "../../../../helpers/api";
 import { usePageContext } from "vike-react/usePageContext";
 import { reload } from "vike/client/router";
+import { updateSite } from "../../../../api/site";
 
 const Page = () => {
   const data = useData<Data>();

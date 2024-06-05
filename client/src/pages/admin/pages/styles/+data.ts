@@ -1,6 +1,6 @@
-import { getSiteByToken } from "../../../../helpers/api";
 import { PageContextServer } from "vike/types";
 import { DEFAULT_STYLES } from "../../../../helpers/const";
+import { getSiteByToken } from "../../../../api/site";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

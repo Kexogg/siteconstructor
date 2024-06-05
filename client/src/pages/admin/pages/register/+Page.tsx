@@ -3,6 +3,7 @@ import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 import { Link } from "../../../../components/Link";
 import { useState } from "react";
+import { userRegister } from "../../../../api/user";
 
 const Page = () => {
   const [error, setError] = useState<string | null>(null);
@@ -18,19 +19,13 @@ const Page = () => {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const response = await fetch("/api/user/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        login: data.login,
-        orgName: data.companyName,
-        password: data.password,
-        siteAddress: data.siteAddress,
-        siteName: data.siteName,
-      }),
-    });
+    const response = await userRegister(
+      data.login,
+      data.password,
+      data.companyName,
+      data.siteName,
+      data.siteAddress,
+    );
 
     if (response.ok) {
       window.location.reload();

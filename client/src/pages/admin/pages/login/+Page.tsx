@@ -3,6 +3,7 @@ import { Link } from "../../../../components/Link";
 import Input from "../../../../components/Input/Input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
+import { userLogin } from "../../../../api/user";
 
 const Page = () => {
   const [error, setError] = useState<string | null>(null);
@@ -14,16 +15,7 @@ const Page = () => {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const response = await fetch("/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        login: data.login,
-        password: data.password,
-      }),
-    });
+    const response = await userLogin(data.login, data.password);
 
     if (response.ok) {
       window.location.reload();

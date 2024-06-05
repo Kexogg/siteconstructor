@@ -13,37 +13,13 @@ import { usePageContext } from "vike-react/usePageContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Select from "../../../../../components/Select/Select";
 import { BlockType } from "../../../../../types/blocks";
+import { createBlock, deleteBlock } from "../../../../../api/block";
+import { updatePage } from "../../../../../api/page";
 
 const Page = () => {
   const data = useData<Data>();
   console.log(data);
   const context = usePageContext();
-  const addBlock = async (data: INewBlockDialogProps) => {
-    await fetch("/api/site/pages/" + context.routeParams.id + "/block", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + context.token,
-      },
-      body: JSON.stringify({
-        ...data,
-        isEnabled: false,
-      }),
-    });
-    await reload();
-  };
-  const deleteBlock = async (id: string) => {
-    await fetch("/api/site/pages/" + context.routeParams.id + "/block/" + id, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + context.token,
-      },
-    });
-    await reload();
-  };
   const [dialogOpen, setDialogOpen] = useState(false);
 
   interface FormData {
@@ -56,15 +32,7 @@ const Page = () => {
 
   const { register, handleSubmit } = useForm<FormData>();
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    fetch(`/api/site/page/${context.routeParams.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + context.token,
-      },
-      body: JSON.stringify(formData),
-    });
-    await reload();
+    await updatePage(data.id.toString(), formData, context.token).then(reload);
   };
 
   return (
@@ -126,7 +94,7 @@ const Page = () => {
                 );
               },
               delete: (id) => {
-                deleteBlock(id);
+                deleteBlock(id, data.id.toString(), context.token).then(reload);
               },
             }}
           />
@@ -141,7 +109,13 @@ const Page = () => {
         </div>
       </AdminPageContainer>
       <NewBlockDialog
-        onAdd={addBlock}
+        onAdd={(formData) =>
+          createBlock(
+            { ...formData, isEnabled: false },
+            data.id.toString(),
+            context.token,
+          ).then(reload)
+        }
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
       />

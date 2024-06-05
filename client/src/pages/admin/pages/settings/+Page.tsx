@@ -6,14 +6,9 @@ import AdminEditorItem from "../../../../components/Admin/AdminEditor/AdminEdito
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 import { navigate } from "vike/client/router";
+import { deleteUser, userLogout } from "../../../../api/user";
 
 const Page = () => {
-  const deleteUser = async () => {
-    await fetch("/api/user", {
-      method: "DELETE",
-    });
-    navigate("/admin/login");
-  };
   const data = useData<Data>();
   console.log(data);
   return (
@@ -33,12 +28,16 @@ const Page = () => {
         <Button
           outline
           onClick={() => {
-            fetch("/_auth/logout").then(() => navigate("/admin/login"));
+            userLogout().then(() => navigate("/admin/login"));
           }}
         >
           Выйти
         </Button>
-        <Button onClick={deleteUser}>Удалить аккаунт</Button>
+        <Button
+          onClick={() => deleteUser().then(() => navigate("/admin/login"))}
+        >
+          Удалить аккаунт
+        </Button>
       </div>
     </AdminPageContainer>
   );

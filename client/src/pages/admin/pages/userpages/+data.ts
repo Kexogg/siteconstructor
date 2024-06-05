@@ -1,5 +1,5 @@
 import type { PageContextServer } from "vike/types";
-import { getSiteByToken } from "../../../../helpers/api";
+import { getSiteByToken } from "../../../../api/site";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

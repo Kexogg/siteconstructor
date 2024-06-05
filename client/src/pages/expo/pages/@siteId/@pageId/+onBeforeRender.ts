@@ -1,6 +1,5 @@
 import { OnBeforeRenderAsync, PageContextServer } from "vike/types";
-import { DEFAULT_STYLES } from "../../../../../helpers/const";
-import { getSite } from "../../../../../helpers/api";
+import { getSite } from "../../../../../api/site";
 
 export const onBeforeRender: OnBeforeRenderAsync = async (
   pageContext: PageContextServer,

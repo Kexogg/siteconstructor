@@ -1,8 +1,8 @@
 import type { PageContextServer } from "vike/types";
-import { getPage } from "../../../../../helpers/api";
+import { getPageByToken } from "../../../../../api/page";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async (pageContext: PageContextServer) => {
-  return await getPage(pageContext.routeParams.id, pageContext.token);
+  return await getPageByToken(pageContext.routeParams.id, pageContext.token);
 };

@@ -11,6 +11,7 @@ import { Block, BlockType } from "../../../../../../../types/blocks";
 import { generateBlockStub } from "../../../../../../../helpers/generateBlockStub";
 import { usePageContext } from "vike-react/usePageContext";
 import { navigate, reload } from "vike/client/router";
+import { deleteBlock, updateBlock } from "../../../../../../../api/block";
 
 const Page = () => {
   const data = useData<Data>();
@@ -18,40 +19,22 @@ const Page = () => {
   const [block, setBlock] = useState<Block>(data);
   const blockTypes = Object.values(BlockType);
   const context = usePageContext();
-  const updateBlock = async (e: FormEvent) => {
+  const update = async (e: FormEvent) => {
     e.preventDefault();
-    await fetch(
-      "/api/site/pages/" + context.routeParams.id + "/block/" + block.id,
+    await updateBlock(
+      block.id,
+      context.routeParams.id,
       {
-        method: "PATCH",
-        headers: {
-          Authorization: "Bearer " + context.token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...block,
-          jsonb: JSON.stringify(block.jsonb),
-        }),
+        ...block,
+        jsonb: JSON.stringify(block.jsonb),
       },
-    );
-    await reload();
-  };
-  const deleteBlock = async () => {
-    await fetch(
-      "/api/site/pages/" + context.routeParams.id + "/block/" + block.id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + context.token,
-        },
-      },
-    );
-    await navigate("/admin/userpages/" + context.routeParams.id);
+      context.token,
+    ).then(reload);
   };
 
   return (
     <AdminPageContainer title={`Редактирование блока`}>
-      <form onSubmit={updateBlock}>
+      <form onSubmit={update}>
         <AdminEditorSection>
           <AdminEditorItem label={"ID"}>
             <Input disabled defaultValue={block.id} />
@@ -111,7 +94,15 @@ const Page = () => {
         </AdminEditorSection>
         <div className={"flex gap-2"}>
           <Button>Сохранить</Button>
-          <Button onClick={deleteBlock}>Удалить</Button>
+          <Button
+            onClick={() =>
+              deleteBlock(block.id, context.routeParams.id, context.token).then(
+                () => navigate("/admin/pages"),
+              )
+            }
+          >
+            Удалить
+          </Button>
         </div>
       </form>
     </AdminPageContainer>

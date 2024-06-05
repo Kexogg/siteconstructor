@@ -1,5 +1,5 @@
 import type { PageContextServer } from "vike/types";
-import { getUserInfo } from "../../../../helpers/api";
+import { getUserInfo } from "../../../../api/user";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 

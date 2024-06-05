@@ -9,7 +9,7 @@ import Input from "../../../../components/Input/Input";
 import { useState } from "react";
 import { usePageContext } from "vike-react/usePageContext";
 import { useForm } from "react-hook-form";
-import { createPage, deletePage } from "../../../../helpers/api";
+import { createPage, deletePage } from "../../../../api/page";
 
 interface IPage {
   address: string;
@@ -44,9 +44,8 @@ const Page = () => {
             edit: (id) => {
               navigate("/admin/userpages/" + id);
             },
-            //FIXME: not reloading
             delete: (id) => {
-              deletePage(id, context.token).then(() => reload());
+              deletePage(id, context.token).then(reload);
             },
           }}
         />
