@@ -16,7 +16,7 @@ export interface ISite {
     id: number;
     siteAddress: string;
     siteName: string;
-    styles: CssConfig | null;
+    styles: IStyles | null;
     pages: WithId<IPage>[];
   };
 }
@@ -33,7 +33,7 @@ export interface IPageData extends IPage {
   blocks: Block[];
 }
 
-export type CssConfig = {
+export interface IStyles {
   primaryColor: string;
   secondaryColor: string;
   accentColor: string;
@@ -44,7 +44,7 @@ export type CssConfig = {
   fontFamily: string;
   fontFamilyHeaders: string;
   borderRadius: string;
-};
+}
 
 export type PageConfig = {
   title: string;

@@ -7,7 +7,7 @@ import { useData } from "vike-react/useData";
 import { Data } from "./+data";
 import Button from "../../../../components/Button/Button";
 import { useState } from "react";
-import { CssConfig } from "../../../../types/types";
+import { IStyles } from "../../../../types/types";
 import { useInlineCustomCss } from "../../../../hooks/useInlineCustomCss";
 import UserButton from "../../../../components/User/UserButton/UserButton";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -16,32 +16,18 @@ import { usePageContext } from "vike-react/usePageContext";
 import { reload } from "vike/client/router";
 
 const Page = () => {
-  //FIXME: hydration error
   const data = useData<Data>();
   const context = usePageContext();
   const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
-  const [cssConfig, setCssConfig] = useState(data.styles);
+  const [styles, setStyles] = useState(data.styles);
 
-  interface Inputs {
-    primaryColor: string;
-    secondaryColor: string;
-    accentColor: string;
-    backgroundColor: string;
-    textColor: string;
-    fontSize: string;
-    fontSizeHeaders: string;
-    fontFamily: string;
-    fontFamilyHeaders: string;
-    borderRadius: string;
-  }
-
-  const { register, handleSubmit, watch } = useForm<Inputs>();
+  const { register, handleSubmit, watch } = useForm<IStyles>();
 
   watch((data) => {
-    setCssConfig((prevConfig: CssConfig) => ({ ...prevConfig, ...data }));
+    setStyles((prevConfig: IStyles) => ({ ...prevConfig, ...data }));
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (formData) => {
+  const onSubmit: SubmitHandler<IStyles> = (formData) => {
     updateSite(
       {
         siteName: data.siteName,
@@ -57,7 +43,7 @@ const Page = () => {
   return (
     <AdminPageContainer title="Оформление">
       <div className="flex justify-center flex-wrap md:flex-nowrap flex-row-reverse">
-        <PreviewComponent style={cssConfig} />
+        <PreviewComponent style={styles} />
         <form className="flex-grow" onSubmit={handleSubmit(onSubmit)}>
           <AdminEditorSection title="Цвета">
             <AdminEditorItem label={"Основной"}>
@@ -121,14 +107,14 @@ const Page = () => {
                 ))}
               </Select>
             </AdminEditorItem>
-            <AdminEditorItem label="Размер текста">
+            <AdminEditorItem label="Размер текста (pt)">
               <Input
                 {...register("fontSize")}
                 type="number"
                 defaultValue={data.styles.fontSize.split("pt")[0]}
               />
             </AdminEditorItem>
-            <AdminEditorItem label="Размер заголовков">
+            <AdminEditorItem label="Размер заголовков (pt)">
               <Input
                 {...register("fontSizeHeaders")}
                 type="number"
@@ -136,15 +122,6 @@ const Page = () => {
               />
             </AdminEditorItem>
           </AdminEditorSection>
-          {/*<AdminEditorSection title="Другие стили">
-                        <AdminEditorItem label="Размер заголовков"><Input type="number"
-                                                                          defaultValue="24"/></AdminEditorItem>
-                        <AdminEditorItem label="Размер кнопок"><Input type="number"
-                                                                      defaultValue="24"/></AdminEditorItem>
-                        <AdminEditorItem label="Скургление углов">
-                            <Input type="number" defaultValue={data.borderRadius.split("px")[0]}/>
-                        </AdminEditorItem>
-                    </AdminEditorSection>*/}
           <div className="my-3">
             <Button>Сохранить</Button>
           </div>
@@ -154,7 +131,7 @@ const Page = () => {
   );
 };
 
-const PreviewComponent = ({ style }: { style: CssConfig }) => {
+const PreviewComponent = ({ style }: { style: IStyles }) => {
   return (
     <div
       style={useInlineCustomCss(style)}

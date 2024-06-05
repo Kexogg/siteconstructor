@@ -1,8 +1,7 @@
 import { CSSProperties } from "react";
-import { CssConfig } from "../types/types";
+import { IStyles } from "../types/types";
 
-export const useInlineCustomCss = (data: CssConfig) => {
-  console.log(data);
+export const useInlineCustomCss = (data: IStyles) => {
   return {
     "--user-primary-color": data.primaryColor,
     "--user-secondary-color": data.secondaryColor,

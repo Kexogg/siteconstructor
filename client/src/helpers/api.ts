@@ -1,4 +1,4 @@
-import { CssConfig, IPageData, ISite, IUserInfo } from "../types/types";
+import { IStyles, IPageData, ISite, IUserInfo } from "../types/types";
 
 const BASE_URL = "https://nyashdev-siteconstructor.stk8s.66bit.ru";
 
@@ -89,7 +89,7 @@ export const getSiteByToken = async (token: string) => {
 };
 
 export const updateSite = async (
-  data: { siteName: string; styles: CssConfig; siteAddress: string },
+  data: { siteName: string; styles: IStyles; siteAddress: string },
   token: string,
 ) => {
   const serializedData = {

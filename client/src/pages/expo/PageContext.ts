@@ -1,11 +1,11 @@
-import { CssConfig } from "../../types/types";
+import { IStyles } from "../../types/types";
 
 declare global {
   namespace Vike {
     interface PageContext {
       site: {
         pages: { name: string; address: string }[];
-        styles: CssConfig;
+        styles: IStyles;
       };
       routeParams: {
         siteId: string;

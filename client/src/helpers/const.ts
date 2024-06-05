@@ -1,6 +1,6 @@
-import { CssConfig } from "../types/types";
+import { IStyles } from "../types/types";
 
-export const DEFAULT_STYLES: CssConfig = {
+export const DEFAULT_STYLES: IStyles = {
   primaryColor: "#666",
   secondaryColor: "#FFF",
   accentColor: "#ff0000",
