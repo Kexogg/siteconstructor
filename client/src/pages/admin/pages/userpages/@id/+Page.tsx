@@ -18,7 +18,6 @@ import { updatePage } from "../../../../../api/page";
 
 const Page = () => {
   const data = useData<Data>();
-  console.log(data);
   const context = usePageContext();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -111,7 +110,12 @@ const Page = () => {
       <NewBlockDialog
         onAdd={(formData) =>
           createBlock(
-            { ...formData, isEnabled: false },
+            {
+              name: formData.name,
+              type: formData.type as BlockType,
+              jsonb: null,
+              isEnabled: false,
+            },
             data.id.toString(),
             context.token,
           ).then(reload)

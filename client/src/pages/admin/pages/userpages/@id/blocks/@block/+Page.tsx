@@ -25,7 +25,9 @@ const Page = () => {
       block.id,
       context.routeParams.id,
       {
-        ...block,
+        name: block.name,
+        isEnabled: block.isEnabled as boolean,
+        type: block.type,
         jsonb: JSON.stringify(block.jsonb),
       },
       context.token,

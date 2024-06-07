@@ -1,9 +1,15 @@
 import { Method, request } from "./api";
+import { BlockType } from "../types/blocks";
+interface IBlockDataModel {
+  name: string;
+  isEnabled: boolean;
+  jsonb: string | null;
+  type: BlockType;
+}
 
-//TODO: Fix type
 export const createBlock = async (
-  data: unknown,
-  pageId: string,
+  data: IBlockDataModel,
+  pageId: string | number,
   token: string,
 ) => {
   return await request(
@@ -23,11 +29,10 @@ export const getBlock = async (id: string, page: string, token: string) => {
   );
 };
 
-//TODO: Fix type
 export const updateBlock = async (
   id: string,
   page: string,
-  data: unknown,
+  data: IBlockDataModel,
   token: string,
 ) => {
   return await request(

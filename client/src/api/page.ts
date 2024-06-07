@@ -27,8 +27,16 @@ export const getPage = async (id: string, site: string) => {
   )) as Promise<IPageData>;
 };
 
-//TODO: Fix type
-export const updatePage = async (id: string, data: unknown, token: string) => {
+export const updatePage = async (
+  id: string,
+  data: {
+    address: string;
+    name: string;
+    description: string;
+    isEnabled: boolean;
+  },
+  token: string,
+) => {
   return await request(`/api/site/page/${id}`, Method.PATCH, data, token);
 };
 

@@ -1,15 +1,6 @@
 import { IUserInfo } from "../types/types";
 import { Method, request } from "./api";
 
-export const getUserInfo = async (token: string) => {
-  return (await request(
-    "/api/user/info",
-    Method.GET,
-    undefined,
-    token,
-  )) as Promise<IUserInfo>;
-};
-
 export const userLogin = async (login: string, password: string) => {
   return await request("/api/user/login", Method.POST, {
     login,
@@ -39,4 +30,13 @@ export const userLogout = async () => {
 
 export const deleteUser = async (token: string) => {
   return await request("/api/user", Method.DELETE, undefined, token);
+};
+
+export const getUserInfo = async (token: string) => {
+  return (await request(
+    "/api/user/info",
+    Method.GET,
+    undefined,
+    token,
+  )) as Promise<IUserInfo>;
 };
