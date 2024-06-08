@@ -14,11 +14,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { usePageContext } from "vike-react/usePageContext";
 import { reload } from "vike/client/router";
 import { updateSite } from "../../../../api/site";
+import { AVAILABLE_FONTS } from "../../../../helpers/const";
 
 const Page = () => {
   const data = useData<Data>();
   const context = usePageContext();
-  const availableFonts = ["Roboto", "Open Sans", "Montserrat"];
   const [styles, setStyles] = useState(data.styles);
 
   const { register, handleSubmit, watch } = useForm<IStyles>();
@@ -88,7 +88,7 @@ const Page = () => {
                 defaultValue={data.styles.fontFamily}
                 {...register("fontFamily")}
               >
-                {availableFonts.map((font) => (
+                {AVAILABLE_FONTS.map((font) => (
                   <option key={font} value={font}>
                     {font}
                   </option>
@@ -100,7 +100,7 @@ const Page = () => {
                 defaultValue={data.styles.fontFamilyHeaders}
                 {...register("fontFamilyHeaders")}
               >
-                {availableFonts.map((font) => (
+                {AVAILABLE_FONTS.map((font) => (
                   <option key={font} value={font}>
                     {font}
                   </option>
@@ -132,11 +132,16 @@ const Page = () => {
 };
 
 const PreviewComponent = ({ style }: { style: IStyles }) => {
+  const fontFamilyUrl = `https://fonts.googleapis.com/css?family=${encodeURIComponent(style.fontFamily.replace(" ", "+"))}`;
+  const fontFamilyHeadersUrl = `https://fonts.googleapis.com/css?family=${encodeURIComponent(style.fontFamilyHeaders.replace(" ", "+"))}`;
   return (
     <div
       style={useInlineCustomCss(style)}
       className="flex flex-col p-3 justify-center flex-wrap bg-user-background h-fit"
     >
+      <style>
+        `@import url(${fontFamilyUrl}); @import url(${fontFamilyHeadersUrl})`;
+      </style>
       <div className="font-user-headers">Выставка</div>
       <p className="font-user">Приходите на нашу выставку!</p>
       <UserButton>Подробнее</UserButton>

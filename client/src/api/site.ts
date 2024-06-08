@@ -1,8 +1,8 @@
 import { ISite, IStyles } from "../types/types";
-import { Method, request } from "./api";
+import { Method, requestApi } from "./api";
 
 export const getSiteByToken = async (token: string) => {
-  return await request("/api/site", Method.GET, undefined, token);
+  return await requestApi("/api/site", Method.GET, undefined, token);
 };
 
 export const updateSite = async (
@@ -13,11 +13,11 @@ export const updateSite = async (
     ...data,
     styles: JSON.stringify(data.styles),
   };
-  return await request("/api/site", Method.PATCH, serializedData, token);
+  return await requestApi("/api/site", Method.PATCH, serializedData, token);
 };
 
 export const getSite = async (siteName: string) => {
-  return (await request(`/api/site/${siteName}`, Method.GET)) as Promise<{
+  return (await requestApi(`/api/site/${siteName}`, Method.GET)) as Promise<{
     site: ISite;
   }>;
 };

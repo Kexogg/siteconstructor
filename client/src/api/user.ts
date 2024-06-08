@@ -1,8 +1,8 @@
 import { IUserInfo } from "../types/types";
-import { Method, request } from "./api";
+import { Method, requestApi } from "./api";
 
 export const userLogin = async (login: string, password: string) => {
-  return await request("/api/user/login", Method.POST, {
+  return await requestApi("/api/user/login", Method.POST, {
     login,
     password,
   });
@@ -15,7 +15,7 @@ export const userRegister = async (
   siteName: string,
   siteAddress: string,
 ) => {
-  return await request("/api/user/register", Method.POST, {
+  return await requestApi("/api/user/register", Method.POST, {
     login,
     password,
     orgName,
@@ -25,15 +25,15 @@ export const userRegister = async (
 };
 
 export const userLogout = async () => {
-  return await request("/_auth/logout", Method.POST);
+  return await requestApi("/_auth/logout", Method.POST);
 };
 
 export const deleteUser = async (token: string) => {
-  return await request("/api/user", Method.DELETE, undefined, token);
+  return await requestApi("/api/user", Method.DELETE, undefined, token);
 };
 
 export const getUserInfo = async (token: string) => {
-  return (await request(
+  return (await requestApi(
     "/api/user/info",
     Method.GET,
     undefined,

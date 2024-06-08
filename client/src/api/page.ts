@@ -1,19 +1,19 @@
 import { IPageData } from "../types/types";
-import { Method, request } from "./api";
+import { Method, requestApi } from "./api";
 
 export const getPages = async (token: string) => {
-  return await request("/api/site/page", Method.GET, undefined, token);
+  return await requestApi("/api/site/page", Method.GET, undefined, token);
 };
 
 export const createPage = async (
   data: { address: string; name: string; description: string },
   token: string,
 ) => {
-  return await request("/api/site/page", Method.POST, data, token);
+  return await requestApi("/api/site/page", Method.POST, data, token);
 };
 
 export const getPageByToken = async (id: string, token: string) => {
-  return (await request(
+  return (await requestApi(
     `/api/site/page/${id}`,
     Method.GET,
     undefined,
@@ -22,7 +22,7 @@ export const getPageByToken = async (id: string, token: string) => {
 };
 
 export const getPage = async (id: string, site: string) => {
-  return (await request(`/api/site/${site}/page/${id}`, Method.GET).then(
+  return (await requestApi(`/api/site/${site}/page/${id}`, Method.GET).then(
     (r) => r.page,
   )) as Promise<IPageData>;
 };
@@ -37,9 +37,14 @@ export const updatePage = async (
   },
   token: string,
 ) => {
-  return await request(`/api/site/page/${id}`, Method.PATCH, data, token);
+  return await requestApi(`/api/site/page/${id}`, Method.PATCH, data, token);
 };
 
 export const deletePage = async (id: string, token: string) => {
-  return await request(`/api/site/page/${id}`, Method.DELETE, undefined, token);
+  return await requestApi(
+    `/api/site/page/${id}`,
+    Method.DELETE,
+    undefined,
+    token,
+  );
 };

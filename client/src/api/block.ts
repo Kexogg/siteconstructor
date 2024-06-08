@@ -1,4 +1,4 @@
-import { Method, request } from "./api";
+import { Method, requestApi } from "./api";
 import { BlockType } from "../types/blocks";
 interface IBlockDataModel {
   name: string;
@@ -12,7 +12,7 @@ export const createBlock = async (
   pageId: string | number,
   token: string,
 ) => {
-  return await request(
+  return await requestApi(
     `/api/site/pages/${pageId}/block`,
     Method.POST,
     data,
@@ -21,7 +21,7 @@ export const createBlock = async (
 };
 
 export const getBlock = async (id: string, page: string, token: string) => {
-  return await request(
+  return await requestApi(
     `/api/site/pages/${page}/block/${id}`,
     Method.GET,
     undefined,
@@ -35,7 +35,7 @@ export const updateBlock = async (
   data: IBlockDataModel,
   token: string,
 ) => {
-  return await request(
+  return await requestApi(
     `/api/site/pages/${page}/block/${id}`,
     Method.PATCH,
     data,
@@ -44,7 +44,7 @@ export const updateBlock = async (
 };
 
 export const deleteBlock = async (id: string, page: string, token: string) => {
-  return await request(
+  return await requestApi(
     `/api/site/pages/${page}/block/${id}`,
     Method.DELETE,
     undefined,

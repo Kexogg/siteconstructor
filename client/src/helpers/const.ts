@@ -14,3 +14,33 @@ export const DEFAULT_STYLES: IStyles = {
   fontSizeHeaders: "24px",
   borderRadius: "5px",
 };
+
+//list popular fonts from google fonts
+export const AVAILABLE_FONTS = [
+  "Arial",
+  "Verdana",
+  "Georgia",
+  "Tahoma",
+  "Trebuchet MS",
+  "Times New Roman",
+  "Palatino Linotype",
+  "Courier New",
+  "Lucida Console",
+  "Roboto",
+  "Open Sans",
+  "Lato",
+  "Montserrat",
+  "Source Sans Pro",
+  "Raleway",
+  "Oswald",
+  "Roboto Condensed",
+  "Roboto Slab",
+  "Merriweather",
+  "Lora",
+  "Playfair Display",
+  "Poppins",
+  "Nunito",
+  "Ubuntu",
+  "Dosis",
+  "Fira Sans",
+];

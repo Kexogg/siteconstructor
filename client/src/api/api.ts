@@ -8,7 +8,7 @@ export enum Method {
   PATCH = "PATCH",
 }
 
-export const request = async (
+export const requestApi = async (
   url: string,
   method: Method,
   data?: unknown,
@@ -28,7 +28,9 @@ export const request = async (
     },
   );
   if (!response.ok) {
-    throw new Error(`Request failed: ${response.statusText}`);
+    throw new Error(
+      `Request failed: ${response.status} ${response.statusText} ${response.url}`,
+    );
   }
   const responseBody = await response.text();
   return responseBody ? JSON.parse(responseBody) : null;
