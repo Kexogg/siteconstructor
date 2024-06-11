@@ -12,11 +12,13 @@ public class SiteResponseModelForClient
             SiteName = site.SiteName;
             Styles = site.Styles!=null ? JsonDocument.Parse(site.Styles) : null;
             Pages = site.Pages.Where(p=>p.IsEnabled).Select(p => new PageResponseModelForSite(p));
+            LogoUrl = $"https://s3.stk8s.66bit.ru/nyashdev/{site.Id}/logo.jpg";
         } 
         public string SiteAddress { get; set; }
         public string? SiteName { get; set; }
         public JsonDocument? Styles { get; set; }
-
+        
+        public string LogoUrl { get; set; }
         public IEnumerable<PageResponseModelForSite> Pages { get; set; }
 
         public class PageResponseModelForSite(PageEntity page)

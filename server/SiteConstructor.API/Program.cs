@@ -84,6 +84,7 @@ builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 builder.Services.AddScoped<ISitesRepository, SitesRepository>();
 builder.Services.AddScoped<IPagesRepository, PagesRepository>();
 builder.Services.AddScoped<IBlocksRepository, BlocksRepository>();
+builder.Services.AddScoped<IBucketService, BucketService>();
 
 
 var app = builder.Build();

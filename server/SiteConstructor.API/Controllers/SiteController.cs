@@ -10,7 +10,7 @@ namespace server.Controllers;
 [ApiController]
 [Authorize]
 [Route("api/[controller]")]
-public class SiteController(ISiteService siteService) : Controller
+public class SiteController(ISiteService siteService, IBucketService bucketService) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> GetSite()
@@ -30,6 +30,13 @@ public class SiteController(ISiteService siteService) : Controller
     public async Task<IActionResult> PatchSite([FromBody] UpdateSiteModel updatedSite)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        if (Request is not { HasFormContentType: true, Form.Files.Count: > 0 })
+            return await siteService.PatchSiteAsync(siteId, updatedSite);
+        var fileRequest = Request.Form.Files[0];
+        if (fileRequest.ContentType != "image/jpeg") return BadRequest("Invalid image type");
+        await using var file = fileRequest.OpenReadStream();
+        bucketService.PutLogoAsync(siteId, file);
+
         return await siteService.PatchSiteAsync(siteId, updatedSite);
     }
 }
