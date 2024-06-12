@@ -14,7 +14,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import Select from "../../../../../components/Select/Select";
 import {Block, BlockType} from "../../../../../types/blocks";
 import {createBlock, deleteBlock} from "../../../../../api/block";
-import {updatePage} from "../../../../../api/page";
+import {deletePage, updatePage} from "../../../../../api/page";
 import BaseBlock from "../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../components/Admin/AdminPreview/AdminPreview";
 
@@ -50,7 +50,7 @@ const Page = () => {
                     </AdminEditorSection>
                     <div className={"flex gap-3"}>
                         <Button type="submit">Сохранить</Button>
-                        <Button outline>Удалить</Button>
+                        <Button outline onClick={() => deletePage(data.id.toString(), context.token).then(async () => await navigate("/admin/userpages"))}>Удалить</Button>
                     </div>
                 </form>
                 <h2 className={"text-xl font-bold my-3"}>Блоки</h2>

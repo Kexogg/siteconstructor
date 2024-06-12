@@ -1,5 +1,7 @@
+import {ReactNode} from "react";
+
 type AdminPageTitleProps = {
-    children: string;
+    children: ReactNode;
 }
 
 const AdminPageTitle = ({children}: AdminPageTitleProps) => {

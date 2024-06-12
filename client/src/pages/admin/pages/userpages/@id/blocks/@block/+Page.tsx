@@ -10,7 +10,7 @@ import Select from "../../../../../../../components/Select/Select";
 import {Block, BlockType} from "../../../../../../../types/blocks";
 import {generateBlockStub} from "../../../../../../../helpers/generateBlockStub";
 import {usePageContext} from "vike-react/usePageContext";
-import {navigate, reload} from "vike/client/router";
+import {reload} from "vike/client/router";
 import {deleteBlock, updateBlock} from "../../../../../../../api/block";
 import BaseBlock from "../../../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../../../components/Admin/AdminPreview/AdminPreview";
@@ -101,7 +101,7 @@ const Page = () => {
                     <Button
                         onClick={() =>
                             deleteBlock(block.id, context.routeParams.id, context.token).then(
-                                () => navigate("/admin/pages"),
+                                () => window.history.back(),
                             )
                         }
                     >Удалить</Button>

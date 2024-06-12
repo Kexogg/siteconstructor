@@ -1,4 +1,5 @@
 import {ReactNode} from "react";
+import AdminPageTitle from "../AdminPagetitle/AdminPageTitle";
 
 type AdminPageContainerProps = {
     children?: ReactNode;
@@ -8,7 +9,7 @@ type AdminPageContainerProps = {
 const AdminPageContainer = ({children, title}: AdminPageContainerProps) => {
     return (
         <main className="container mx-auto mt-5 px-3">
-            {title && <h1 className="text-2xl font-bold">{title}</h1>}
+            <AdminPageTitle>{title}</AdminPageTitle>
             {children}
         </main>
     );
