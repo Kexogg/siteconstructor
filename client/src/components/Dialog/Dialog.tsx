@@ -10,7 +10,7 @@ type DialogProps = {
 
 const Dialog = ({open, title, onClose, children}: DialogProps) => {
     return (
-        <dialog className={'bg-black/50 w-full h-full top-0 left-0'} open={open} onClose={onClose}>
+        <dialog className={'bg-black/50 z-50 w-full h-full top-0 left-0'} open={open} onClose={onClose}>
             <div className={'flex h-full'}>
                 <div className={'w-screen sm:w-72 md:w-96 m-auto p-3'}>
                     {/*Actual dialog*/}
