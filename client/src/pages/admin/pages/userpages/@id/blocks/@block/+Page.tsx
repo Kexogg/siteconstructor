@@ -13,6 +13,7 @@ import {usePageContext} from "vike-react/usePageContext";
 import {navigate, reload} from "vike/client/router";
 import {deleteBlock, updateBlock} from "../../../../../../../api/block";
 import BaseBlock from "../../../../../../../components/blocks/BaseBlock/BaseBlock";
+import AdminPreview from "../../../../../../../components/Admin/AdminPreview/AdminPreview";
 
 const Page = () => {
     const data = useData<Data>();
@@ -95,7 +96,7 @@ const Page = () => {
                         </AdminEditorItem>
                     ))}
                 </AdminEditorSection>
-                <div className={"flex gap-2"}>
+                <div className={"flex gap-2 my-3"}>
                     <Button>Сохранить</Button>
                     <Button
                         onClick={() =>
@@ -103,15 +104,14 @@ const Page = () => {
                                 () => navigate("/admin/pages"),
                             )
                         }
-                    >
-                        Удалить
-                    </Button>
+                    >Удалить</Button>
                 </div>
             </form>
-            <details className={'relative mt-5'}>
-                <summary className={'bg-white p-3 border'}>Предпросмотр</summary>
-                <BaseBlock block={block}/>
-            </details>
+            <div className={'my-3'}>
+                <AdminPreview title={'Предпросмотр блока'}>
+                    <BaseBlock block={block}/>
+                </AdminPreview>
+            </div>
         </AdminPageContainer>
     );
 };

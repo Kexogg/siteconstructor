@@ -7,7 +7,7 @@ import {fas} from "@fortawesome/free-solid-svg-icons";
 
 const AdminLayout = ({children}: Readonly<{ children: ReactNode; }>) => {
     return (
-        <div className="bg-primary-50/25 min-h-screen">
+        <div className="bg-primary-50/25 min-h-screen pb-3">
             <Header/>
             {children}
         </div>

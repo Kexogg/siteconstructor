@@ -12,9 +12,11 @@ import {useState} from "react";
 import {usePageContext} from "vike-react/usePageContext";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Select from "../../../../../components/Select/Select";
-import {BlockType} from "../../../../../types/blocks";
+import {Block, BlockType} from "../../../../../types/blocks";
 import {createBlock, deleteBlock} from "../../../../../api/block";
 import {updatePage} from "../../../../../api/page";
+import BaseBlock from "../../../../../components/blocks/BaseBlock/BaseBlock";
+import AdminPreview from "../../../../../components/Admin/AdminPreview/AdminPreview";
 
 const Page = () => {
     const data = useData<Data>();
@@ -82,13 +84,20 @@ const Page = () => {
                         }}
                     />
                     <div className="ms-auto mt-3 w-fit">
-            <span className={"mr-3"}>
-              Количество элементов: {data.blocks.length}
-            </span>
+                        <span className={"mr-3"}>
+                          Количество элементов: {data.blocks.length}
+                        </span>
                         <Button onClick={() => setDialogOpen(true)} outline>
                             Добавить блок
                         </Button>
                     </div>
+                </div>
+                <div className={'my-3'}>
+                    <AdminPreview title={'Предпросмотр страницы'}>
+                        {data.blocks.filter(b => b.isEnabled === true).map((block: Block) => (
+                            <BaseBlock key={block.num} block={block} />
+                        ))}
+                    </AdminPreview>
                 </div>
             </AdminPageContainer>
             <NewBlockDialog
