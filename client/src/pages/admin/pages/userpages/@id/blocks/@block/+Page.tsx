@@ -17,7 +17,6 @@ import AdminPreview from "../../../../../../../components/Admin/AdminPreview/Adm
 
 const Page = () => {
     const data = useData<Data>();
-    console.log(data);
     const [block, setBlock] = useState<Block>(data);
     const blockTypes = Object.values(BlockType);
     const context = usePageContext();

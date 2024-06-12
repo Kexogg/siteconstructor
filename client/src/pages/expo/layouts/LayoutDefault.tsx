@@ -33,7 +33,6 @@ function HeaderLink(props: Readonly<{ link: link }>) {
 
 function Header() {
   const context = usePageContext();
-  console.log(context.site);
   return (
     <header className="text-white h-10 bg-user-secondary flex px-2">
       <h1 className={"text-lg m-0 my-auto block"}>{context.site.siteName}</h1>

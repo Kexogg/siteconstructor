@@ -5,7 +5,6 @@ import { Block } from "../../../../../types/blocks";
 
 const Page = () => {
   const data = useData<Data>();
-  console.log(data);
   return (
     <main>
       {data.blocks.map((block: Block) => (
