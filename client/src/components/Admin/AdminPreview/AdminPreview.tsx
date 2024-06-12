@@ -7,9 +7,11 @@ type AdminPreviewProps = {
 
 const AdminPreview = ({children, title}: AdminPreviewProps) => {
     return (
-        <details className={'relative bg-white border rounded-xl open:rounded-b-none max-h-96 overflow-y-scroll'}>
-            <summary className={'p-3 sticky top-0 bg-white z-30'}>{title}</summary>
-            {children}
+        <details className={'bg-white border rounded-xl '}>
+            <summary className={'p-3 bg-white'}>{title}</summary>
+            <div className={'max-h-96 overflow-y-scroll relative'}>
+                {children}
+            </div>
         </details>
     );
 };
