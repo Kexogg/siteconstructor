@@ -14,7 +14,7 @@ const Dialog = ({open, title, onClose, children}: DialogProps) => {
             <div className={'flex h-full'}>
                 <div className={'w-screen sm:w-72 md:w-96 m-auto p-3'}>
                     {/*Actual dialog*/}
-                    <div className={'bg-white p-3'}>
+                    <div className={'bg-white p-3 rounded-lg'}>
                         <div className={'flex justify-center relative items-center'}>
                             {title && <h2 className="text-xl font-bold px-3">{title}</h2>}
                             {onClose && <button className={'absolute px-1 right-0 top-0 text-xl text-neutral-600'}
