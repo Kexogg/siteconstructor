@@ -51,8 +51,8 @@ const Page = () => {
                     </AdminEditorItem>
                     <AdminEditorItem label={"Порядок"}>
                         <Input
+                            disabled={true}
                             value={block.num}
-                            onChange={(e) => setBlock({...block, num: e.target.value})}
                         />
                     </AdminEditorItem>
                     <AdminEditorItem label={"Публиковать"}>
