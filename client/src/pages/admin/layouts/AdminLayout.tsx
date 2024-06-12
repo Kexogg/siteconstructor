@@ -1,6 +1,7 @@
 import {ReactNode, useState} from "react";
 import "./tailwind.css";
 import "@fontsource/montserrat";
+import "@fontsource/roboto";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {fas} from "@fortawesome/free-solid-svg-icons";
 
