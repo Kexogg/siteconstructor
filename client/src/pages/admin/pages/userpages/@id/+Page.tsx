@@ -17,6 +17,7 @@ import {createBlock, deleteBlock} from "../../../../../api/block";
 import {deletePage, updatePage} from "../../../../../api/page";
 import BaseBlock from "../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../components/Admin/AdminPreview/AdminPreview";
+import {useInlineCustomCss} from "../../../../../hooks/useInlineCustomCss";
 
 const Page = () => {
     const data = useData<Data>();
@@ -94,9 +95,11 @@ const Page = () => {
                 </div>
                 <div className={'my-3'}>
                     <AdminPreview title={'Предпросмотр страницы'}>
-                        {data.blocks.filter(b => b.isEnabled === true).map((block: Block) => (
-                            <BaseBlock key={block.num} block={block} />
-                        ))}
+                        <div style={useInlineCustomCss(data.styles)}>
+                            {data.blocks.filter(b => b.isEnabled === true).map((block: Block) => (
+                                <BaseBlock key={block.num} block={block} />
+                            ))}
+                        </div>
                     </AdminPreview>
                 </div>
             </AdminPageContainer>

@@ -15,7 +15,6 @@ export const DEFAULT_STYLES: IStyles = {
   borderRadius: "5px",
 };
 
-//list popular fonts from google fonts
 export const AVAILABLE_FONTS = [
   "Arial",
   "Verdana",

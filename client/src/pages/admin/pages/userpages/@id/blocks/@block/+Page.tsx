@@ -14,10 +14,11 @@ import {reload} from "vike/client/router";
 import {deleteBlock, updateBlock} from "../../../../../../../api/block";
 import BaseBlock from "../../../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../../../components/Admin/AdminPreview/AdminPreview";
+import {useInlineCustomCss} from "../../../../../../../hooks/useInlineCustomCss";
 
 const Page = () => {
     const data = useData<Data>();
-    const [block, setBlock] = useState<Block>(data);
+    const [block, setBlock] = useState<Block>(data.block);
     const blockTypes = Object.values(BlockType);
     const context = usePageContext();
     const update = async (e: FormEvent) => {
@@ -97,8 +98,7 @@ const Page = () => {
                 </AdminEditorSection>
                 <div className={"flex gap-2 my-3"}>
                     <Button>Сохранить</Button>
-                    <Button
-                        onClick={() =>
+                    <Button outline onClick={() =>
                             deleteBlock(block.id, context.routeParams.id, context.token).then(
                                 () => window.history.back(),
                             )
@@ -108,7 +108,9 @@ const Page = () => {
             </form>
             <div className={'my-3'}>
                 <AdminPreview title={'Предпросмотр блока'}>
-                    <BaseBlock block={block}/>
+                    <div style={useInlineCustomCss(data.site.styles)}>
+                        <BaseBlock block={block}/>
+                    </div>
                 </AdminPreview>
             </div>
         </AdminPageContainer>

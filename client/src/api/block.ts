@@ -1,5 +1,5 @@
 import { Method, requestApi } from "./api";
-import { BlockType } from "../types/blocks";
+import {Block, BlockType} from "../types/blocks";
 interface IBlockDataModel {
   name: string;
   isEnabled: boolean;
@@ -26,7 +26,7 @@ export const getBlock = async (id: string, page: string, token: string) => {
     Method.GET,
     undefined,
     token,
-  );
+  ) as Promise<{ block: Block }>;
 };
 
 export const updateBlock = async (

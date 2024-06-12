@@ -1,9 +1,9 @@
-import { ISite } from "../../types/types";
+import { ISiteUserData } from "../../types/types";
 
 declare global {
   namespace Vike {
     interface PageContext {
-      site: ISite;
+      site: ISiteUserData;
       routeParams: {
         siteId: string;
       };

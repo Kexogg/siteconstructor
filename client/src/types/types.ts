@@ -7,12 +7,16 @@ export interface IPage {
   name: string;
   description: string;
   num: number;
-  id: number;
+  id: string;
   isEnabled: boolean;
 }
 
-export interface ISite {
-  id: number;
+export interface IPageDetailedData extends IPage {
+  blocks: Block[];
+}
+
+export interface ISiteUserData {
+  id: string;
   siteAddress: string;
   siteName: string;
   styles: IStyles | null;
@@ -24,6 +28,10 @@ export interface ISite {
   }[];
 }
 
+export interface ISiteAdminData extends ISiteUserData {
+  pages: (IPage & { isEnabled: boolean, id: string })[];
+}
+
 export interface IUserInfo {
   id: number;
   login: string;
@@ -32,9 +40,6 @@ export interface IUserInfo {
   orgName: string;
 }
 
-export interface IPageData extends IPage {
-  blocks: Block[];
-}
 
 export interface IStyles {
   primaryColor: string;
@@ -49,8 +54,3 @@ export interface IStyles {
   borderRadius: string;
 }
 
-export type PageConfig = {
-  title: string;
-  description: string;
-  blocks: Block[];
-};

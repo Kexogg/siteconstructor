@@ -7,9 +7,9 @@ export type Data = Awaited<ReturnType<typeof data>>;
 export const data = async (PageContext: PageContextServer) => {
   return await getSiteByToken(PageContext.token).then((r) => {
     return {
-      siteName: r.site.siteName,
-      styles: r.site.styles ?? DEFAULT_STYLES,
-      siteAddress: r.site.siteAddress,
+      siteName: r.siteName,
+      styles: r.styles ?? DEFAULT_STYLES,
+      siteAddress: r.siteAddress,
     };
   });
 };

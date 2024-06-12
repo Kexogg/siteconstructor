@@ -18,7 +18,7 @@ interface IPage {
 }
 
 const Page = () => {
-    const data = useData<Data>().site;
+    const data = useData<Data>();
     const context = usePageContext();
     const [dialogOpen, setDialogOpen] = useState(false);
     return (

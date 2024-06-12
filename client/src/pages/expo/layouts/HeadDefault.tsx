@@ -1,15 +1,15 @@
 import { usePageContext } from "vike-react/usePageContext";
-import { PageConfig } from "../../../types/types";
+import {IPageDetailedData} from "../../../types/types";
 
 export default function HeadDefault() {
   const context = usePageContext();
   return (
     <>
-      <title>{(context.data as PageConfig).title}</title>
+      <title>{(context.data as IPageDetailedData).name}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="description"
-        content={(context.data as PageConfig).description}
+        content={(context.data as IPageDetailedData).description}
       />
       {context.site.styles?.fontFamily && (
         <link

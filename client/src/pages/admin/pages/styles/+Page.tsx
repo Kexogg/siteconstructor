@@ -15,6 +15,7 @@ import { usePageContext } from "vike-react/usePageContext";
 import { reload } from "vike/client/router";
 import { updateSite } from "../../../../api/site";
 import { AVAILABLE_FONTS } from "../../../../helpers/const";
+import {useGoogleFonts} from "../../../../hooks/useGoogleFonts";
 
 const Page = () => {
   const data = useData<Data>();
@@ -132,18 +133,14 @@ const Page = () => {
 };
 
 const PreviewComponent = ({ style }: { style: IStyles }) => {
-  const fontFamilyUrl = `https://fonts.googleapis.com/css?family=${encodeURIComponent(style.fontFamily.replace(" ", "+"))}`;
-  const fontFamilyHeadersUrl = `https://fonts.googleapis.com/css?family=${encodeURIComponent(style.fontFamilyHeaders.replace(" ", "+"))}`;
+  useGoogleFonts([style.fontFamily, style.fontFamilyHeaders])
   return (
     <div
       style={useInlineCustomCss(style)}
       className="flex flex-col p-3 justify-center flex-wrap bg-user-background h-fit"
     >
-      <style>
-        `@import url(${fontFamilyUrl}); @import url(${fontFamilyHeadersUrl})`;
-      </style>
-      <div className="font-user-headers">Выставка</div>
-      <p className="font-user">Приходите на нашу выставку!</p>
+      <div className="font-display">Выставка</div>
+      <p className="font-sans">Приходите на нашу выставку!</p>
       <UserButton>Подробнее</UserButton>
     </div>
   );
