@@ -1,155 +1,160 @@
 import AdminPageContainer from "../../../../../../../components/Admin/AdminPageContainer/AdminPageContainer";
-import { useData } from "vike-react/useData";
-import { Data } from "./+data";
-import { FormEvent, forwardRef, useState } from "react";
+import {useData} from "vike-react/useData";
+import {Data} from "./+data";
+import {FormEvent, forwardRef, useState} from "react";
 import AdminEditorSection from "../../../../../../../components/Admin/AdminEditor/AdminEditorSection";
 import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
 import Select from "../../../../../../../components/Select/Select";
-import { Block, BlockType } from "../../../../../../../types/blocks";
-import { generateBlockStub } from "../../../../../../../helpers/generateBlockStub";
-import { usePageContext } from "vike-react/usePageContext";
-import { navigate, reload } from "vike/client/router";
-import { deleteBlock, updateBlock } from "../../../../../../../api/block";
+import {Block, BlockType} from "../../../../../../../types/blocks";
+import {generateBlockStub} from "../../../../../../../helpers/generateBlockStub";
+import {usePageContext} from "vike-react/usePageContext";
+import {navigate, reload} from "vike/client/router";
+import {deleteBlock, updateBlock} from "../../../../../../../api/block";
+import BaseBlock from "../../../../../../../components/blocks/BaseBlock/BaseBlock";
 
 const Page = () => {
-  const data = useData<Data>();
-  console.log(data);
-  const [block, setBlock] = useState<Block>(data);
-  const blockTypes = Object.values(BlockType);
-  const context = usePageContext();
-  const update = async (e: FormEvent) => {
-    e.preventDefault();
-    await updateBlock(
-      block.id,
-      context.routeParams.id,
-      {
-        name: block.name,
-        isEnabled: block.isEnabled as boolean,
-        type: block.type,
-        jsonb: JSON.stringify(block.jsonb),
-      },
-      context.token,
-    ).then(reload);
-  };
+    const data = useData<Data>();
+    console.log(data);
+    const [block, setBlock] = useState<Block>(data);
+    const blockTypes = Object.values(BlockType);
+    const context = usePageContext();
+    const update = async (e: FormEvent) => {
+        e.preventDefault();
+        await updateBlock(
+            block.id,
+            context.routeParams.id,
+            {
+                name: block.name,
+                isEnabled: block.isEnabled as boolean,
+                type: block.type,
+                jsonb: JSON.stringify(block.jsonb),
+            },
+            context.token,
+        ).then(reload);
+    };
 
-  return (
-    <AdminPageContainer title={`Редактирование блока`}>
-      <form onSubmit={update}>
-        <AdminEditorSection>
-          <AdminEditorItem label={"ID"}>
-            <Input disabled defaultValue={block.id} />
-          </AdminEditorItem>
-          <AdminEditorItem label={"Название"}>
-            <Input
-              value={block.name}
-              onChange={(e) => setBlock({ ...block, name: e.target.value })}
-            />
-          </AdminEditorItem>
-          <AdminEditorItem label={"Порядок"}>
-            <Input
-              value={block.num}
-              onChange={(e) => setBlock({ ...block, num: e.target.value })}
-            />
-          </AdminEditorItem>
-          <AdminEditorItem label={"Публиковать"}>
-            <Input
-              type={"checkbox"}
-              checked={block.isEnabled as boolean}
-              onChange={(e) =>
-                setBlock({ ...block, isEnabled: e.target.checked })
-              }
-            />
-          </AdminEditorItem>
-          <AdminEditorItem label={"Тип"}>
-            <Select
-              value={block.type}
-              onChange={(v) =>
-                setBlock({
-                  ...block,
-                  type: v.target.value as BlockType,
-                  jsonb: generateBlockStub(v.target.value as BlockType).jsonb,
-                } as Block)
-              }
-            >
-              {blockTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </Select>
-          </AdminEditorItem>
-          {Object.entries(block.jsonb).map(([key, value]) => (
-            <AdminEditorItem label={key} key={key}>
-              <AutoEdit
-                value={value as string | number | boolean | object}
-                onChange={(v) =>
-                  setBlock({
-                    ...block,
-                    jsonb: { ...block.jsonb, [key]: v },
-                  } as Block)
-                }
-              />
-            </AdminEditorItem>
-          ))}
-        </AdminEditorSection>
-        <div className={"flex gap-2"}>
-          <Button>Сохранить</Button>
-          <Button
-            onClick={() =>
-              deleteBlock(block.id, context.routeParams.id, context.token).then(
-                () => navigate("/admin/pages"),
-              )
-            }
-          >
-            Удалить
-          </Button>
-        </div>
-      </form>
-    </AdminPageContainer>
-  );
+    return (
+        <AdminPageContainer title={`Редактирование блока`}>
+            <form onSubmit={update}>
+                <AdminEditorSection>
+                    <AdminEditorItem label={"ID"}>
+                        <Input disabled defaultValue={block.id}/>
+                    </AdminEditorItem>
+                    <AdminEditorItem label={"Название"}>
+                        <Input
+                            value={block.name}
+                            onChange={(e) => setBlock({...block, name: e.target.value})}
+                        />
+                    </AdminEditorItem>
+                    <AdminEditorItem label={"Порядок"}>
+                        <Input
+                            value={block.num}
+                            onChange={(e) => setBlock({...block, num: e.target.value})}
+                        />
+                    </AdminEditorItem>
+                    <AdminEditorItem label={"Публиковать"}>
+                        <Input
+                            type={"checkbox"}
+                            checked={block.isEnabled as boolean}
+                            onChange={(e) =>
+                                setBlock({...block, isEnabled: e.target.checked})
+                            }
+                        />
+                    </AdminEditorItem>
+                    <AdminEditorItem label={"Тип"}>
+                        <Select
+                            value={block.type}
+                            onChange={(v) =>
+                                setBlock({
+                                    ...block,
+                                    type: v.target.value as BlockType,
+                                    jsonb: generateBlockStub(v.target.value as BlockType).jsonb,
+                                } as Block)
+                            }
+                        >
+                            {blockTypes.map((type) => (
+                                <option key={type} value={type}>
+                                    {type}
+                                </option>
+                            ))}
+                        </Select>
+                    </AdminEditorItem>
+                    {Object.entries(block.jsonb).map(([key, value]) => (
+                        <AdminEditorItem label={key} key={key}>
+                            <AutoEdit
+                                value={value as string | number | boolean | object}
+                                onChange={(v) =>
+                                    setBlock({
+                                        ...block,
+                                        jsonb: {...block.jsonb, [key]: v},
+                                    } as Block)
+                                }
+                            />
+                        </AdminEditorItem>
+                    ))}
+                </AdminEditorSection>
+                <div className={"flex gap-2"}>
+                    <Button>Сохранить</Button>
+                    <Button
+                        onClick={() =>
+                            deleteBlock(block.id, context.routeParams.id, context.token).then(
+                                () => navigate("/admin/pages"),
+                            )
+                        }
+                    >
+                        Удалить
+                    </Button>
+                </div>
+            </form>
+            <details className={'relative mt-5'}>
+                <summary className={'bg-white p-3 border'}>Предпросмотр</summary>
+                <BaseBlock block={block}/>
+            </details>
+        </AdminPageContainer>
+    );
 };
 
 type AutoEditProps = {
-  value: string | number | boolean | object;
-  onChange: (value: string | number | boolean | object) => void;
+    value: string | number | boolean | object;
+    onChange: (value: string | number | boolean | object) => void;
 };
 
 const AutoEdit = forwardRef<HTMLInputElement, AutoEditProps>(
-  ({ value, onChange }, ref) => {
-    if (typeof value === "string") {
-      return (
-        <Input
-          type="text"
-          ref={ref}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-        />
-      );
-    }
-    if (typeof value === "number") {
-      return (
-        <Input
-          type="number"
-          ref={ref}
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-        />
-      );
-    }
-    if (typeof value === "boolean") {
-      return (
-        <Input
-          type="checkbox"
-          ref={ref}
-          checked={value}
-          onChange={(e) => onChange(e.target.checked)}
-        />
-      );
-    }
-    return <pre>{JSON.stringify(value)}</pre>;
-  },
+    ({value, onChange}, ref) => {
+        if (typeof value === "string") {
+            return (
+                <Input
+                    type="text"
+                    ref={ref}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                />
+            );
+        }
+        if (typeof value === "number") {
+            return (
+                <Input
+                    type="number"
+                    ref={ref}
+                    value={value}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                />
+            );
+        }
+        if (typeof value === "boolean") {
+            return (
+                <Input
+                    type="checkbox"
+                    ref={ref}
+                    checked={value}
+                    onChange={(e) => onChange(e.target.checked)}
+                />
+            );
+        }
+        return <pre>{JSON.stringify(value)}</pre>;
+    },
 );
 AutoEdit.displayName = "AutoEdit";
 
