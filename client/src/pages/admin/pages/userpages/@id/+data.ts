@@ -8,7 +8,7 @@ export const data = async (pageContext: PageContextServer) => {
   const page = await getPageByToken(pageContext.routeParams.id, pageContext.token);
   const site = await getSiteByToken(pageContext.token);
   return {
-    ...page,
-    ...site,
+    page: page,
+    site: site,
   }
 };

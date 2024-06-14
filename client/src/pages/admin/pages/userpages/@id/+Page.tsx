@@ -32,14 +32,14 @@ const Page = () => {
         isEnabled: boolean;
     }
 
-    const {register, handleSubmit} = useForm<FormData>({values: data});
+    const {register, handleSubmit} = useForm<FormData>({values: data.page});
     const onSubmit: SubmitHandler<FormData> = async (formData) => {
-        await updatePage(data.id.toString(), formData, context.token).then(reload);
+        await updatePage(data.page.id.toString(), formData, context.token).then(reload);
     };
 
     return (
         <>
-            <AdminPageContainer title={`Страница "${data.name}"`}>
+            <AdminPageContainer title={`Страница "${data.page.name}"`}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <AdminEditorSection title={"Настройки страницы"}>
                         <AdminEditorItem label={"Название"}><Input {...register("name")} /></AdminEditorItem>
@@ -51,13 +51,13 @@ const Page = () => {
                     </AdminEditorSection>
                     <div className={"flex gap-3"}>
                         <Button type="submit">Сохранить</Button>
-                        <Button outline onClick={() => deletePage(data.id.toString(), context.token).then(async () => await navigate("/admin/userpages"))}>Удалить</Button>
+                        <Button outline onClick={() => deletePage(data.page.id.toString(), context.token).then(async () => await navigate("/admin/userpages"))}>Удалить</Button>
                     </div>
                 </form>
                 <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
                 <div className={"flex flex-col"}>
                     <AdminTable
-                        data={data.blocks}
+                        data={data.page.blocks}
                         columns={[
                             {key: "id", title: "ID", isNarrow: true},
                             {key: "num", title: "Позиция", isNarrow: true},
@@ -80,13 +80,13 @@ const Page = () => {
                                 );
                             },
                             delete: (id) => {
-                                deleteBlock(id, data.id.toString(), context.token).then(reload);
+                                deleteBlock(id, data.page.id.toString(), context.token).then(reload);
                             },
                         }}
                     />
                     <div className="ms-auto mt-3 w-fit">
                         <span className={"mr-3"}>
-                          Количество элементов: {data.blocks.length}
+                          Количество элементов: {data.page.blocks.length}
                         </span>
                         <Button onClick={() => setDialogOpen(true)} outline>
                             Добавить блок
@@ -95,8 +95,8 @@ const Page = () => {
                 </div>
                 <div className={'my-3'}>
                     <AdminPreview title={'Предпросмотр страницы'}>
-                        <div style={useInlineCustomCss(data.styles)}>
-                            {data.blocks.filter(b => b.isEnabled === true).map((block: Block) => (
+                        <div style={useInlineCustomCss(data.site.styles)}>
+                            {data.page.blocks.filter(b => b.isEnabled === true).map((block: Block) => (
                                 <BaseBlock key={block.num} block={block} />
                             ))}
                         </div>
@@ -112,7 +112,7 @@ const Page = () => {
                             jsonb: null,
                             isEnabled: false,
                         },
-                        data.id.toString(),
+                        data.page.id.toString(),
                         context.token,
                     ).then(reload)
                 }
