@@ -7,7 +7,7 @@ import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
 import Select from "../../../../../../../components/Select/Select";
-import {Block, BLOCK_FIELDS_RU, BlockType} from "../../../../../../../types/blocks";
+import {Block, BLOCK_FIELDS_RU, BLOCK_TYPES_RU, BlockType} from "../../../../../../../types/blocks";
 import {generateBlockStub} from "../../../../../../../helpers/generateBlockStub";
 import {usePageContext} from "vike-react/usePageContext";
 import {reload} from "vike/client/router";
@@ -77,7 +77,7 @@ const Page = () => {
                         >
                             {blockTypes.map((type) => (
                                 <option key={type} value={type}>
-                                    {type}
+                                    {BLOCK_TYPES_RU[type] ?? type}
                                 </option>
                             ))}
                         </Select>
