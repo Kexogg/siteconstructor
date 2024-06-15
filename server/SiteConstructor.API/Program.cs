@@ -1,11 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using server;
 using SiteConstructor.Domain.Repositories;
 using SiteConstructor.Infrastructure;
-using SiteConstructor.Infrastructure.Persistence;
 using SiteConstructor.Infrastructure.Repositories;
 using SiteConstructor.Services.Services.Abstract;
 using SiteConstructor.Services.Services.Concrete;

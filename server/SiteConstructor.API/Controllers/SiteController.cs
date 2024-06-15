@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Web;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SiteConstructor.Domain.Models.Sites;
 using SiteConstructor.Services.Services.Abstract;

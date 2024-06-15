@@ -28,6 +28,12 @@ public class UsersRepository(DatabaseContext context) : IUsersRepository
         return await context.Users.AnyAsync(u => u.Login == login);
     }
 
+    public async Task UpdateUserAsync(UserEntity updatedUser)
+    {
+        context.Users.Update(updatedUser);
+        await context.SaveChangesAsync();
+    }
+
     public async Task DeleteAsync(long id)
     {
         await context.Users.Where(u => u.Id == id).ExecuteDeleteAsync();

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SiteConstructor.Domain.Entities;
-using SiteConstructor.Domain.Models.Blocks;
 using SiteConstructor.Domain.Repositories;
 using SiteConstructor.Infrastructure.Persistence;
 

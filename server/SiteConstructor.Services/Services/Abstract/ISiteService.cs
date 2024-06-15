@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SiteConstructor.Domain.Entities;
 using SiteConstructor.Domain.Models.Sites;
 
 namespace SiteConstructor.Services.Services.Abstract;

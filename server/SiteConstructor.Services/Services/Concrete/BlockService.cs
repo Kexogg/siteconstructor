@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SiteConstructor.Domain.Entities;
 using SiteConstructor.Domain.Models.Blocks;
 using SiteConstructor.Domain.Repositories;
@@ -7,7 +8,8 @@ using SiteConstructor.Services.Services.Abstract;
 namespace SiteConstructor.Services.Services.Concrete;
 
 public class BlockService(ISitesRepository sitesRepository, 
-    IPagesRepository pagesRepository, IBlocksRepository blocksRepository) : IBlockService
+    IPagesRepository pagesRepository, IBlocksRepository blocksRepository,
+    IBucketService bucketService) : IBlockService
 {
     public async Task<IActionResult> AddBlockAsync(long siteId, long pageId, AddBlockModel newBlock)
     {
@@ -78,6 +80,21 @@ public class BlockService(ISitesRepository sitesRepository,
         return new OkObjectResult(new
         {
             blocks = page.Blocks.Select(b=> new BlockResponseModel(b))
+        });
+    }
+
+    public async Task<IActionResult> AddPhotoAsync(long siteId, long pageId, long blockId, List<Stream> files)
+    {
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
+        var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
+        if (page == null) return new NotFoundResult();
+        var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
+        if (block == null) return new NotFoundResult();
+        var response = await bucketService.PutPhotosAsync(siteId, pageId, blockId, files);
+        if (response.S3Objects.IsNullOrEmpty()) return new EmptyResult();
+        return new OkObjectResult(new
+        {
+            block = new BlockResponseModel(block)
         });
     }
 

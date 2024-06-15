@@ -1,8 +1,5 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using server.Helpers;
-using SiteConstructor.Domain.Entities;
 using SiteConstructor.Domain.Models.Users;
 using SiteConstructor.Domain.Repositories;
 using SiteConstructor.Services.Services.Abstract;
@@ -11,7 +8,8 @@ namespace server.Controllers;
 
 [ApiController]
 [Route("api/user")]
-public class UserController(IPasswordHasher passwordHasher,IUserService userService, IUsersRepository usersRepository) : Controller
+public class UserController(IPasswordHasher passwordHasher, IUserService userService, 
+    IUsersRepository usersRepository, IBucketService bucketService) : Controller
 {
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
@@ -42,6 +40,14 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     {
         return await _userService.LoginAsync(loginUser, Response.Cookies);
     }
+
+    [HttpPatch]
+    [Authorize]
+    public async Task<IActionResult> PatchUser([FromBody] UpdateUserModel updatedUser)
+    {
+        var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await userService.UpdateUserAsync(userId, updatedUser);
+    }
     
     //GET
     [HttpGet("info")]
@@ -57,6 +63,8 @@ public class UserController(IPasswordHasher passwordHasher,IUserService userServ
     public async Task<IActionResult> Delete()
     {
         var userId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        bucketService.DeleteSiteFolderAsync(userId);
+        
         return await _userService.DeleteUser(userId);
     }
 }

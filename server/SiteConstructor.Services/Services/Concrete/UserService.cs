@@ -55,6 +55,23 @@ public class UserService(ISitesRepository sitesRepository, IUsersRepository user
         });
     }
 
+    public async Task<IActionResult> UpdateUserAsync(long userId, UpdateUserModel updatedUser)
+    {
+        var user = await usersRepository.GetUserById(userId);
+        var site = await sitesRepository.GetSiteByIdAsync(userId);
+        if (user is null) return new NotFoundResult();
+        user.OrgName = updatedUser.OrgName;
+        await usersRepository.UpdateUserAsync(user);
+        return new OkObjectResult(new
+        {
+            user.Id,
+            user.Login,
+            siteAddress = site.SiteAddress,
+            siteName = site.SiteName,
+            user.OrgName
+        });
+    }
+
     public async Task<IActionResult> GetUserInfo(long userId)
     {
         var user = await usersRepository.GetUserById(userId);
