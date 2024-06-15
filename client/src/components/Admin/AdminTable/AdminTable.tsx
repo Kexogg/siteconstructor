@@ -19,7 +19,7 @@ type AdminTableProps<T> = {
     actions: {
         edit: (id: string) => void;
         delete: (id: string) => void;
-        drag?: (id: string, newIndex: number) => void;
+        move?: (id: string, newIndex: number) => void;
     };
     children?: ReactNode;
 }
@@ -37,7 +37,7 @@ const AdminTable = <T, >({data, columns, actions, children}: AdminTableProps<T>)
             </tr>
             </thead>
             <tbody>
-            {data.map(row => (
+            {data.map((row, index) => (
                 <tr key={row.id} className={'hover:bg-primary-100/50 border-b'}>
                     {columns.map(column => (
                         <td className={`border p-1 ${column.isNarrow ? 'w-0' : 'w-auto'}`}
@@ -49,9 +49,21 @@ const AdminTable = <T, >({data, columns, actions, children}: AdminTableProps<T>)
                         <button onClick={() => actions.edit(row.id)}>
                             <FontAwesomeIcon icon={far.faPenToSquare}/>
                         </button>
-                        <button className={'transition-colors hover:text-red-700 ms-1'} onClick={() => actions.delete(row.id)}>
+                        <button className={'transition-colors hover:text-red-700 ms-1'}
+                                onClick={() => actions.delete(row.id)}>
                             <FontAwesomeIcon icon={fas.faTrash}/>
                         </button>
+                        {actions.move && (
+                            //FIXME
+                            <>
+                                <button onClick={() => actions.move!(row.id, index)}>
+                                    <FontAwesomeIcon icon={fas.faArrowUp}/>
+                                </button>
+                                <button onClick={() => actions.move!(row.id, index + 2)}>
+                                    <FontAwesomeIcon icon={fas.faArrowDown}/>
+                                </button>
+                            </>)
+                        }
                     </td>
                 </tr>
             ))}

@@ -13,7 +13,7 @@ import {usePageContext} from "vike-react/usePageContext";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Select from "../../../../../components/Select/Select";
 import {Block, BlockType} from "../../../../../types/blocks";
-import {createBlock, deleteBlock} from "../../../../../api/block";
+import {createBlock, deleteBlock, moveBlock} from "../../../../../api/block";
 import {deletePage, updatePage} from "../../../../../api/page";
 import BaseBlock from "../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../components/Admin/AdminPreview/AdminPreview";
@@ -82,6 +82,10 @@ const Page = () => {
                             delete: (id) => {
                                 deleteBlock(id, data.page.id.toString(), context.token).then(reload);
                             },
+                            move: (id, newIndex) => {
+                                console.log(id, newIndex);
+                                moveBlock(id, data.page.id.toString(), newIndex, context.token).then(reload);
+                            }
                         }}
                     />
                     <div className="ms-auto mt-3 w-fit">
