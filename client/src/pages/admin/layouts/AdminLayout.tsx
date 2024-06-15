@@ -20,7 +20,7 @@ const Header = () => {
     return (
         <header className="w-full bg-primary-950 shadow text-white h-14">
             <div className="container justify-between md:justify-start mx-auto p-3 flex items-center gap-5">
-                <h1 className="text-2xl font-bold">ExpoBuilder</h1>
+                <a href={'/admin'}><h1 className="text-2xl font-bold">ExpoBuilder</h1></a>
                 <nav>
                     <button className="text-2xl md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
                         <FontAwesomeIcon icon={menuOpen ? fas.faXmark : fas.faBars}/>
