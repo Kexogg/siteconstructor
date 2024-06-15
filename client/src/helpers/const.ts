@@ -43,3 +43,4 @@ export const AVAILABLE_FONTS = [
   "Dosis",
   "Fira Sans",
 ];
+

@@ -7,7 +7,7 @@ import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
 import Select from "../../../../../../../components/Select/Select";
-import {Block, BlockType} from "../../../../../../../types/blocks";
+import {Block, BLOCK_FIELDS_RU, BlockType} from "../../../../../../../types/blocks";
 import {generateBlockStub} from "../../../../../../../helpers/generateBlockStub";
 import {usePageContext} from "vike-react/usePageContext";
 import {reload} from "vike/client/router";
@@ -83,7 +83,7 @@ const Page = () => {
                         </Select>
                     </AdminEditorItem>
                     {Object.entries(block.jsonb).map(([key, value]) => (
-                        <AdminEditorItem label={key} key={key}>
+                        <AdminEditorItem label={BLOCK_FIELDS_RU[key] ?? key} key={key}>
                             <AutoEdit
                                 value={value as string | number | boolean | object}
                                 onChange={(v) =>

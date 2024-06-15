@@ -13,7 +13,7 @@ const AdminPreview = ({children, title}: AdminPreviewProps) => {
     };
 
     return (
-        <details onToggle={handleToggle} className={'bg-white outline outline-1 outline-neutral-400 rounded-xl open:rounded-b-none'}>
+        <details onToggle={handleToggle} className={'bg-white outline outline-1 outline-primary-100 rounded-xl open:rounded-b-none'}>
             <summary className={'p-3 bg-white'}>{title}</summary>
             {isOpen && <div className={'max-h-96 overflow-y-scroll relative'}>
                 {children}

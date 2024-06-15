@@ -12,7 +12,7 @@ import {useState} from "react";
 import {usePageContext} from "vike-react/usePageContext";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Select from "../../../../../components/Select/Select";
-import {Block, BlockType} from "../../../../../types/blocks";
+import {Block, BLOCK_TYPES_RU, BlockType} from "../../../../../types/blocks";
 import {createBlock, deleteBlock, moveBlock} from "../../../../../api/block";
 import {deletePage, updatePage} from "../../../../../api/page";
 import BaseBlock from "../../../../../components/blocks/BaseBlock/BaseBlock";
@@ -61,7 +61,7 @@ const Page = () => {
                         columns={[
                             {key: "id", title: "ID", isNarrow: true},
                             {key: "num", title: "Позиция", isNarrow: true},
-                            {key: "type", title: "Тип", isNarrow: true},
+                            {key: "type", title: "Тип", isNarrow: true, render: (value) => BLOCK_TYPES_RU[value as BlockType]},
                             {key: "name", title: "Название"},
                             {
                                 key: "isEnabled",
