@@ -1,4 +1,4 @@
-import {ReactNode} from 'react';
+import {ReactNode, SyntheticEvent, useState} from 'react';
 
 type AdminPreviewProps = {
     children: ReactNode,
@@ -6,12 +6,18 @@ type AdminPreviewProps = {
 }
 
 const AdminPreview = ({children, title}: AdminPreviewProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleToggle = (e: SyntheticEvent) => {
+        setIsOpen((e.target as HTMLDetailsElement).open);
+    };
+
     return (
-        <details className={'bg-white outline outline-1 outline-neutral-400 rounded-xl open:rounded-b-none'}>
+        <details onToggle={handleToggle} className={'bg-white outline outline-1 outline-neutral-400 rounded-xl open:rounded-b-none'}>
             <summary className={'p-3 bg-white'}>{title}</summary>
-            <div className={'max-h-96 overflow-y-scroll relative'}>
+            {isOpen && <div className={'max-h-96 overflow-y-scroll relative'}>
                 {children}
-            </div>
+            </div>}
         </details>
     );
 };
