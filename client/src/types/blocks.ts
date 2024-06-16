@@ -1,8 +1,15 @@
+import {IStyles} from "./types";
+
 export enum BlockType {
     Text = "text",
     Hero = "hero",
     Speakers = "speakers",
     IFrame = "iframe",
+    Calendar = "calendar",
+    Form = "form",
+    Gallery = "gallery",
+    Map = "map",
+    Partners = "partners",
 }
 
 type BaseBlock = {
@@ -11,6 +18,7 @@ type BaseBlock = {
     type: BlockType;
     isEnabled?: boolean;
     id: string;
+    jsonb: Record<string, unknown> & { styles?: IStyles | null };
 };
 
 export type TextBlockProps = BaseBlock & {
@@ -61,6 +69,11 @@ export const BLOCK_TYPES_RU: Record<BlockType, string> = {
     [BlockType.Hero]: "Герой",
     [BlockType.Speakers]: "Спикеры",
     [BlockType.IFrame]: "IFrame",
+    [BlockType.Calendar]: "Календарь",
+    [BlockType.Form]: "Форма",
+    [BlockType.Gallery]: "Галерея",
+    [BlockType.Map]: "Карта",
+    [BlockType.Partners]: "Партнеры",
 };
 
 export const BLOCK_FIELDS_RU: Record<string, string> = {

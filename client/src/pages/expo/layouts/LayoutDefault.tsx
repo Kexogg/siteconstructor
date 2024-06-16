@@ -24,7 +24,7 @@ function HeaderLink(props: Readonly<{ link: link }>) {
   return (
     <a
       href={fullLink}
-      className={`transition-colors text-neutral-900 h-full flex items-center hover:bg-orange-400 px-3 ${isActive ? "bg-orange-400" : ""}`}
+      className={`transition-colors text-neutral-900 h-full flex items-center hover:bg-user-accent px-3 ${isActive ? "bg-user-accent" : ""}`}
     >
       {props.link.name}
     </a>
@@ -34,7 +34,7 @@ function HeaderLink(props: Readonly<{ link: link }>) {
 function Header() {
   const context = usePageContext();
   return (
-    <header className="text-white h-10 bg-user-secondary flex px-2">
+    <header className="text-white h-10 bg-user-background flex px-2">
       <h1 className={"text-lg m-0 my-auto block"}>{context.site.siteName}</h1>
       <div className="flex justify-between items-center px-5 h-full">
         {context.site.pages.map((link) => (

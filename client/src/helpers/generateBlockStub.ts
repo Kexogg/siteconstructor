@@ -30,5 +30,9 @@ export const generateBlockStub = (type: BlockType) => {
                     title: ''
                 }
             }
+        default:
+            return {
+                jsonb: {}
+            }
     }
 }

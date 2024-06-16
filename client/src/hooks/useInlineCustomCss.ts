@@ -1,9 +1,11 @@
 import { CSSProperties } from "react";
 import { IStyles } from "../types/types";
-import { DEFAULT_STYLES } from "../helpers/const";
+import {DEFAULT_STYLES} from "../helpers/const";
 
-export const useInlineCustomCss = (data: IStyles | null) => {
-  if (!data) data = DEFAULT_STYLES;
+
+export const useInlineCustomCss = (data: IStyles | null | undefined) => {
+  if (data === null) data = DEFAULT_STYLES
+  if (data === undefined) return {};
   return {
     "--user-primary-color": data.primaryColor,
     "--user-secondary-color": data.secondaryColor,
