@@ -1,9 +1,9 @@
 import { CSSProperties } from "react";
-import { IStyles } from "../types/types";
+import { ISiteStyles } from "../types/types";
 import {DEFAULT_STYLES} from "../helpers/const";
 
 
-export const useInlineCustomCss = (data: IStyles | null | undefined) => {
+export const useInlineCustomCss = (data: ISiteStyles | null | undefined) => {
   if (data === null) data = DEFAULT_STYLES
   if (data === undefined) return {};
   return {

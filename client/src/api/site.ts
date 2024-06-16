@@ -1,4 +1,4 @@
-import {ISiteAdminData, ISiteUserData, IStyles} from "../types/types";
+import {ISiteAdminData, ISiteUserData, ISiteStyles} from "../types/types";
 import {Method, requestApi} from "./api";
 
 export const getSiteByToken = async (token: string) => {
@@ -6,7 +6,7 @@ export const getSiteByToken = async (token: string) => {
 };
 
 export const updateSite = async (
-    data: { siteName: string; styles: IStyles; siteAddress: string },
+    data: { siteName: string; styles: ISiteStyles; siteAddress: string },
     token: string,
 ) => {
     const serializedData = {

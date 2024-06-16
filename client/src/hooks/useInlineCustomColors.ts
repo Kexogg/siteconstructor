@@ -1,8 +1,8 @@
 import { CSSProperties } from "react";
-import { IStyles } from "../types/types";
+import { ISiteStyles } from "../types/types";
 
 
-export const useInlineCustomColors = (data: IStyles | null | undefined) => {
+export const useInlineCustomColors = (data: ISiteStyles | null | undefined) => {
     if (!data) return {};
     return {
         "--user-primary-color": data.primaryColor,

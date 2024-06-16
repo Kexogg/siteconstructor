@@ -14,9 +14,10 @@ import {deleteBlock, updateBlock} from "../../../../../../../api/block";
 import BaseBlock from "../../../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../../../components/Admin/AdminPreview/AdminPreview";
 import {useInlineCustomCss} from "../../../../../../../hooks/useInlineCustomCss";
-import {FieldValues, useForm} from "react-hook-form";
+import {FieldValues, useForm, UseFormRegister} from "react-hook-form";
 import AdminColorPicker from "../../../../../../../components/Admin/AdminColorPicker/AdminColorPicker";
 import {DEFAULT_STYLES} from "../../../../../../../helpers/const";
+import {IColorStyles} from "../../../../../../../types/types";
 
 
 const Page = () => {
@@ -83,7 +84,7 @@ const Page = () => {
                         )
                     })}
                 </AdminEditorSection>
-                <AdminColorPicker register={register}
+                <AdminColorPicker register={register as unknown as UseFormRegister<IColorStyles>}
                                   prefix={"jsonb.styles."}
                                   styles={data.block.jsonb.styles ?? data.site.styles ?? DEFAULT_STYLES}/>
                 <div className={"flex gap-2 my-3"}>

@@ -1,8 +1,8 @@
-import {IStyles} from "../types/types";
+import {ISiteStyles} from "../types/types";
 
 export const BASE_URL = "https://nyashdev-siteconstructor.stk8s.66bit.ru";
 
-export const DEFAULT_STYLES: IStyles = {
+export const DEFAULT_STYLES: ISiteStyles = {
     primaryColor: "#ffffff",
     secondaryColor: "#959595",
     accentColor: "#003cff",

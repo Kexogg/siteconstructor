@@ -1,4 +1,4 @@
-import {IStyles} from "./types";
+import {ISiteStyles} from "./types";
 
 export enum BlockType {
     Text = "text",
@@ -18,7 +18,7 @@ type BaseBlock = {
     type: BlockType;
     isEnabled?: boolean;
     id: string;
-    jsonb: Record<string, unknown> & { styles?: IStyles | null };
+    jsonb: Record<string, unknown> & { styles?: ISiteStyles | null };
 };
 
 export type TextBlockProps = BaseBlock & {

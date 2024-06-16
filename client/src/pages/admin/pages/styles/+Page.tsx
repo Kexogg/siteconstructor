@@ -7,10 +7,10 @@ import { useData } from "vike-react/useData";
 import { Data } from "./+data";
 import Button from "../../../../components/Button/Button";
 import { useState } from "react";
-import { IStyles } from "../../../../types/types";
+import {IColorStyles, ISiteStyles} from "../../../../types/types";
 import { useInlineCustomCss } from "../../../../hooks/useInlineCustomCss";
 import UserButton from "../../../../components/User/UserButton/UserButton";
-import { SubmitHandler, useForm } from "react-hook-form";
+import {SubmitHandler, useForm, UseFormRegister} from "react-hook-form";
 import { usePageContext } from "vike-react/usePageContext";
 import { reload } from "vike/client/router";
 import { updateSite } from "../../../../api/site";
@@ -22,14 +22,14 @@ const Page = () => {
   const data = useData<Data>();
   const context = usePageContext();
 
-  const { register, handleSubmit, watch } = useForm<IStyles>();
+  const { register, handleSubmit, watch } = useForm<ISiteStyles>();
 
   const [styles, setStyles] = useState(data.styles);
   watch((data) => {
-    setStyles((prevConfig: IStyles) => ({ ...prevConfig, ...data }));
+    setStyles((prevConfig: ISiteStyles) => ({ ...prevConfig, ...data }));
   });
 
-  const onSubmit: SubmitHandler<IStyles> = (formData) => {
+  const onSubmit: SubmitHandler<ISiteStyles> = (formData) => {
     updateSite(
       {
         siteName: data.siteName,
@@ -47,7 +47,7 @@ const Page = () => {
       <div className="flex justify-center flex-wrap md:flex-nowrap flex-row-reverse">
         <PreviewComponent style={styles} />
         <form className="flex-grow" onSubmit={handleSubmit(onSubmit)}>
-          <AdminColorPicker register={register} styles={data.styles} />
+          <AdminColorPicker register={register as unknown as UseFormRegister<IColorStyles>} styles={data.styles} />
           <AdminEditorSection title="Шрифты">
             <AdminEditorItem label="Основной">
               <Select
@@ -104,7 +104,7 @@ const Page = () => {
   );
 };
 
-const PreviewComponent = ({ style }: { style: IStyles }) => {
+const PreviewComponent = ({ style }: { style: ISiteStyles }) => {
   useGoogleFonts([style.fontFamily, style.fontFamilyHeaders])
   return (
     <div

@@ -19,7 +19,7 @@ export interface ISiteUserData {
   id: string;
   siteAddress: string;
   siteName: string;
-  styles: IStyles | null;
+  styles: ISiteStyles | null;
   pages: {
     address: string;
     description: string;
@@ -40,17 +40,22 @@ export interface IUserInfo {
   orgName: string;
 }
 
+export interface IColorStyles {
+    primaryColor: string;
+    secondaryColor: string;
+    accentColor: string;
+    backgroundColor: string;
+    textColor: string;
+}
 
-export interface IStyles {
-  primaryColor: string;
-  secondaryColor: string;
-  accentColor: string;
-  backgroundColor: string;
-  textColor: string;
-  fontSize: string;
-  fontSizeHeaders: string;
-  fontFamily: string;
-  fontFamilyHeaders: string;
+export interface IFontStyles {
+    fontSize: string;
+    fontSizeHeaders: string;
+    fontFamily: string;
+    fontFamilyHeaders: string;
+}
+
+export interface ISiteStyles extends IColorStyles, IFontStyles {
   borderRadius: string;
 }
 
