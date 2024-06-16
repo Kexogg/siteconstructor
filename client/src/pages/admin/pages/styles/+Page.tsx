@@ -16,6 +16,7 @@ import { reload } from "vike/client/router";
 import { updateSite } from "../../../../api/site";
 import { AVAILABLE_FONTS } from "../../../../helpers/const";
 import {useGoogleFonts} from "../../../../hooks/useGoogleFonts";
+import AdminColorPicker from "../../../../components/Admin/AdminColorPicker/AdminColorPicker";
 
 const Page = () => {
   const data = useData<Data>();
@@ -46,43 +47,7 @@ const Page = () => {
       <div className="flex justify-center flex-wrap md:flex-nowrap flex-row-reverse">
         <PreviewComponent style={styles} />
         <form className="flex-grow" onSubmit={handleSubmit(onSubmit)}>
-          <AdminEditorSection title="Цвета">
-            <AdminEditorItem label={"Основной"}>
-              <Input
-                type="color"
-                {...register("primaryColor")}
-                defaultValue={data.styles.primaryColor}
-              />
-            </AdminEditorItem>
-            <AdminEditorItem label={"Второстепенный"}>
-              <Input
-                type="color"
-                {...register("secondaryColor")}
-                defaultValue={data.styles.secondaryColor}
-              />
-            </AdminEditorItem>
-            <AdminEditorItem label={"Акцент"}>
-              <Input
-                type="color"
-                {...register("accentColor")}
-                defaultValue={data.styles.accentColor}
-              />
-            </AdminEditorItem>
-            <AdminEditorItem label={"Фон"}>
-              <Input
-                type="color"
-                {...register("backgroundColor")}
-                defaultValue={data.styles.backgroundColor}
-              />
-            </AdminEditorItem>
-            <AdminEditorItem label={"Текст"}>
-              <Input
-                type="color"
-                {...register("textColor")}
-                defaultValue={data.styles.textColor}
-              />
-            </AdminEditorItem>
-          </AdminEditorSection>
+          <AdminColorPicker register={register} styles={data.styles} />
           <AdminEditorSection title="Шрифты">
             <AdminEditorItem label="Основной">
               <Select
