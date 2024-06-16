@@ -21,10 +21,10 @@ import AdminColorPicker from "../../../../components/Admin/AdminColorPicker/Admi
 const Page = () => {
   const data = useData<Data>();
   const context = usePageContext();
-  const [styles, setStyles] = useState(data.styles);
 
   const { register, handleSubmit, watch } = useForm<IStyles>();
 
+  const [styles, setStyles] = useState(data.styles);
   watch((data) => {
     setStyles((prevConfig: IStyles) => ({ ...prevConfig, ...data }));
   });

@@ -1,36 +1,45 @@
 import AdminPageContainer from "../../../../../../../components/Admin/AdminPageContainer/AdminPageContainer";
 import {useData} from "vike-react/useData";
 import {Data} from "./+data";
-import {FormEvent, forwardRef, useState} from "react";
+import {useState} from "react";
 import AdminEditorSection from "../../../../../../../components/Admin/AdminEditor/AdminEditorSection";
 import Input from "../../../../../../../components/Input/Input";
 import AdminEditorItem from "../../../../../../../components/Admin/AdminEditor/AdminEditorItem";
 import Button from "../../../../../../../components/Button/Button";
 import Select from "../../../../../../../components/Select/Select";
 import {Block, BLOCK_FIELDS_RU, BLOCK_TYPES_RU, BlockType} from "../../../../../../../types/blocks";
-import {generateBlockStub} from "../../../../../../../helpers/generateBlockStub";
 import {usePageContext} from "vike-react/usePageContext";
 import {reload} from "vike/client/router";
 import {deleteBlock, updateBlock} from "../../../../../../../api/block";
 import BaseBlock from "../../../../../../../components/blocks/BaseBlock/BaseBlock";
 import AdminPreview from "../../../../../../../components/Admin/AdminPreview/AdminPreview";
 import {useInlineCustomCss} from "../../../../../../../hooks/useInlineCustomCss";
+import {FieldValues, useForm} from "react-hook-form";
+import AdminColorPicker from "../../../../../../../components/Admin/AdminColorPicker/AdminColorPicker";
+import {DEFAULT_STYLES} from "../../../../../../../helpers/const";
+
 
 const Page = () => {
     const data = useData<Data>();
-    const [block, setBlock] = useState<Block>(data.block);
-    const blockTypes = Object.values(BlockType);
     const context = usePageContext();
-    const update = async (e: FormEvent) => {
-        e.preventDefault();
+    const {register, handleSubmit, watch} = useForm<FieldValues>({
+        defaultValues: data.block,
+    });
+
+    const [preview, setPreview] = useState(data.block);
+    watch((formData) => {
+        setPreview(formData as Block);
+    })
+
+    const onSubmit = async (formData: FieldValues) => {
         await updateBlock(
-            block.id,
+            formData.id,
             context.routeParams.id,
             {
-                name: block.name,
-                isEnabled: block.isEnabled as boolean,
-                type: block.type,
-                jsonb: JSON.stringify(block.jsonb),
+                name: formData.name,
+                isEnabled: formData.isEnabled as boolean,
+                type: formData.type,
+                jsonb: JSON.stringify(formData.jsonb),
             },
             context.token,
         ).then(reload);
@@ -38,78 +47,59 @@ const Page = () => {
 
     return (
         <AdminPageContainer title={`Редактирование блока`}>
-            <form onSubmit={update}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <AdminEditorSection>
                     <AdminEditorItem label={"ID"}>
-                        <Input disabled defaultValue={block.id}/>
+                        <Input disabled {...register("id")}/>
                     </AdminEditorItem>
                     <AdminEditorItem label={"Название"}>
-                        <Input
-                            value={block.name}
-                            onChange={(e) => setBlock({...block, name: e.target.value})}
-                        />
+                        <Input {...register("name")}/>
                     </AdminEditorItem>
                     <AdminEditorItem label={"Порядок"}>
-                        <Input
-                            disabled={true}
-                            value={block.num}
-                        />
+                        <Input disabled {...register("num")}/>
                     </AdminEditorItem>
                     <AdminEditorItem label={"Публиковать"}>
-                        <Input
-                            type={"checkbox"}
-                            checked={block.isEnabled as boolean}
-                            onChange={(e) =>
-                                setBlock({...block, isEnabled: e.target.checked})
-                            }
-                        />
+                        <Input type={"checkbox"} {...register("isEnabled")}/>
                     </AdminEditorItem>
                     <AdminEditorItem label={"Тип"}>
-                        <Select
-                            value={block.type}
-                            onChange={(v) =>
-                                setBlock({
-                                    ...block,
-                                    type: v.target.value as BlockType,
-                                    jsonb: generateBlockStub(v.target.value as BlockType).jsonb,
-                                } as Block)
-                            }
-                        >
-                            {blockTypes.map((type) => (
+                        <Select disabled {...register("type")}>
+                            {Object.values(BlockType).map((type) => (
                                 <option key={type} value={type}>
                                     {BLOCK_TYPES_RU[type] ?? type}
                                 </option>
                             ))}
                         </Select>
                     </AdminEditorItem>
-                    {Object.entries(block.jsonb).map(([key, value]) => (
-                        <AdminEditorItem label={BLOCK_FIELDS_RU[key] ?? key} key={key}>
-                            <AutoEdit
-                                value={value as string | number | boolean | object}
-                                onChange={(v) =>
-                                    setBlock({
-                                        ...block,
-                                        jsonb: {...block.jsonb, [key]: v},
-                                    } as Block)
-                                }
-                            />
-                        </AdminEditorItem>
-                    ))}
+                    {Object.entries(data.block.jsonb).map(([key, value]) => {
+                        if (key === 'styles') return null;
+                        else return (
+                            <AdminEditorItem label={BLOCK_FIELDS_RU[key] ?? key} key={key}>
+                                <AutoEdit
+                                    name={`jsonb.${key}`}
+                                    value={value}
+                                    register={register}
+                                />
+                            </AdminEditorItem>
+                        )
+                    })}
                 </AdminEditorSection>
+                <AdminColorPicker register={register}
+                                  prefix={"jsonb.styles."}
+                                  styles={data.block.jsonb.styles ?? data.site.styles ?? DEFAULT_STYLES}/>
                 <div className={"flex gap-2 my-3"}>
-                    <Button>Сохранить</Button>
+                    <Button type="submit">Сохранить</Button>
                     <Button outline onClick={() =>
-                            deleteBlock(block.id, context.routeParams.id, context.token).then(
-                                () => window.history.back(),
-                            )
-                        }
+                        deleteBlock(data.block.id, context.routeParams.id, context.token).then(
+                            () => window.history.back(),
+                        )
+                    }
                     >Удалить</Button>
                 </div>
             </form>
             <div className={'my-3'}>
                 <AdminPreview title={'Предпросмотр блока'}>
                     <div style={useInlineCustomCss(data.site.styles)}>
-                        <BaseBlock block={block}/>
+                        <BaseBlock block={preview}/>
                     </div>
                 </AdminPreview>
             </div>
@@ -118,45 +108,38 @@ const Page = () => {
 };
 
 type AutoEditProps = {
-    value: string | number | boolean | object;
-    onChange: (value: string | number | boolean | object) => void;
+    value: unknown;
+    register: ReturnType<typeof useForm>["register"];
+    name: string;
 };
 
-const AutoEdit = forwardRef<HTMLInputElement, AutoEditProps>(
-    ({value, onChange}, ref) => {
-        if (typeof value === "string") {
-            return (
-                <Input
-                    type="text"
-                    ref={ref}
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
-                />
-            );
-        }
-        if (typeof value === "number") {
-            return (
-                <Input
-                    type="number"
-                    ref={ref}
-                    value={value}
-                    onChange={(e) => onChange(Number(e.target.value))}
-                />
-            );
-        }
-        if (typeof value === "boolean") {
-            return (
-                <Input
-                    type="checkbox"
-                    ref={ref}
-                    checked={value}
-                    onChange={(e) => onChange(e.target.checked)}
-                />
-            );
-        }
-        return <pre>{JSON.stringify(value)}</pre>;
-    },
-);
-AutoEdit.displayName = "AutoEdit";
+const AutoEdit = ({value, register, name}: AutoEditProps) => {
+    const type = typeof value;
+    if (type === "string") {
+        return (
+            <Input
+                type="text"
+                {...register(name)}
+            />
+        );
+    }
+    if (type === "number") {
+        return (
+            <Input
+                type="number"
+                {...register(name)}
+            />
+        );
+    }
+    if (type === "boolean") {
+        return (
+            <Input
+                type="checkbox"
+                {...register(name)}
+            />
+        );
+    }
+    return <pre>{JSON.stringify(value)}</pre>;
+}
 
 export default Page;
