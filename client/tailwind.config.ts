@@ -19,8 +19,8 @@ export default {
                 'sans': 'var(--user-font-family-text), Roboto, sans-serif',
             },
             fontSize: {
-                'user-text': 'var(--user-font-size)',
-                'user-headers': 'var(--user-font-size-headers)'
+                'user-small': 'var(--user-font-size)',
+                'user-big': 'var(--user-font-size-headers)'
             },
             colors: {
                 "user-primary": "var(--user-primary-color)",

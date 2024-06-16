@@ -12,8 +12,8 @@ export const useInlineCustomCss = (data: IStyles | null) => {
     "--user-background-color": data.backgroundColor,
     "--user-font-family-text": data.fontFamily,
     "--user-font-family-headers": data.fontFamilyHeaders,
-    "--user-font-size": data.fontSize,
-    "--user-font-size-headers": data.fontSizeHeaders,
-    "--user-border-radius": data.borderRadius,
+    "--user-font-size": data.fontSize + 'pt',
+    "--user-font-size-headers": data.fontSizeHeaders + 'pt',
+    "--user-border-radius": data.borderRadius + 'px',
   } as CSSProperties;
 };

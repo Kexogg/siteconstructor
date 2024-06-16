@@ -122,6 +122,13 @@ const Page = () => {
                 defaultValue={data.styles.fontSizeHeaders.split("pt")[0]}
               />
             </AdminEditorItem>
+            <AdminEditorItem label="Радиус скругления (px)">
+              <Input
+                {...register("borderRadius")}
+                type="number"
+                defaultValue={(data.styles.borderRadius ?? "0px").split("px")[0]}
+              />
+            </AdminEditorItem>
           </AdminEditorSection>
           <div className="my-3">
             <Button>Сохранить</Button>
@@ -139,8 +146,8 @@ const PreviewComponent = ({ style }: { style: IStyles }) => {
       style={useInlineCustomCss(style)}
       className="flex flex-col p-3 justify-center flex-wrap bg-user-background h-fit"
     >
-      <div className="font-display">Выставка</div>
-      <p className="font-sans">Приходите на нашу выставку!</p>
+      <div className="font-display text-user-big">Выставка</div>
+      <p className="font-sans text-user-small">Приходите на нашу выставку!</p>
       <UserButton>Подробнее</UserButton>
     </div>
   );
