@@ -153,7 +153,7 @@ const NewBlockDialog = ({open, onClose, onAdd}: NewBlockDialogProps) => {
                 <Input required placeholder={"Название"} {...register("name")} />
                 <Select required {...register("type")}>
                     <option disabled value={""}>Выберите тип блока</option>
-                    {Object.values(BlockType).map((key) => (<option key={key} value={key}>{key}</option>))}
+                    {Object.values(BlockType).map((key) => (<option key={key} value={key}>{BLOCK_TYPES_RU[key]}</option>))}
                 </Select>
                 <Button type="submit">Добавить</Button>
             </form>

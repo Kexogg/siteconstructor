@@ -7,7 +7,7 @@ const guard: GuardAsync = async (pageContext): ReturnType<GuardAsync> => {
         throw render('/admin/login')
     }
     else if (pageContext.token && (pageContext.urlPathname === '/admin/login' || pageContext.urlPathname === '/admin/register')) {
-        throw redirect('/admin')
+        throw redirect('/admin/home')
     }
 }
 
