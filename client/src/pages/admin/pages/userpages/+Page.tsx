@@ -40,10 +40,10 @@ const Page = () => {
                         },
                     ]}
                     actions={{
-                        edit: (id) => {
+                        edit: async (id) => {
                             navigate("/admin/userpages/" + id);
                         },
-                        delete: (id) => {
+                        delete: async (id) => {
                             deletePage(id, context.token).then(reload);
                         },
                     }}

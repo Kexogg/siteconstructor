@@ -1,21 +1,18 @@
 import { CSSProperties } from "react";
 import { ISiteStyles } from "../types/types";
-import {DEFAULT_STYLES} from "../helpers/const";
+import {DEFAULT_STYLES, STYLES_KEYS, STYLES_SUFFIXES} from "../helpers/const";
 
 
 export const useInlineCustomCss = (data: ISiteStyles | null | undefined) => {
   if (data === null) data = DEFAULT_STYLES
   if (data === undefined) return {};
-  return {
-    "--user-primary-color": data.primaryColor,
-    "--user-secondary-color": data.secondaryColor,
-    "--user-accent-color": data.accentColor,
-    "--user-text-color": data.textColor,
-    "--user-background-color": data.backgroundColor,
-    "--user-font-family-text": data.fontFamily,
-    "--user-font-family-headers": data.fontFamilyHeaders,
-    "--user-font-size": data.fontSize + 'pt',
-    "--user-font-size-headers": data.fontSizeHeaders + 'pt',
-    "--user-border-radius": data.borderRadius + 'px',
-  } as CSSProperties;
+  const styles: CSSProperties = {}
+  for (const key in STYLES_KEYS) {
+    if (data[key as keyof ISiteStyles]) {
+      // @ts-expect-error TS2590
+      styles[STYLES_KEYS[key]] = data[key as keyof ISiteStyles] + (STYLES_SUFFIXES[key] ?? '');
+    }
+  }
+  return styles;
+
 };

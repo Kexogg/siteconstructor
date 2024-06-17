@@ -15,8 +15,27 @@ export const DEFAULT_STYLES: ISiteStyles = {
     borderRadius: "5px",
 };
 
+export const STYLES_KEYS = {
+    primaryColor: "--user-primary-color",
+    secondaryColor: "--user-secondary-color",
+    accentColor: "--user-accent-color",
+    textColor: "--user-text-color",
+    backgroundColor: "--user-background-color",
+    fontFamily: "--user-font-family",
+    fontFamilyHeaders: "--user-font-family-headers",
+    fontSize: "--user-font-size",
+    fontSizeHeaders: "--user-font-size-headers",
+    borderRadius: "--user-border-radius",
+};
+
+export const STYLES_SUFFIXES = {
+    fontSize: "pt",
+    fontSizeHeaders: "pt",
+    borderRadius: "px",
+};
+
 export const AVAILABLE_FONTS = [
-        "Georgia",
+    "Georgia",
     "Tahoma",
     "Trebuchet MS",
     "Palatino Linotype",

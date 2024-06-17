@@ -30,6 +30,7 @@ const Page = () => {
   });
 
   const onSubmit: SubmitHandler<ISiteStyles> = (formData) => {
+
     updateSite(
       {
         siteName: data.siteName,
