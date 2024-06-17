@@ -71,7 +71,7 @@ const Page = () => {
                             },
                         ]}
                         actions={{
-                            edit: (id) => {
+                            edit: async (id) => {
                                 navigate(
                                     "/admin/userpages/" +
                                     context.routeParams.id +
@@ -79,12 +79,11 @@ const Page = () => {
                                     id,
                                 );
                             },
-                            delete: (id) => {
-                                deleteBlock(id, data.page.id.toString(), context.token).then(reload);
+                            delete: async(id) => {
+                                return deleteBlock(id, data.page.id.toString(), context.token).then(reload);
                             },
-                            move: (id, newIndex) => {
-                                console.log(id, newIndex);
-                                moveBlock(id, data.page.id.toString(), newIndex, context.token).then(reload);
+                            move: async (id, newIndex) => {
+                                return moveBlock(id, data.page.id.toString(), newIndex, context.token).then(reload);
                             }
                         }}
                     />

@@ -10,14 +10,13 @@ export const DEFAULT_STYLES: ISiteStyles = {
     backgroundColor: "#98ff7d",
     fontFamily: "Roboto",
     fontFamilyHeaders: "Roboto",
-    fontSize: "16px",
-    fontSizeHeaders: "24px",
+    fontSize: "16pt",
+    fontSizeHeaders: "24pt",
     borderRadius: "5px",
 };
 
 export const AVAILABLE_FONTS = [
-    "Verdana",
-    "Georgia",
+        "Georgia",
     "Tahoma",
     "Trebuchet MS",
     "Palatino Linotype",
