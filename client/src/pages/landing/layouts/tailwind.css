@@ -16,6 +16,6 @@
         @apply text-5xl md:text-8xl outline outline-1 aspect-square rounded-full w-24 md:w-32 flex justify-center items-center shrink-0
     }
     .steps__container {
-        @apply flex max-w-[35rem] gap-3 items-center flex-col sm:flex-row
+        @apply flex max-w-[35rem] gap-3 items-center flex-col sm:flex-row text-center sm:text-left
     }
 }

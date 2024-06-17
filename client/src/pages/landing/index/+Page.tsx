@@ -1,30 +1,34 @@
 const Page = () => {
     return (
         <>
-            <div className={'h-12 bg-user-primary'} />
-            <section className={'h-14 w-screen fixed top-0 bg-user-primary opacity-50'} />
-            <section className={'h-14 items-center w-screen fixed text-white font-light border-b top-0 p-3 flex justify-end backdrop-blur text-lg'}>
-            <nav>
-                <ul className={'flex drop-shadow'}>
-                    <li className={'mr-5'}>
-                        <a href={'/'}>Главная</a>
-                    </li>
-                    <li className={'mr-5'}>
-                        <a href={'/'}>О нас</a>
-                    </li>
-                    <li className={'mr-5 outline rounded-full px-3 outline-1'}>
-                        <a href={'/admin/login'}>Войти</a>
-                    </li>
-                </ul>
-            </nav>
+            <div className={'h-12 bg-user-primary'}/>
+            <section className={'h-14 w-screen fixed top-0 bg-user-primary opacity-50'}/>
+            <section
+                className={'h-14 items-center w-screen fixed text-white font-light border-b top-0 p-3 flex justify-end backdrop-blur text-lg'}>
+                <nav>
+                    <ul className={'flex drop-shadow'}>
+                        <li className={'mr-5'}>
+                            <a href={'/'}>Главная</a>
+                        </li>
+                        <li className={'mr-5'}>
+                            <a href={'/'}>О нас</a>
+                        </li>
+                        <li className={'mr-5 outline rounded-full px-3 outline-1'}>
+                            <a href={'/admin/login'}>Войти</a>
+                        </li>
+                    </ul>
+                </nav>
             </section>
-            <section className={'bg-user-primary text-white flex h-[75vh] px-10 pb-0 font-light'}>
-                <div className={'border border-t-0 w-2/3 p-3'}>
-                    <h1 className={'text-5xl uppercase'}>Конструктор сайта выставочного мероприятия</h1>
-                    <h2 className={'text-xl uppercase mt-20'}>Создай сайт своими руками</h2>
-                </div>
-                <a className={'mt-auto bg-white text-user-primary block h-min py-3 px-8 text-xl ml-auto mb-32 hover:bg-gray-100 uppercase'}
-                   href={'/admin/register'}>Создать сайт</a>
+            <section className={'bg-user-primary h-[65vh] text-white font-light'}>
+                <div className={'sm:flex-row flex-col flex container mx-auto h-full'}>
+                    <div className={'border border-t-0 h-2/3 sm:h-auto sm:w-2/3 p-3'}>
+                        <h1 className={'text-3xl md:text-5xl uppercase'}>ExpoBuild</h1>
+                        <h2 className={'text-2xl font-medium uppercase mt-10'}>Конструктор сайта выставочного
+                            мероприятия</h2>
+                        <h2 className={'text-xl uppercase'}>Создай сайт своими руками</h2>
+                    </div>
+                    <a className={'mt-auto bg-white text-user-primary block h-min py-3 px-8 text-xl ml-auto mr-3 mb-32 hover:bg-gray-100 uppercase'}
+                       href={'/admin/register'}>Создать сайт</a></div>
             </section>
             <section className={'container mx-auto text-user-primary font-light px-5 py-20'}>
                 <h2 className={'text-5xl text-center'}>Создай сайт за 3 шага</h2>
