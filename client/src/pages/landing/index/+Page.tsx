@@ -5,7 +5,7 @@ const Page = () => {
             <section className={'h-14 w-screen fixed top-0 bg-user-primary opacity-50'} />
             <section className={'h-14 items-center w-screen fixed text-white font-light border-b top-0 p-3 flex justify-end backdrop-blur text-lg'}>
             <nav>
-                <ul className={'flex'}>
+                <ul className={'flex drop-shadow'}>
                     <li className={'mr-5'}>
                         <a href={'/'}>Главная</a>
                     </li>
