@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --user-font-family-headers: 'Montserrat', 'sans-serif';
+        --user-font-family-text: 'Montserrat, sans-serif';
+        --user-primary-color: #9FA27D;
+    }
+    .steps__list {
+        @apply flex justify-center items-center flex-col gap-10 py-10
+    }
+
+    .steps__number {
+        @apply text-5xl md:text-8xl outline outline-1 aspect-square rounded-full w-24 md:w-32 flex justify-center items-center shrink-0
+    }
+    .steps__container {
+        @apply flex max-w-[35rem] gap-3 items-center flex-col sm:flex-row
+    }
+}
