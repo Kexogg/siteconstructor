@@ -137,7 +137,7 @@ public class BlockService(ISitesRepository sitesRepository,
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
         if (block == null) return new NotFoundResult();
-        if (block.ImagesCount==0 || block.ImagesCount < photoId) return new BadRequestResult();
+        if (block.ImagesCount==0 || block.ImagesCount < photoId || photoId < 1) return new BadRequestResult();
         bucketService.ReplacePhotoAsync(siteId, pageId, blockId, photoId, file);
         return new OkObjectResult(new
         {
