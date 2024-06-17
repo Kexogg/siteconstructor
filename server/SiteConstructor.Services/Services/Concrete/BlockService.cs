@@ -45,6 +45,35 @@ public class BlockService(ISitesRepository sitesRepository,
         return new OkObjectResult(new { block = new BlockResponseModel(block, siteId) });
     }
 
+    public async Task<IActionResult> MoveBlockAsync(long siteId, long pageId, MoveBlockModel blockToMove)
+    {
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
+        var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
+        if (page == null) return new NotFoundResult();
+        var block = page.Blocks.FirstOrDefault(b => b.Id == blockToMove.Id);
+        if (block == null) return new NotFoundResult();
+        if (blockToMove.Num > block.Num)
+        {
+            foreach (var item in page.Blocks.Where(b=>b.Num>block.Num && b.Num<=blockToMove.Num))
+            {
+                item.Num--;
+            }
+        }
+        else if (blockToMove.Num < block.Num)
+        {
+            foreach (var item in page.Blocks.Where(b=>b.Num<block.Num && b.Num>=blockToMove.Num))
+            {
+                item.Num++;
+            }
+        }
+        block.Num = blockToMove.Num;
+        await pagesRepository.UpdatePageAsync(page);
+        return new OkObjectResult( new
+        {
+            blocks = page.Blocks.Select(b=> new BlockResponseModel(b,siteId))
+        });
+    }
+
     public async Task<IActionResult> UpdateBlockAsync(long siteId, long pageId, long blockId, AddBlockModel updatedBlock)
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);
@@ -115,7 +144,7 @@ public class BlockService(ISitesRepository sitesRepository,
         });
     }
 
-    public async Task<IActionResult> SwitchBlocksAsync(long siteId, long pageId, List<SwitchBlocksModel> blocksToSwitch)
+    /*public async Task<IActionResult> SwitchBlocksAsync(long siteId, long pageId, List<MoveBlockModel> blocksToSwitch)
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);
         var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
@@ -131,6 +160,6 @@ public class BlockService(ISitesRepository sitesRepository,
         {
             blocks = page.Blocks.Select(b=> new BlockResponseModel(b,siteId))
         });
-    }
+    }*/
     
 }

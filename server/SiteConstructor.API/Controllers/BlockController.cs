@@ -31,13 +31,20 @@ public class BlockController(IBlockService blockService) : Controller
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
         return await blockService.UpdateBlockAsync(siteId, pageId, blockId, updatedBlock);
     }
-
+    
     [HttpPatch]
-    public async Task<IActionResult> SwitchBlocks([FromBody] List<SwitchBlocksModel> blocksToSwitch, long pageId)
+    public async Task<IActionResult> MoveBlock([FromBody] MoveBlockModel blockToSwitch, long pageId)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await blockService.MoveBlockAsync(siteId, pageId, blockToSwitch);
+    }
+
+    /*[HttpPatch]
+    public async Task<IActionResult> SwitchBlocks([FromBody] List<MoveBlockModel> blocksToSwitch, long pageId)
     {
         var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
         return await blockService.SwitchBlocksAsync(siteId, pageId, blocksToSwitch);
-    }
+    }*/
 
     [HttpPatch("{blockId:long}/photo")]
     public async Task<IActionResult> AddPhoto(long pageId, long blockId)

@@ -1,6 +1,6 @@
 ﻿namespace SiteConstructor.Domain.Models.Blocks;
 
-public class SwitchBlocksModel
+public class MoveBlockModel
 {
     public long Id { get; set; }
 

@@ -9,7 +9,9 @@ public interface IBlockService
 
     public Task<IActionResult> GetBlockByIdAsync(long siteId, long pageId, long blockId);
 
-    public Task<IActionResult> SwitchBlocksAsync(long siteId, long pageId, List<SwitchBlocksModel> blocksToSwitch);
+    /*public Task<IActionResult> SwitchBlocksAsync(long siteId, long pageId, List<MoveBlockModel> blocksToSwitch);*/
+    
+    public Task<IActionResult> MoveBlockAsync(long siteId, long pageId, MoveBlockModel blockToMove);
 
     public Task<IActionResult> UpdateBlockAsync(long siteId, long pageId, long blockId, AddBlockModel updatedBlock);
 
