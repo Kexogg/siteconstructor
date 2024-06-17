@@ -21,6 +21,7 @@ public class BlockService(ISitesRepository sitesRepository,
             Num = page.Blocks.Count + 1,
             Name = newBlock.Name,
             IsEnabled = newBlock.IsEnabled,
+            ImagesCount = 0,
             Jsonb = newBlock.Jsonb,
             Page = page,
             Type = newBlock.Type
@@ -29,7 +30,7 @@ public class BlockService(ISitesRepository sitesRepository,
         await pagesRepository.UpdatePageAsync(page);
         return new OkObjectResult( new
         {
-            block = new BlockResponseModel(block)
+            block = new BlockResponseModel(block, siteId)
         });
     }
 
@@ -40,7 +41,8 @@ public class BlockService(ISitesRepository sitesRepository,
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
         if (block == null) return new NotFoundResult();
-        return new OkObjectResult(new { block = new BlockResponseModel(block) });
+        
+        return new OkObjectResult(new { block = new BlockResponseModel(block, siteId) });
     }
 
     public async Task<IActionResult> UpdateBlockAsync(long siteId, long pageId, long blockId, AddBlockModel updatedBlock)
@@ -56,10 +58,8 @@ public class BlockService(ISitesRepository sitesRepository,
         block.Name = updatedBlock.Name;
         await blocksRepository.UpdateBlockAsync(block);
 
-        return new OkObjectResult(new
-        {
-            block = new BlockResponseModel(block)
-        });
+        
+        return new OkObjectResult(new { block = new BlockResponseModel(block, siteId) });
     }
 
     public async Task<IActionResult> DeleteBlockAsync(long siteId, long pageId, long blockId)
@@ -79,7 +79,7 @@ public class BlockService(ISitesRepository sitesRepository,
 
         return new OkObjectResult(new
         {
-            blocks = page.Blocks.Select(b=> new BlockResponseModel(b))
+            blocks = page.Blocks.Select(b=> new BlockResponseModel(block,siteId))
         });
     }
 
@@ -90,11 +90,28 @@ public class BlockService(ISitesRepository sitesRepository,
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
         if (block == null) return new NotFoundResult();
-        var response = await bucketService.PutPhotosAsync(siteId, pageId, blockId, files);
+        var response = await bucketService.PutPhotosAsync(siteId, pageId, blockId, block.ImagesCount, files);
         if (response.S3Objects.IsNullOrEmpty()) return new EmptyResult();
+        block.ImagesCount = response.S3Objects.Count;
+        await blocksRepository.UpdateBlockAsync(block);
         return new OkObjectResult(new
         {
-            block = new BlockResponseModel(block)
+            block = new BlockResponseModel(block, siteId)
+        });
+    }
+
+    public async Task<IActionResult> ReplacePhotoAsync(long siteId, long pageId, long blockId, int photoId, Stream file)
+    {
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
+        var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
+        if (page == null) return new NotFoundResult();
+        var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
+        if (block == null) return new NotFoundResult();
+        if (block.ImagesCount==0 || block.ImagesCount < photoId) return new BadRequestResult();
+        bucketService.ReplacePhotoAsync(siteId, pageId, blockId, photoId, file);
+        return new OkObjectResult(new
+        {
+            block = new BlockResponseModel(block, siteId)
         });
     }
 
@@ -112,9 +129,8 @@ public class BlockService(ISitesRepository sitesRepository,
         await pagesRepository.UpdatePageAsync(page);
         return new OkObjectResult( new
         {
-            blocks = page.Blocks.Select(b=> new BlockResponseModel(b))
+            blocks = page.Blocks.Select(b=> new BlockResponseModel(b,siteId))
         });
     }
-    
     
 }

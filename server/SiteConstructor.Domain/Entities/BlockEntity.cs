@@ -13,6 +13,9 @@ public class BlockEntity : BaseEntity
     public int Num { get; set; }
     
     public bool IsEnabled { get; set; }
+    
+    public int ImagesCount { get; set; }
+    
     [Column(TypeName = "jsonb")]
     public string? Jsonb { get; set; }
     

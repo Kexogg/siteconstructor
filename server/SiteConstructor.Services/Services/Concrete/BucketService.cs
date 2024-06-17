@@ -52,14 +52,14 @@ public class BucketService : IBucketService
         await _client.DeleteObjectsAsync(deleteRequest);
     }
 
-    public async Task<ListObjectsResponse> PutPhotosAsync(long siteId, long pageId, long blockId, List<Stream> files)
+    public async Task<ListObjectsResponse> PutPhotosAsync(long siteId, long pageId, long blockId, int imagesCount, List<Stream> files)
     {
         for (int i = 0; i < files.Count; i++)
         {
             var request = new PutObjectRequest
             {
                 BucketName = "nyashdev",
-                Key = $"{siteId}/{pageId}/{blockId}/{i+1}.jpg",
+                Key = $"{siteId}/{pageId}/{blockId}/{imagesCount+i+1}.jpg",
                 InputStream = files[i],
                 CannedACL = S3CannedACL.PublicRead
             };
@@ -69,6 +69,19 @@ public class BucketService : IBucketService
         
 
         return await GetPhotosAsync(siteId, pageId, blockId);
+    }
+
+    public async void ReplacePhotoAsync(long siteId, long pageId, long blockId, int imageId, Stream image)
+    {
+        var request = new PutObjectRequest
+        {
+            BucketName = "nyashdev",
+            Key = $"{siteId}/{pageId}/{blockId}/{imageId}.jpg",
+            InputStream = image,
+            CannedACL = S3CannedACL.PublicRead
+        };
+        
+        await _client.PutObjectAsync(request);
     }
 
     public async Task<ListObjectsResponse> GetPhotosAsync(long siteId, long pageId, long blockId)

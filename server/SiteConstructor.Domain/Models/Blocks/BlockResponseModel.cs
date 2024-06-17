@@ -1,19 +1,41 @@
 ﻿using System.Text.Json;
 using SiteConstructor.Domain.Entities;
 
+
 namespace SiteConstructor.Domain.Models.Blocks;
 
-public class BlockResponseModel(BlockEntity block)
+public class BlockResponseModel
 {
-    public long Id { get; set; } = block.Id;
+    public BlockResponseModel(BlockEntity block, long siteId)
+    {
+        Id = block.Id;
+        Name = block.Name;
+        Num = block.Num;
+        IsEnabled = block.IsEnabled;
+        ImagesCount = block.ImagesCount;
+        Jsonb = block.Jsonb!=null ? JsonDocument.Parse(block.Jsonb) : null;
+        Type = block.Type;
+        if (ImagesCount == 0) return;
+        ImagesUrls = [];
+        for (int i = 0; i < block.ImagesCount; i++)
+        {
+            ImagesUrls.Add($"https://s3.stk8s.66bit.ru/nyashdev/{siteId}/{block.PageId}/{block.Id}/{i+1}");
+        }
+    }
 
-    public string Name { get; set; } = block.Name;
+    public long Id { get; set; }
 
-    public int Num { get; set; } = block.Num;
+    public string Name { get; set; }
 
-    public bool IsEnabled { get; set; } = block.IsEnabled;
+    public int Num { get; set; }
 
-    public JsonDocument? Jsonb { get; set; } = block.Jsonb!=null ? JsonDocument.Parse(block.Jsonb) : null;
+    public bool IsEnabled { get; set; }
 
-    public string Type { get; set; } = block.Type;
+    public int ImagesCount { get; set; }
+
+    public JsonDocument? Jsonb { get; set; }
+
+    public string Type { get; set; }
+   
+    public List<string>? ImagesUrls { get; set; }
 }

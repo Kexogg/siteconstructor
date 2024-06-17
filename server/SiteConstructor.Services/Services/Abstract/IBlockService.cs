@@ -16,4 +16,6 @@ public interface IBlockService
     public Task<IActionResult> DeleteBlockAsync(long siteId, long pageId, long blockId);
 
     public Task<IActionResult> AddPhotoAsync(long siteId, long pageId, long blockId, List<Stream> files);
+
+    public Task<IActionResult> ReplacePhotoAsync(long siteId, long pageId, long blockId, int photoId, Stream file);
 }

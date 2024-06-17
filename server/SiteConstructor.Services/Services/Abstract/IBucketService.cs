@@ -8,7 +8,9 @@ public interface IBucketService
 
     public void DeleteSiteFolderAsync(long siteId);
 
-    public Task<ListObjectsResponse> PutPhotosAsync(long siteId, long pageId, long blockId, List<Stream> files);
+    public Task<ListObjectsResponse> PutPhotosAsync(long siteId, long pageId, long blockId, int imagesCount, List<Stream> files);
 
+    public void ReplacePhotoAsync(long siteId, long pageId, long blockId, int imageId,
+        Stream image);
     public Task<ListObjectsResponse> GetPhotosAsync(long siteId, long pageId, long blockId);
 }

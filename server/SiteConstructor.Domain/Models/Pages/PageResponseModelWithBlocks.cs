@@ -13,7 +13,7 @@ public class PageResponseModelWithBlocks
         Name = page.Name;
         Description = page.Description;
         IsEnabled = page.IsEnabled;
-        Blocks = page.Blocks.Select(b => new BlockResponseModel(b));
+        Blocks = page.Blocks.Select(b => new BlockResponseModel(b, page.SiteId));
     }
     public long Id { get; set; }
     

@@ -53,6 +53,18 @@ public class BlockController(IBlockService blockService) : Controller
         }
         return await blockService.AddPhotoAsync(siteId, pageId, blockId, files);
     }
+    
+    [HttpPatch("{blockId:long}/photo/{photoId:int}")]
+    public async Task<IActionResult> ReplacePhoto(long pageId, long blockId, int photoId)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        if (Request is not { HasFormContentType: true, Form.Files.Count: > 0 })
+            return new EmptyResult();
+        var file = Request.Form.Files.FirstOrDefault(f=>f.ContentType=="image/jpeg");
+        if (file == null) return new EmptyResult();
+        var image = file.OpenReadStream();
+        return await blockService.ReplacePhotoAsync(siteId, pageId, blockId, photoId, image);
+    }
     [HttpDelete("{blockId:long}")]
     public async Task<IActionResult> DeleteBlock(long pageId, long blockId)
     {
