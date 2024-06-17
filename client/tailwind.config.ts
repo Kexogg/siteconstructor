@@ -1,33 +1,34 @@
 import type {Config} from "tailwindcss";
+import {STYLES_KEYS} from "./src/helpers/const";
 
 export default {
     content: ["./{pages,layouts,components,src}/**/*.{html,js,jsx,ts,tsx,vue}"],
     theme: {
         extend: {
             borderRadius: {
-                "user": "var(--user-border-radius)",
+                "user": `var(${STYLES_KEYS.borderRadius})`,
             },
             backgroundColor: {
-                "user-primary": "var(--user-primary-color)",
-                "user-secondary": "var(--user-secondary-color)",
-                "user-accent": "var(--user-accent-color)",
-                "user-background": "var(--user-background-color)",
-                "user-text": "var(--user-text-color)",
+                "user-primary": `var(${STYLES_KEYS.primaryColor})`,
+                "user-secondary": `var(${STYLES_KEYS.secondaryColor})`,
+                "user-accent": `var(${STYLES_KEYS.accentColor})`,
+                "user-background": `var(${STYLES_KEYS.backgroundColor})`,
+                "user-text": `var(${STYLES_KEYS.textColor})`,
             },
             fontFamily: {
-                'display': 'var(--user-font-family-headers), Montserrat, Roboto, sans-serif',
-                'sans': 'var(--user-font-family-text), Roboto, sans-serif',
+                'display': `var(${STYLES_KEYS.fontFamilyHeaders}), Montserrat, Roboto, sans-serif`,
+                'sans': `var(${STYLES_KEYS.fontFamily}), Roboto, sans-serif`,
             },
             fontSize: {
-                'user-small': 'var(--user-font-size)',
-                'user-big': 'var(--user-font-size-headers)'
+                'user-small': `var(${STYLES_KEYS.fontSize})`,
+                'user-big': `var(${STYLES_KEYS.fontSizeHeaders})`,
             },
             colors: {
-                "user-primary": "var(--user-primary-color)",
-                "user-secondary": "var(--user-secondary-color)",
-                "user-accent": "var(--user-accent-color)",
-                "user-background": "var(--user-background-color)",
-                "user-text": "var(--user-text-color)",
+                "user-primary": `var(${STYLES_KEYS.primaryColor})`,
+                "user-secondary": `var(${STYLES_KEYS.secondaryColor})`,
+                "user-accent": `var(${STYLES_KEYS.accentColor})`,
+                "user-background": `var(${STYLES_KEYS.backgroundColor})`,
+                "user-text": `var(${STYLES_KEYS.textColor})`,
                 'text': {
                     50: 'var(--text-50)',
                     100: 'var(--text-100)',
