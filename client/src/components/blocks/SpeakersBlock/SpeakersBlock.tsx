@@ -1,8 +1,9 @@
 import {SpeakersBlockProps} from "../../../types/blocks";
+import {useInlineCustomCss} from "../../../hooks/useInlineCustomCss";
 
 const SpeakersBlock = ({data}: { data: SpeakersBlockProps }) => {
     return (
-        <section className={'h-96 py-5 bg-user-background'}>
+        <section className={'h-96 py-5 bg-user-background text-user-text'} style={useInlineCustomCss(data.jsonb.styles)}>
             <h1 className={'text-4xl text-center'}>Спикеры</h1>
             <div className={'flex justify-between container mx-auto mt-5'}>
                 {data.jsonb.speakers.map(speaker => (

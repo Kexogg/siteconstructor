@@ -1,8 +1,9 @@
 import { HeroBlockProps } from "../../../types/blocks";
+import {useInlineCustomCss} from "../../../hooks/useInlineCustomCss";
 
 const HeroBlock = ({ data }: { data: HeroBlockProps }) => {
   return (
-    <section className={"h-96 flex"}>
+    <section className={"h-96 flex"} style={useInlineCustomCss(data.jsonb.styles)}>
       <img
         src={data.jsonb.background}
         alt={data.jsonb.header}
