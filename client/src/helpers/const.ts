@@ -21,7 +21,7 @@ export const STYLES_KEYS = {
     accentColor: "--user-accent-color",
     textColor: "--user-text-color",
     backgroundColor: "--user-background-color",
-    fontFamily: "--user-font-family",
+    fontFamily: "--user-font-family-text",
     fontFamilyHeaders: "--user-font-family-headers",
     fontSize: "--user-font-size",
     fontSizeHeaders: "--user-font-size-headers",
