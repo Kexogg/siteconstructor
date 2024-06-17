@@ -52,6 +52,7 @@ public class BlockService(ISitesRepository sitesRepository,
         if (page == null) return new NotFoundResult();
         var block = page.Blocks.FirstOrDefault(b => b.Id == blockToMove.Id);
         if (block == null) return new NotFoundResult();
+        if (blockToMove.Num > page.Blocks.Count || blockToMove.Num < 1) return new BadRequestResult();
         if (blockToMove.Num > block.Num)
         {
             foreach (var item in page.Blocks.Where(b=>b.Num>block.Num && b.Num<=blockToMove.Num))
