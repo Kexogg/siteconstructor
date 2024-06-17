@@ -53,7 +53,7 @@ export const moveBlock = async (
     return await requestApi(
         `/api/site/pages/${page}/block`,
         Method.PATCH,
-        [{id: id, num: num}],
+        {id: id, num: num},
         token,
     );
 }

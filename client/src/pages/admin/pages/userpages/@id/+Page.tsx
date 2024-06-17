@@ -57,7 +57,7 @@ const Page = () => {
                 <h2 className={"text-xl font-bold my-3"}>Блоки</h2>
                 <div className={"flex flex-col"}>
                     <AdminTable
-                        data={data.page.blocks}
+                        data={data.page.blocks.toSorted((a, b) => a.num - b.num)}
                         columns={[
                             {key: "id", title: "ID", isNarrow: true},
                             {key: "num", title: "Позиция", isNarrow: true},

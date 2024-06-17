@@ -13,7 +13,7 @@ export enum BlockType {
 }
 
 type BaseBlock = {
-    num: string;
+    num: number;
     name: string;
     type: BlockType;
     isEnabled?: boolean;

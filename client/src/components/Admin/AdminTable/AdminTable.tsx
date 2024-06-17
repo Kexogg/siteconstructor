@@ -30,7 +30,7 @@ const AdminTable = <T, >({data, columns, actions, children}: AdminTableProps<T>)
             <thead>
             <tr className={'border-b bg-primary-200'}>
                 {columns.map(column => (
-                    <th className={`border p-1 ${column.isNarrow ? '' : ''}`}
+                    <th className={`border p-1`}
                         key={column.key.toString()}>{column.title}</th>
                 ))}
                 <th></th>
@@ -54,12 +54,14 @@ const AdminTable = <T, >({data, columns, actions, children}: AdminTableProps<T>)
                             <FontAwesomeIcon icon={fas.faTrash}/>
                         </button>
                         {actions.move && (
-                            //FIXME
                             <>
-                                <button onClick={() => actions.move!(row.id, index)}>
+                                <button className={'disabled:opacity-50'} onClick={() => actions.move!(row.id, index)}
+                                        disabled={index === 0}>
                                     <FontAwesomeIcon icon={fas.faArrowUp}/>
                                 </button>
-                                <button onClick={() => actions.move!(row.id, index + 2)}>
+                                <button className={'disabled:opacity-50'}
+                                        onClick={() => actions.move!(row.id, index + 2)}
+                                        disabled={index === data.length - 1}>
                                     <FontAwesomeIcon icon={fas.faArrowDown}/>
                                 </button>
                             </>)
