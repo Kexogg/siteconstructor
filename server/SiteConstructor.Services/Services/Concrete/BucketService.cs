@@ -84,6 +84,29 @@ public class BucketService : IBucketService
         await _client.PutObjectAsync(request);
     }
 
+    public async void DeletePhotoAsync(long siteId, long pageId, long blockId, int imageId)
+    {
+        DeleteObjectRequest deleteRequest = new()
+        {
+            BucketName = "nyashdev",
+            Key = $"{siteId}/{pageId}/{blockId}/{imageId}.jpg"
+        };
+        await _client.DeleteObjectAsync(deleteRequest);
+    }
+
+    public async void CopyPhotoAsync(long siteId, long pageId, long blockId, int oldImageId, int newImageId)
+    {
+        CopyObjectRequest copyRequest = new()
+        {
+            SourceBucket = "nyashdev",
+            SourceKey = $"{siteId}/{pageId}/{blockId}/{oldImageId}.jpg",
+            DestinationBucket = "nyashdev",
+            DestinationKey = $"{siteId}/{pageId}/{blockId}/{newImageId}.jpg",
+            CannedACL = S3CannedACL.PublicRead
+        };
+        await _client.CopyObjectAsync(copyRequest);
+    }
+
     public async Task<ListObjectsResponse> GetPhotosAsync(long siteId, long pageId, long blockId)
     {
         var objectsRequest = new ListObjectsRequest

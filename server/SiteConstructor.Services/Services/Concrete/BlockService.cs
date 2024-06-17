@@ -145,6 +145,27 @@ public class BlockService(ISitesRepository sitesRepository,
         });
     }
 
+    public async Task<IActionResult> DeletePhotoAsync(long siteId, long pageId, long blockId, int photoId)
+    {
+        var site = await sitesRepository.GetSiteByIdAsync(siteId);
+        var page = site?.Pages.FirstOrDefault(p => p.Id == pageId);
+        if (page == null) return new NotFoundResult();
+        var block = page.Blocks.FirstOrDefault(b => b.Id == blockId);
+        if (block == null) return new NotFoundResult();
+        if (block.ImagesCount==0 || block.ImagesCount < photoId || photoId < 1) return new BadRequestResult();
+        for (int i = photoId+1; i < block.ImagesCount+1; i++)
+        {
+            bucketService.CopyPhotoAsync(siteId, pageId, blockId,i, i--);
+        }
+        bucketService.DeletePhotoAsync(siteId, pageId, blockId, block.ImagesCount);
+        block.ImagesCount--;
+        await blocksRepository.UpdateBlockAsync(block);
+        return new OkObjectResult(new
+        {
+            block = new BlockResponseModel(block, siteId)
+        });
+    }
+
     /*public async Task<IActionResult> SwitchBlocksAsync(long siteId, long pageId, List<MoveBlockModel> blocksToSwitch)
     {
         var site = await sitesRepository.GetSiteByIdAsync(siteId);

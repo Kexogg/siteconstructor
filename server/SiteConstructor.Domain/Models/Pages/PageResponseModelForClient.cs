@@ -33,7 +33,7 @@ public class PageResponseModelForClient
             ImagesUrls = [];
             for (int i = 0; i < block.ImagesCount; i++)
             {
-                ImagesUrls.Add($"https://s3.stk8s.66bit.ru/nyashdev/{siteId}/{block.PageId}/{block.Id}/{i+1}");
+                ImagesUrls.Add($"https://s3.stk8s.66bit.ru/nyashdev/{siteId}/{block.PageId}/{block.Id}/{i+1}.jpg");
             }
         }
 

@@ -72,6 +72,14 @@ public class BlockController(IBlockService blockService) : Controller
         var image = file.OpenReadStream();
         return await blockService.ReplacePhotoAsync(siteId, pageId, blockId, photoId, image);
     }
+
+    [HttpDelete("{blockId:long}/photo/{photoId:int}")]
+    public async Task<IActionResult> DeletePhoto(long pageId, long blockId, int photoId)
+    {
+        var siteId = Convert.ToInt64(User.Claims.FirstOrDefault(u => u.Type == "id")?.Value);
+        return await blockService.DeletePhotoAsync(siteId, pageId, blockId, photoId);
+    }
+    
     [HttpDelete("{blockId:long}")]
     public async Task<IActionResult> DeleteBlock(long pageId, long blockId)
     {

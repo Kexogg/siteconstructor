@@ -12,5 +12,10 @@ public interface IBucketService
 
     public void ReplacePhotoAsync(long siteId, long pageId, long blockId, int imageId,
         Stream image);
+    
+    public void DeletePhotoAsync(long siteId, long pageId, long blockId, int imageId);
+
+    public void CopyPhotoAsync(long siteId, long pageId, long blockId, int oldImageId, int newImageId);
+        
     public Task<ListObjectsResponse> GetPhotosAsync(long siteId, long pageId, long blockId);
 }
